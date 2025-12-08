@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.aboutlibraries.compose)
     implementation(libs.androidx.navigation.compose)
+    implementation("com.kizitonwose.calendar:compose:2.9.0")
+    implementation(libs.androidx.compose.material.icons.extended)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
