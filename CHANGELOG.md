@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.2.0](https://github.com/MaKhandare/MatCal/compare/v0.1.0...v0.2.0) (2025-12-09)
+
+
+### Features
+
+* add AboutLibraries and a license screen for open source libraries used ([afc854f](https://github.com/MaKhandare/MatCal/commit/afc854f31797709df506f46013b5a1c005651b22))
+* add database for calendar events ([189febc](https://github.com/MaKhandare/MatCal/commit/189febc3ca28b24e6ff9df898728e057cfadd039))
+* add functionality to save events to sqlite db ([c43aed9](https://github.com/MaKhandare/MatCal/commit/c43aed9912b6689850980031992c21fd70e04f1f))
+* add navcontroller with home and license screen ([c6760bf](https://github.com/MaKhandare/MatCal/commit/c6760bffe2aa33c049e87019c4783e2aa43df072))
+* add room (sqlite) to persist data ([7f195cd](https://github.com/MaKhandare/MatCal/commit/7f195cd233ed346e539daa48cc5fefcb7c07cbea))
+* add topappbar for main calendar screen ([e97e209](https://github.com/MaKhandare/MatCal/commit/e97e209a1421d54c27dc830c6eea29b9cfeaf902))
+* add viewmodel for calendarscreen ([6abaef1](https://github.com/MaKhandare/MatCal/commit/6abaef1b1b8a689cf010d948ffe197b20c2fbaaa))
+* make days selectable ([bc93eb1](https://github.com/MaKhandare/MatCal/commit/bc93eb12be84576b389c25bcd181505b59fdeabb))
+* setup release please ([35c791d](https://github.com/MaKhandare/MatCal/commit/35c791d3850c6bfd0b0faf6bd2a905f435effafe))
+
+
+### Bug Fixes
+
+* do not include component in release tag ([6d0d44c](https://github.com/MaKhandare/MatCal/commit/6d0d44c570bcc06e33139314ff66ac5b85a6a2d7))
+* if no selection, show "no date selected" ([e83f189](https://github.com/MaKhandare/MatCal/commit/e83f189bd73ccb806d5fa04afff8a14b199ef131))
+* use explicit navigate instead of popping the stack. ([2697178](https://github.com/MaKhandare/MatCal/commit/269717815179a5e8a0d2d7cbfe453969ab11d9ce))
+* use proper menu icon ([60ce243](https://github.com/MaKhandare/MatCal/commit/60ce243d2ade9e22a59fa08cffb58034ce8d1b74))
+
 ## [0.1.0](https://github.com/MaKhandare/MatCal/compare/MatCal-v0.0.1...MatCal-v0.1.0) (2025-12-09)
 
 
