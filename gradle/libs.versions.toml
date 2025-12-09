@@ -1,5 +1,5 @@
 [versions]
-versionName = "0.0.1"
+versionName = "0.1.0"
 aboutlibrariesCompose = "11.2.3"
 agp = "8.13.1"
 kotlin = "2.2.21"
