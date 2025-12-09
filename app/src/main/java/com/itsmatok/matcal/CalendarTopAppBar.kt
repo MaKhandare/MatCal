@@ -2,9 +2,7 @@ package com.itsmatok.matcal
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.MenuOpen
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -25,57 +23,42 @@ import androidx.compose.runtime.setValue
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarTopAppBar(
-    onLicenseClicked: () -> Unit,
-    onAddEventClicked: () -> Unit
+    onAddEventClicked: () -> Unit, onLicenseClicked: () -> Unit
 ) {
-    var menuExpanded by remember { mutableStateOf(false) }
+    var showMenu by remember { mutableStateOf(false) }
 
     CenterAlignedTopAppBar(
-        title = { },
-        colors = TopAppBarDefaults.topAppBarColors(
+        title = { }, colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.surface,
             titleContentColor = MaterialTheme.colorScheme.onSurface,
         ),
         navigationIcon = {
-
             Box {
-                IconButton(onClick = { menuExpanded = true }) {
+                IconButton(onClick = { showMenu = true }) {
                     Icon(
-                        imageVector = Icons.Default.Menu,
-                        contentDescription = "menu"
+                        imageVector = Icons.Default.Menu, contentDescription = "Menu"
                     )
                 }
 
                 DropdownMenu(
-                    expanded = menuExpanded,
-                    onDismissRequest = { menuExpanded = false }
-                ) {
-                    DropdownMenuItem(
-                        text = { Text("Open Source Licenses") },
-                        leadingIcon = {
-                            Icon(Icons.Default.Info, contentDescription = null)
-                        },
-                        onClick = {
-                            menuExpanded = false
-                            onLicenseClicked()
-                        }
-                    )
+                    expanded = showMenu, onDismissRequest = { showMenu = false }) {
+                    DropdownMenuItem(text = { Text("Open Source Licenses") }, onClick = {
+                        showMenu = false
+                        onLicenseClicked()
+                    })
                 }
             }
         },
         actions = {
             IconButton(onClick = {}) {
                 Icon(
-                    imageVector = Icons.Default.Refresh,
-                    contentDescription = "Force Refresh"
+                    imageVector = Icons.Default.Refresh, contentDescription = "Force Refresh"
                 )
             }
             IconButton(onClick = onAddEventClicked) {
                 Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add Event"
+                    imageVector = Icons.Default.Add, contentDescription = "Add Event"
                 )
             }
-        }
-    )
+        })
 }
