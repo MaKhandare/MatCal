@@ -94,7 +94,7 @@ fun CalendarScreen(
                         }
                     }
                 }
-            }, monthHeader = { CalendarDaysOfWeekTitle(daysOfWeek = daysOfWeek) })
+            }, monthHeader = { CalendarDaysOfWeek(daysOfWeek = daysOfWeek) })
         }
 
     }
@@ -120,14 +120,28 @@ fun Day(
     events: List<CalendarEvent>,
     onClick: (CalendarDay) -> Unit = {}
 ) {
+
+    val borderColor = when {
+        isSelected -> MaterialTheme.colorScheme.primary
+        isToday -> MaterialTheme.colorScheme.secondary
+        else -> Color.Transparent
+    }
+
+    val borderWidth = when {
+        isSelected -> 2.dp
+        isToday -> 1.dp
+        else -> 0.dp
+    }
+
     Box(
         modifier = Modifier
             .aspectRatio(1f)
             .border(
-                width = if (isSelected) 1.dp else 0.dp,
-                color = if (isSelected) MaterialTheme.colorScheme.onSurface else Color.Transparent,
+                width = borderWidth,
+                color = borderColor,
                 shape = MaterialTheme.shapes.large
             )
+            .clip(MaterialTheme.shapes.medium)
             .clickable(onClick = { onClick(day) }), contentAlignment = Alignment.Center
     ) {
         val textColor = when (day.position) {
@@ -164,7 +178,7 @@ fun Day(
 }
 
 @Composable
-fun CalendarDaysOfWeekTitle(daysOfWeek: List<DayOfWeek>) {
+fun CalendarDaysOfWeek(daysOfWeek: List<DayOfWeek>) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
