@@ -20,7 +20,8 @@ import java.time.YearMonth
 fun CalendarScreen(
     viewModel: CalendarViewModel = viewModel<CalendarViewModel>(),
     onAddEventClicked: () -> Unit = {},
-    onLicenseClicked: () -> Unit = {}
+    onLicenseClicked: () -> Unit = {},
+    onEventClicked: (Int) -> Unit = {}
 ) {
     val events by viewModel.events.collectAsState(initial = emptyMap())
     val currentMonth = remember { YearMonth.now() }
@@ -51,6 +52,7 @@ fun CalendarScreen(
             }
         },
         onAddEventClicked = onAddEventClicked,
-        onLicenseClicked = onLicenseClicked
+        onLicenseClicked = onLicenseClicked,
+        onEventClicked = onEventClicked
     )
 }

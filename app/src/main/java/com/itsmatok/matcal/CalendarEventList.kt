@@ -16,7 +16,9 @@ import androidx.compose.ui.unit.dp
 import com.itsmatok.matcal.data.CalendarEvent
 
 @Composable
-fun CalendarEventList(events: List<CalendarEvent>) {
+fun CalendarEventList(
+    events: List<CalendarEvent>, onEventClicked: (Int) -> Unit
+) {
     if (events.isEmpty()) {
         Box(
             modifier = Modifier
@@ -36,7 +38,7 @@ fun CalendarEventList(events: List<CalendarEvent>) {
             contentPadding = PaddingValues(bottom = 16.dp)
         ) {
             items(events) { event ->
-                CalendarEventCard(event)
+                CalendarEventCard(event, onClick = { onEventClicked(event.id) })
             }
         }
     }

@@ -22,4 +22,14 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             dao.insertEvent(event)
         }
     }
+
+    fun getEventById(id: Int): Flow<CalendarEvent?> {
+        return dao.getEventById(id)
+    }
+
+    fun deleteEvent(id: Int) {
+        viewModelScope.launch {
+            dao.deleteEventById(id)
+        }
+    }
 }

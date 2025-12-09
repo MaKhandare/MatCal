@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.itsmatok.matcal.ui.theme.MatCalTheme
 import kotlinx.serialization.Serializable
 
@@ -18,6 +19,9 @@ object License
 
 @Serializable
 object AddEvent
+
+@Serializable
+data class EventDetails(val eventId: Int)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +37,10 @@ class MainActivity : ComponentActivity() {
                     composable<Calendar> {
                         CalendarScreen(
                             onAddEventClicked = { navController.navigate(AddEvent) },
-                            onLicenseClicked = { navController.navigate(License) }
+                            onLicenseClicked = { navController.navigate(License) },
+                            onEventClicked = { eventId ->
+                                navController.navigate(EventDetails(eventId))
+                            }
                         )
                     }
 
@@ -45,6 +52,16 @@ class MainActivity : ComponentActivity() {
 
                     composable<License> {
                         LicenseScreen(onNavigateBack = { navController.navigate(Calendar) })
+                    }
+
+                    composable<EventDetails> { backStackEntry ->
+                        val route: EventDetails = backStackEntry.toRoute()
+
+                        CalendarEventDetailsScreen(
+                            eventId = route.eventId,
+                            onNavigateBack = { navController.navigateUp() },
+                            onEditEvent = { navController.navigate(AddEvent) }
+                        )
                     }
                 }
             }

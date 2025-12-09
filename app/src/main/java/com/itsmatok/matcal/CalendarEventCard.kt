@@ -24,7 +24,10 @@ import com.itsmatok.matcal.data.CalendarEvent
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun CalendarEventCard(event: CalendarEvent) {
+fun CalendarEventCard(
+    event: CalendarEvent,
+    onClick: () -> Unit
+) {
     val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
 
     Card(
@@ -32,7 +35,7 @@ fun CalendarEventCard(event: CalendarEvent) {
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 4.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-        onClick = { }
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier.padding(16.dp),

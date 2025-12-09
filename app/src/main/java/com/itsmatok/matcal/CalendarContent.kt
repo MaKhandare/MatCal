@@ -22,7 +22,8 @@ fun CalendarContent(
     selection: LocalDate?,
     onDateSelected: (LocalDate) -> Unit,
     onAddEventClicked: () -> Unit,
-    onLicenseClicked: () -> Unit
+    onLicenseClicked: () -> Unit,
+    onEventClicked: (Int) -> Unit
 ) {
     val visibleMonth = state.firstVisibleMonth.yearMonth
     val daysOfWeek = remember { daysOfWeek() }
@@ -65,7 +66,7 @@ fun CalendarContent(
 
             val selectedEvents =
                 selection?.let { events[it] }?.sortedBy { it.startTime } ?: emptyList()
-            CalendarEventList(events = selectedEvents)
+            CalendarEventList(events = selectedEvents, onEventClicked = onEventClicked)
         }
     }
 }
