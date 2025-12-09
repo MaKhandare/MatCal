@@ -61,7 +61,8 @@ import java.util.Locale
 @Composable
 fun CalendarScreen(
     calendarViewModel: CalendarViewModel = viewModel<CalendarViewModel>(),
-    onAddEventClicked: () -> Unit = {}
+    onAddEventClicked: () -> Unit = {},
+    onLicenseClicked: () -> Unit = {}
 ) {
     val currentMonth = remember { YearMonth.now() }
     val startMonth = remember { currentMonth.minusMonths(100) }
@@ -90,7 +91,12 @@ fun CalendarScreen(
     }
 
     Scaffold(
-        topBar = { CalendarTopAppBar(onAddEventClicked = onAddEventClicked) }
+        topBar = {
+            CalendarTopAppBar(
+                onAddEventClicked = onAddEventClicked,
+                onLicenseClicked = onLicenseClicked
+            )
+        }
 
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {

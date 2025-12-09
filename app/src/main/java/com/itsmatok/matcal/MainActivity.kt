@@ -32,7 +32,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable<Calendar> {
                         CalendarScreen(
-                            onAddEventClicked = { navController.navigate(AddEvent) }
+                            onAddEventClicked = { navController.navigate(AddEvent) },
+                            onLicenseClicked = { navController.navigate(License) }
                         )
                     }
 
