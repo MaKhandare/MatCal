@@ -73,7 +73,7 @@ fun CalendarScreen(
     val visibleYear = state.firstVisibleMonth.yearMonth.year
 
     Scaffold(
-        topBar = { }
+        topBar = { CalendarTopAppBar() }
 
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
