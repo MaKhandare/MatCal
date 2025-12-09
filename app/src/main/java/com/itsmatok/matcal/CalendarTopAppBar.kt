@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarTopAppBar(
+    onAddEventClicked: () -> Unit
 ) {
     CenterAlignedTopAppBar(
         title = { },
@@ -37,7 +38,7 @@ fun CalendarTopAppBar(
                     contentDescription = "Force Refresh"
                 )
             }
-            IconButton(onClick = {}) {
+            IconButton(onClick = onAddEventClicked) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Add Event"

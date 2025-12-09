@@ -11,4 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface CalendarEventDao {
     @Query("SELECT * FROM events")
     fun getAllEvents(): Flow<List<CalendarEvent>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertEvent(event: CalendarEvent): Long
 }

@@ -7,11 +7,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DividerDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -28,6 +37,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.itsmatok.matcal.data.CalendarEvent
@@ -44,12 +54,14 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.Month
 import java.time.YearMonth
+import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
 fun CalendarScreen(
-    calendarViewModel: CalendarViewModel = viewModel<CalendarViewModel>()
+    calendarViewModel: CalendarViewModel = viewModel<CalendarViewModel>(),
+    onAddEventClicked: () -> Unit = {}
 ) {
     val currentMonth = remember { YearMonth.now() }
     val startMonth = remember { currentMonth.minusMonths(100) }
@@ -71,9 +83,18 @@ fun CalendarScreen(
 
     val visibleMonth = state.firstVisibleMonth.yearMonth.month
     val visibleYear = state.firstVisibleMonth.yearMonth.year
+    val visibleMonthDay = remember(selection) {
+        val dateToDisplay = selection ?: today
+        "${
+            dateToDisplay.dayOfWeek.getDisplayName(
+                TextStyle.FULL,
+                Locale.getDefault()
+            )
+        } ${dateToDisplay.dayOfMonth}"
+    }
 
     Scaffold(
-        topBar = { CalendarTopAppBar() }
+        topBar = { CalendarTopAppBar(onAddEventClicked = onAddEventClicked) }
 
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
@@ -95,6 +116,20 @@ fun CalendarScreen(
                     }
                 }
             }, monthHeader = { CalendarDaysOfWeek(daysOfWeek = daysOfWeek) })
+
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 16.dp),
+                thickness = DividerDefaults.Thickness,
+                color = DividerDefaults.color
+            )
+
+            CalendarSelectedMonthDay(visibleMonthDay)
+
+            val selectedEvents = selection?.let { date ->
+                events[date]?.sortedBy { it.startTime }
+            } ?: emptyList()
+
+            CalendarSelectedEvents(selectedEvents = selectedEvents)
         }
 
     }
@@ -192,6 +227,86 @@ fun CalendarDaysOfWeek(daysOfWeek: List<DayOfWeek>) {
                     TextStyle.SHORT_STANDALONE, Locale.getDefault()
                 ),
             )
+        }
+    }
+}
+
+@Composable
+fun CalendarSelectedMonthDay(visibleMonthDay: String) {
+    Text(
+        text = visibleMonthDay,
+        style = MaterialTheme.typography.titleMedium,
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+    )
+}
+
+
+@Composable
+fun CalendarSelectedEvents(selectedEvents: List<CalendarEvent>) {
+    if (selectedEvents.isEmpty()) {
+        Text(
+            "No events for this day.",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(24.dp),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.Gray
+        )
+    } else {
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            items(selectedEvents) { event ->
+                CalendarEventItem(event)
+            }
+        }
+    }
+}
+
+
+@Composable
+fun CalendarEventItem(event: CalendarEvent) {
+    val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 4.dp)
+            .clickable { },
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.width(70.dp)) {
+                    Text(
+                        text = event.startTime.format(timeFormatter),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        text = event.endTime.format(timeFormatter),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Text(
+                    text = event.title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         }
     }
 }

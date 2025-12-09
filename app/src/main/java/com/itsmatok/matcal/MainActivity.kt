@@ -16,6 +16,9 @@ object Calendar
 @Serializable
 object License
 
+@Serializable
+object AddEvent
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +31,15 @@ class MainActivity : ComponentActivity() {
                     navController = navController, startDestination = Calendar
                 ) {
                     composable<Calendar> {
-                        CalendarScreen()
+                        CalendarScreen(
+                            onAddEventClicked = { navController.navigate(AddEvent) }
+                        )
+                    }
+
+                    composable<AddEvent> {
+                        AddEventScreen(
+                            onNavigateBack = { navController.popBackStack() }
+                        )
                     }
 
                     composable<License> {
