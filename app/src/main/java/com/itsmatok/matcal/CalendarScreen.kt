@@ -84,13 +84,9 @@ fun CalendarScreen(
     val visibleMonth = state.firstVisibleMonth.yearMonth.month
     val visibleYear = state.firstVisibleMonth.yearMonth.year
     val visibleMonthDay = remember(selection) {
-        val dateToDisplay = selection ?: today
-        "${
-            dateToDisplay.dayOfWeek.getDisplayName(
-                TextStyle.FULL,
-                Locale.getDefault()
-            )
-        } ${dateToDisplay.dayOfMonth}"
+        selection?.let {
+            "${it.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())} ${it.dayOfMonth}"
+        } ?: "No date selected"
     }
 
     Scaffold(
