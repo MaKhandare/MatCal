@@ -4,4 +4,5 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.aboutlibraries) apply false
+    alias(libs.plugins.ksp) version "2.2.21-2.0.4" apply false
 }
