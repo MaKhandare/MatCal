@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
 
                     composable<AddEvent> {
                         AddEventScreen(
-                            onNavigateBack = { navController.popBackStack() }
+                            onNavigateBack = { navController.navigate(Calendar) }
                         )
                     }
 
