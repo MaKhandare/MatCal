@@ -1,4 +1,4 @@
-package com.itsmatok.matcal
+package com.itsmatok.matcal.ui.calendar
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
