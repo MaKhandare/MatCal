@@ -20,9 +20,9 @@ import java.time.YearMonth
 @Composable
 fun CalendarScreen(
     viewModel: CalendarViewModel = viewModel<CalendarViewModel>(),
-    onAddEventClicked: () -> Unit = {},
-    onLicenseClicked: () -> Unit = {},
-    onEventClicked: (Int) -> Unit = {}
+    onAddEventClicked: () -> Unit,
+    onLicenseClicked: () -> Unit,
+    onEventClicked: (Int) -> Unit
 ) {
     val events by viewModel.events.collectAsState(initial = emptyMap())
     val currentMonth = remember { YearMonth.now() }

@@ -20,7 +20,7 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LicenseScreen(
-    onNavigateBack: () -> Unit = {}
+    onNavigateBack: () -> Unit
 ) {
     Scaffold(
         topBar = {
