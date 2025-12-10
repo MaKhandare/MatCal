@@ -11,7 +11,7 @@ All events are saved **locally** in a SQLite database handled via [Room](https:/
 
 ## Design & Theming
 
-MatCal utilizes the system's Dynamic Colors, adapting automatically to your wallpaper and system theme (Light/Dark mode)
+MatCal utilizes the system's **Dynamic Colors**, adapting automatically to your wallpaper and system theme (light/dark mode)
 
 ## Screenshots
 
@@ -27,6 +27,11 @@ You can grab the latest APK from the [Releases Page](https://github.com/MaKhanda
 - UI: [Jetpack Compose](https://developer.android.com/compose) & [Material 3](https://developer.android.com/develop/ui/compose/designsystems/material3)
 - Architecture: MVVM
 - Database: [Room](https://developer.android.com/training/data-storage/room).
+
+## Contributing
+
+Since I am learning Android Development, feedback and pull requests are appreciated! 
+If you find a bug or have a suggestion, feel free to open an issue.
 
 ## License
 
