@@ -1,4 +1,4 @@
-package com.itsmatok.matcal
+package com.itsmatok.matcal.ui.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding

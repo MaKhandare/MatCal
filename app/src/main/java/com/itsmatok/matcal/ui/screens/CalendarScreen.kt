@@ -1,4 +1,4 @@
-package com.itsmatok.matcal
+package com.itsmatok.matcal.ui.screens
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -8,6 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.itsmatok.matcal.CalendarContent
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
 import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
