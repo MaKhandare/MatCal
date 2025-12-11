@@ -1,4 +1,5 @@
 [versions]
+biweekly = "0.6.8"
 versionName = "0.2.0"
 aboutlibrariesCompose = "11.2.3"
 agp = "8.13.1"
@@ -19,6 +20,7 @@ roomRuntime = "2.8.4"
 [libraries]
 aboutlibraries-compose = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutlibrariesCompose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+biweekly = { module = "net.sf.biweekly:biweekly", version.ref = "biweekly" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation("com.kizitonwose.calendar:compose:2.9.0")
     implementation(libs.androidx.room.runtime)
+    implementation(libs.biweekly)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.compose.material.icons.extended)
     testImplementation(libs.junit)
