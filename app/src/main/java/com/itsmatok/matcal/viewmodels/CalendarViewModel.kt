@@ -1,6 +1,7 @@
 package com.itsmatok.matcal.viewmodels
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -61,6 +62,8 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
                     showToast("This schedule is already imported!")
                     return@launch
                 }
+
+                showToast("Fetching schedule...")
 
                 val name = "Schedule ${url.takeLast(10)}"
 
