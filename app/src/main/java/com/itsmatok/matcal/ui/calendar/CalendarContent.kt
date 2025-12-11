@@ -1,5 +1,6 @@
 package com.itsmatok.matcal.ui.calendar
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DividerDefaults
@@ -23,7 +24,8 @@ fun CalendarContent(
     onDateSelected: (LocalDate) -> Unit,
     onAddEventClicked: () -> Unit,
     onLicenseClicked: () -> Unit,
-    onEventClicked: (Int) -> Unit
+    onEventClicked: (Int) -> Unit,
+    onImportClicked: () -> Unit
 ) {
     val visibleMonth = state.firstVisibleMonth.yearMonth
     val daysOfWeek = remember { daysOfWeek() }
@@ -33,7 +35,8 @@ fun CalendarContent(
         topBar = {
             CalendarTopAppBar(
                 onAddEventClicked = onAddEventClicked,
-                onLicenseClicked = onLicenseClicked
+                onLicenseClicked = onLicenseClicked,
+                onImportClicked = onImportClicked
             )
         }
     ) { innerPadding ->

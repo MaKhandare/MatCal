@@ -9,6 +9,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.itsmatok.matcal.ui.calendar.CalendarContent
+import com.itsmatok.matcal.ui.calendar.ImportUrlDialog
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
 import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
@@ -29,6 +30,19 @@ fun CalendarScreen(
     val startMonth = remember { currentMonth.minusMonths(100) }
     val endMonth = remember { currentMonth.plusMonths(100) }
     val firstDayOfWeek = remember { firstDayOfWeekFromLocale() }
+
+    var showImportDialog by remember { mutableStateOf(false) }
+
+    // 2. Logic to handle the import action
+    if (showImportDialog) {
+        ImportUrlDialog(
+            onDismiss = { showImportDialog = false },
+            onConfirm = { url ->
+                showImportDialog = false
+                viewModel.importEventsFromUrl(url)
+            }
+        )
+    }
 
     val state = rememberCalendarState(
         startMonth = startMonth,
@@ -54,6 +68,7 @@ fun CalendarScreen(
         },
         onAddEventClicked = onAddEventClicked,
         onLicenseClicked = onLicenseClicked,
-        onEventClicked = onEventClicked
+        onEventClicked = onEventClicked,
+        onImportClicked = { showImportDialog = true }
     )
 }

@@ -23,7 +23,9 @@ import androidx.compose.runtime.setValue
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarTopAppBar(
-    onAddEventClicked: () -> Unit, onLicenseClicked: () -> Unit
+    onAddEventClicked: () -> Unit,
+    onLicenseClicked: () -> Unit,
+    onImportClicked: () -> Unit
 ) {
     var showMenu by remember { mutableStateOf(false) }
 
@@ -40,11 +42,15 @@ fun CalendarTopAppBar(
                     )
                 }
 
-                DropdownMenu(
-                    expanded = showMenu, onDismissRequest = { showMenu = false }) {
+                DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
                     DropdownMenuItem(text = { Text("Open Source Licenses") }, onClick = {
                         showMenu = false
                         onLicenseClicked()
+                    })
+
+                    DropdownMenuItem(text = { Text("Import from URL") }, onClick = {
+                        showMenu = false
+                        onImportClicked()
                     })
                 }
             }

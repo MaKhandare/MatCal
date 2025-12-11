@@ -173,7 +173,7 @@ fun AddEventScreen(
                             title = title,
                             location = location.trim().ifEmpty { null },
                             description = description.trim().ifEmpty { null },
-                            source = "User Generated"
+                            source = "Personal"
                         )
                         viewModel.addEvent(newEvent)
                         onNavigateBack()

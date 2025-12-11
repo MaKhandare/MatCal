@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.Source
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -162,6 +163,13 @@ fun EventDetailsContent(event: CalendarEvent, modifier: Modifier = Modifier) {
                     DetailRow(
                         icon = Icons.Default.LocationOn,
                         text = event.location
+                    )
+                }
+                if (event.source?.isNotBlank() == true) {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    DetailRow(
+                        icon = Icons.Default.Source,
+                        text = event.source
                     )
                 }
             }
