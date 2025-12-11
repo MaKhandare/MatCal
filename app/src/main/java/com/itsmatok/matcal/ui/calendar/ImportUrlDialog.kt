@@ -21,7 +21,7 @@ fun ImportUrlDialog(
     onDismiss: () -> Unit,
     onConfirm: (String) -> Unit
 ) {
-    var url by remember { mutableStateOf("https://myplan.fh-salzburg.ac.at/en/events/ical.php?action=ical&token=4ec216b46f199aa45eb05d87b203dade1d20d078") }
+    var url by remember { mutableStateOf("") }
 
     AlertDialog(
         onDismissRequest = onDismiss,
