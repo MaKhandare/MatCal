@@ -1,5 +1,9 @@
 # MatCal
 
+![alt text](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white)
+![alt text](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![alt text](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)
+
 **A minimalist calendar for Android.**
 
 Recently I switched to GrapheneOS. And as it turns out, it does not ship with a built-in calendar app. So I created MatCal as both a personal learning project and a practical solution.
