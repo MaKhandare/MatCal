@@ -9,7 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.itsmatok.matcal.ui.calendar.CalendarEventDetailsScreen
+import com.itsmatok.matcal.ui.calendar.components.CalendarEventDetailsScreen
 import com.itsmatok.matcal.ui.screens.AddEventScreen
 import com.itsmatok.matcal.ui.screens.CalendarScreen
 import com.itsmatok.matcal.ui.screens.LicenseScreen

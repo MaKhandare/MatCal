@@ -1,4 +1,4 @@
-package com.itsmatok.matcal.ui.calendar
+package com.itsmatok.matcal.ui.calendar.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,8 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.itsmatok.matcal.data.CalendarEvent
+import com.itsmatok.matcal.data.events.CalendarEvent
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
 import java.time.format.DateTimeFormatter
 

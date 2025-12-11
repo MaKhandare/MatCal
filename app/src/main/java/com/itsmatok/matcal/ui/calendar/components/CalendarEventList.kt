@@ -1,4 +1,4 @@
-package com.itsmatok.matcal.ui.calendar
+package com.itsmatok.matcal.ui.calendar.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.itsmatok.matcal.data.CalendarEvent
+import com.itsmatok.matcal.data.events.CalendarEvent
 
 @Composable
 fun CalendarEventList(

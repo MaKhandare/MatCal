@@ -1,4 +1,4 @@
-package com.itsmatok.matcal.ui.calendar
+package com.itsmatok.matcal.ui.calendar.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme

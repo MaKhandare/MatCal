@@ -1,4 +1,4 @@
-package com.itsmatok.matcal.ui.calendar
+package com.itsmatok.matcal.ui.calendar.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.itsmatok.matcal.data.CalendarEvent
+import com.itsmatok.matcal.data.events.CalendarEvent
 import com.kizitonwose.calendar.compose.CalendarState
 import com.kizitonwose.calendar.compose.HorizontalCalendar
 import com.kizitonwose.calendar.core.daysOfWeek

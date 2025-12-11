@@ -7,8 +7,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import com.itsmatok.matcal.ui.calendar.CalendarContent
-import com.itsmatok.matcal.ui.calendar.ImportUrlDialog
+import com.itsmatok.matcal.ui.calendar.components.CalendarContent
+import com.itsmatok.matcal.ui.calendar.components.ImportUrlDialog
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
 import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale

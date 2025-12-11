@@ -1,4 +1,4 @@
-package com.itsmatok.matcal.data
+package com.itsmatok.matcal.data.events
 
 import android.content.Context
 import androidx.room.Database
