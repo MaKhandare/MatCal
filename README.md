@@ -11,9 +11,10 @@ The goal is to provide a lightweight, functional, and system-native calendar exp
 
 ## Features
 
-- Create, view and manage events
-- Local-only storage (SQLite via Room)
-- Import and sync external calendars via iCal subscription (optional. requires internet)
+- **Event Management**: Create, view and manage events
+- **Offline first**: All data is stored locally using SQLite (Room)
+- **iCal Sync**: Import and sync external calendars (University, Work, Holidays) via URL
+- **No Bloat**: No ads, no tracking, no unneeded permissions
 
 ## Privacy
 
@@ -21,7 +22,7 @@ Events are stored locally in an embedded SQLite database managed through Room.
 
 MatCal includes **no trackers, analytics, or background data collection**.
 
-Network access is only used when importing and syncing iCal subscriptions.
+`android.permissions.INTERNET` is **only** used when you explicitly add or refresh an iCal subscription URL
 
 ## Design
 
@@ -45,6 +46,10 @@ You can grab the latest APK from the [Releases Page](https://github.com/MaKhanda
 - Language: [Kotlin](https://kotlinlang.org/)
 - UI: [Jetpack Compose](https://developer.android.com/compose) & [Material 3](https://developer.android.com/develop/ui/compose/designsystems/material3)
 - Database: [Room](https://developer.android.com/training/data-storage/room).
+- Libraries:
+    - [Biweekly](https://github.com/mangstadt/biweekly): Parsing iCalendar (.ics)
+    - [Calendar View](https://github.com/kizitonwose/Calendar): The core Compose calendar component
+    - [AboutLibraries](https://github.com/mikepenz/AboutLibraries): Automatic open-source license attribution.
 
 ## Contributing
 
