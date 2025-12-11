@@ -1,5 +1,6 @@
 [versions]
 versionName = "0.4.0"
+calendarCompose = "2.9.0"
 biweekly = "0.6.8"
 aboutlibrariesCompose = "11.2.3"
 agp = "8.13.2"
@@ -20,6 +21,7 @@ roomRuntime = "2.8.4"
 [libraries]
 aboutlibraries-compose = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutlibrariesCompose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+calendar-compose = { group = "com.kizitonwose.calendar", name = "compose", version.ref = "calendarCompose" }
 biweekly = { module = "net.sf.biweekly:biweekly", version.ref = "biweekly" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
