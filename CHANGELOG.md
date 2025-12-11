@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.0](https://github.com/MaKhandare/MatCal/compare/v0.2.0...v0.3.0) (2025-12-11)
+
+
+### Features
+
+* add calendar event details screen ([5e3275a](https://github.com/MaKhandare/MatCal/commit/5e3275a70bb144955756be9a5fc5433bd86afc5c))
+* add dropdown on menu for licensescreen ([87aee6f](https://github.com/MaKhandare/MatCal/commit/87aee6f47c95fd2c7be1f6b3084f8502ec5e7641))
+* you can import ical via url now [#5](https://github.com/MaKhandare/MatCal/issues/5) ([206c199](https://github.com/MaKhandare/MatCal/commit/206c199053f0871a6f8c3fc0c9441cb04e4a9436))
+
+
+### Bug Fixes
+
+* show description in details and inform when no description ([b262142](https://github.com/MaKhandare/MatCal/commit/b26214268eec736affce5c0bff6c95a081e74345))
+
 ## [0.2.0](https://github.com/MaKhandare/MatCal/compare/v0.1.0...v0.2.0) (2025-12-09)
 
 

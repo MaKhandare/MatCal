@@ -1,6 +1,6 @@
 [versions]
 biweekly = "0.6.8"
-versionName = "0.2.0"
+versionName = "0.3.0"
 aboutlibrariesCompose = "11.2.3"
 agp = "8.13.1"
 kotlin = "2.2.21"
