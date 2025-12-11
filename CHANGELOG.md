@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.4.0](https://github.com/MaKhandare/MatCal/compare/v0.3.0...v0.4.0) (2025-12-11)
+
+
+### Features
+
+* add a manage calendars screen to delete subscriptions ([7277148](https://github.com/MaKhandare/MatCal/commit/72771481aff3687520ba91812488530f0e957713))
+* add launcher icon ([a69ebf9](https://github.com/MaKhandare/MatCal/commit/a69ebf9e018042b7422345bcdba157d9888d973f))
+* refresh subscriptions, force refresh button is now functional ([366adf2](https://github.com/MaKhandare/MatCal/commit/366adf2ec67a747ce89fcc77952a4aee85cb71e7))
+
+
+### Bug Fixes
+
+* change order of dropdown menu ([cf47324](https://github.com/MaKhandare/MatCal/commit/cf47324bf1b2707a1b54cf4bc9c4185327d2077d))
+* reduce app size from 50mb to 3.5mb ([7daa449](https://github.com/MaKhandare/MatCal/commit/7daa44989b0142d99c5cbf3d855304688dd2af16))
+* remove url and refresh token. oops ([6d1a726](https://github.com/MaKhandare/MatCal/commit/6d1a726d14a488b55e46c5f2d7e3bebd242b3b88))
+
 ## [0.3.0](https://github.com/MaKhandare/MatCal/compare/v0.2.0...v0.3.0) (2025-12-11)
 
 
