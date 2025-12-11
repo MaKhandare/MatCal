@@ -34,8 +34,8 @@ MatCal utilizes the system's **Dynamic Colors**, adapting automatically to your 
 
 ## Requirements
 
-- Everything was tested on a Google Pixel 9a with GrapheneOS and Android 16.0 (Baklava) with API Level 36.0.
-- Dynamic Colors need at least Android 12+.
+- **Recommended:** Android 12+ (API 31) for full Dynamic Color support.
+- **Tested Environment**: Google Pixel 9a running GrapheneOS (Android 16, API 36).
 
 ## Download
 
