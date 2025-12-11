@@ -45,9 +45,10 @@ fun CalendarTopAppBar(
                 }
 
                 DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
-                    DropdownMenuItem(text = { Text("Open Source Licenses") }, onClick = {
+
+                    DropdownMenuItem(text = { Text("Manage Calendars") }, onClick = {
                         showMenu = false
-                        onLicenseClicked()
+                        onManageCalendarsClicked()
                     })
 
                     DropdownMenuItem(text = { Text("Import from URL") }, onClick = {
@@ -55,9 +56,10 @@ fun CalendarTopAppBar(
                         onImportClicked()
                     })
 
-                    DropdownMenuItem(text = { Text("Manage Calendars")}, onClick = {
+
+                    DropdownMenuItem(text = { Text("Open Source Licenses") }, onClick = {
                         showMenu = false
-                        onManageCalendarsClicked()
+                        onLicenseClicked()
                     })
                 }
             }
