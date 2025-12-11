@@ -6,8 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import biweekly.Biweekly
 import biweekly.component.VEvent
-import com.itsmatok.matcal.data.events.CalendarEvent
-import com.itsmatok.matcal.data.events.CalendarEventDatabase
+import com.itsmatok.matcal.data.calendar.events.CalendarEvent
+import com.itsmatok.matcal.data.calendar.events.CalendarEventDatabase
 import com.itsmatok.matcal.data.calendar.subscriptions.CalendarSubscription
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

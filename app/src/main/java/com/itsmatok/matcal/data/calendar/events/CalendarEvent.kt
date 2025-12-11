@@ -1,4 +1,4 @@
-package com.itsmatok.matcal.data.events
+package com.itsmatok.matcal.data.calendar.events
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.itsmatok.matcal.data.events.CalendarEvent
+import com.itsmatok.matcal.data.calendar.events.CalendarEvent
 import java.time.format.DateTimeFormatter
 
 @Composable
