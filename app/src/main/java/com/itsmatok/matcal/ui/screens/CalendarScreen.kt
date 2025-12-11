@@ -7,7 +7,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.itsmatok.matcal.ui.calendar.CalendarContent
 import com.itsmatok.matcal.ui.calendar.ImportUrlDialog
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
@@ -69,6 +68,7 @@ fun CalendarScreen(
         onAddEventClicked = onAddEventClicked,
         onLicenseClicked = onLicenseClicked,
         onEventClicked = onEventClicked,
-        onImportClicked = { showImportDialog = true }
+        onImportClicked = { showImportDialog = true },
+        onRefreshClicked = { viewModel.refreshAllSchedules() }
     )
 }

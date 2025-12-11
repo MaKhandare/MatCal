@@ -25,7 +25,8 @@ import androidx.compose.runtime.setValue
 fun CalendarTopAppBar(
     onAddEventClicked: () -> Unit,
     onLicenseClicked: () -> Unit,
-    onImportClicked: () -> Unit
+    onImportClicked: () -> Unit,
+    onRefreshClicked: () -> Unit
 ) {
     var showMenu by remember { mutableStateOf(false) }
 
@@ -56,7 +57,7 @@ fun CalendarTopAppBar(
             }
         },
         actions = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = onRefreshClicked) {
                 Icon(
                     imageVector = Icons.Default.Refresh, contentDescription = "Force Refresh"
                 )

@@ -18,7 +18,10 @@ data class CalendarEvent(
     val title: String,
     val location: String? = null,
     val description: String? = null,
-    val source: String? = null
+    val source: String? = null,
+
+    val sourceUrl: String? = null,
+    val iCalUid: String? = null
 )
 
 

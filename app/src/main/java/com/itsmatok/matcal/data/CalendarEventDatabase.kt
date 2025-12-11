@@ -5,11 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.itsmatok.matcal.data.calendar.subscriptions.SubscriptionDao
+import com.itsmatok.matcal.data.calendar.subscriptions.CalendarSubscription
 
-@Database(entities = [CalendarEvent::class], version = 1, exportSchema = false)
+@Database(entities = [CalendarEvent::class, CalendarSubscription::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class CalendarEventDatabase : RoomDatabase() {
     abstract fun eventDao(): CalendarEventDao
+    abstract fun subscriptionDao(): SubscriptionDao
 
     companion object {
         @Volatile

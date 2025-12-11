@@ -9,6 +9,7 @@ import biweekly.Biweekly
 import biweekly.component.VEvent
 import com.itsmatok.matcal.data.CalendarEvent
 import com.itsmatok.matcal.data.CalendarEventDatabase
+import com.itsmatok.matcal.data.calendar.subscriptions.CalendarSubscription
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -20,51 +21,42 @@ import java.time.ZoneId
 
 class CalendarViewModel(application: Application) : AndroidViewModel(application) {
     private val db = CalendarEventDatabase.getDatabase(application)
-    private val dao = db.eventDao()
+    private val eventDao = db.eventDao()
+    private val subDao = db.subscriptionDao()
 
     val events: Flow<Map<LocalDate, List<CalendarEvent>>> =
-        dao.getAllEvents().map { list -> list.groupBy { it.date } }
+        eventDao.getAllEvents().map { list -> list.groupBy { it.date } }
 
     fun addEvent(event: CalendarEvent) {
         viewModelScope.launch {
-            dao.insertEvent(event)
+            eventDao.insertEvent(event)
         }
     }
 
     fun getEventById(id: Int): Flow<CalendarEvent?> {
-        return dao.getEventById(id)
+        return eventDao.getEventById(id)
     }
 
     fun deleteEvent(id: Int) {
         viewModelScope.launch {
-            dao.deleteEventById(id)
+            eventDao.deleteEventById(id)
         }
     }
 
     fun importEventsFromUrl(url: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                Log.d("CalendarViewModel", "Importing events from URL: $url")
 
-                val iCalData = URL(url).readText()
-                val ical = Biweekly.parse(iCalData).first()
-
-                if (ical == null) {
-                    showToast("Failed to parse calendar data")
+                if (subDao.getSubscriptionByUrl(url) != null) {
+                    showToast("This schedule is already imported!")
                     return@launch
                 }
 
-                var count = 0
-                val eventsToSave = ical.events.mapNotNull { vEvent ->
-                    mapVEventToCalendarEvent(vEvent)
-                }
+                val name = "Schedule ${url.takeLast(10)}"
 
-                eventsToSave.forEach { event ->
-                    dao.insertEvent(event)
-                    count++
-                }
-
-                showToast("Imported $count events successfully")
+                val newSub = CalendarSubscription(url = url, name = name)
+                subDao.insert(newSub)
+                syncSingleUrl(url)
 
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -73,7 +65,48 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    private fun mapVEventToCalendarEvent(vEvent: VEvent): CalendarEvent? {
+    fun refreshAllSchedules() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val subs = subDao.getAllSubscriptions()
+            if (subs.isEmpty()) {
+                showToast("No schedules to refresh.")
+                return@launch
+            }
+
+            var successCount = 0
+            subs.forEach { sub ->
+                try {
+                    syncSingleUrl(sub.url)
+                    successCount++
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+            showToast("Refreshed $successCount schedules.")
+        }
+    }
+
+    private suspend fun syncSingleUrl(url: String) {
+        try {
+            val iCalData = URL(url).readText()
+            val iCal = Biweekly.parse(iCalData).first()
+
+            if (iCal == null) {
+                showToast("Failed to parse calendar data")
+                return
+            }
+
+            val eventsToSync = iCal.events.mapNotNull { vEvent ->
+                mapVEventToCalendarEvent(vEvent, url)
+            }
+
+            eventDao.syncEvents(url, eventsToSync)
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    private fun mapVEventToCalendarEvent(vEvent: VEvent, url: String): CalendarEvent? {
         val startDate = vEvent.dateStart?.value ?: return null
         val endDate = vEvent.dateEnd?.value ?: vEvent.dateStart.value
 
@@ -87,6 +120,7 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         val summary = vEvent.summary?.value ?: "No Title"
         val location = vEvent.location?.value
         val description = vEvent.description?.value
+        val iCalUid = vEvent.uid?.value
 
         return CalendarEvent(
             date = localStartDate,
@@ -95,7 +129,9 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             title = summary,
             location = location,
             description = description,
-            source = "Imported"
+            source = "Imported",
+            sourceUrl = url,
+            iCalUid = iCalUid
         )
     }
 
