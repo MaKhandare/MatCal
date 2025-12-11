@@ -174,14 +174,18 @@ fun EventDetailsContent(event: CalendarEvent, modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold
         )
+
         Spacer(modifier = Modifier.height(8.dp))
-        event.description?.let {
-            if (it.isNotBlank()) event.description else Text(
-                text = "No description provided.",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
+
+        if (event.description != null) Text(
+            text = event.description,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        ) else Text(
+            text = "No description provided.",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     }
 }
 
