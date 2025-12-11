@@ -27,6 +27,8 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
     val events: Flow<Map<LocalDate, List<CalendarEvent>>> =
         eventDao.getAllEvents().map { list -> list.groupBy { it.date } }
 
+    val subscriptions: Flow<List<CalendarSubscription>> = subDao.getAllSubscriptionsFlow()
+
     fun addEvent(event: CalendarEvent) {
         viewModelScope.launch {
             eventDao.insertEvent(event)
@@ -40,6 +42,15 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
     fun deleteEvent(id: Int) {
         viewModelScope.launch {
             eventDao.deleteEventById(id)
+        }
+    }
+
+    fun deleteSubscription(subscription: CalendarSubscription) {
+        viewModelScope.launch(Dispatchers.IO) {
+            subDao.delete(subscription)
+            eventDao.deleteEventsBySource(subscription.url)
+
+            showToast("Removed '${subscription.name}'")
         }
     }
 

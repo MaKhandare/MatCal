@@ -25,7 +25,8 @@ fun CalendarContent(
     onLicenseClicked: () -> Unit,
     onEventClicked: (Int) -> Unit,
     onImportClicked: () -> Unit,
-    onRefreshClicked: () -> Unit
+    onRefreshClicked: () -> Unit,
+    onManageCalendarsClicked: () -> Unit
 ) {
     val visibleMonth = state.firstVisibleMonth.yearMonth
     val daysOfWeek = remember { daysOfWeek() }
@@ -37,7 +38,8 @@ fun CalendarContent(
                 onAddEventClicked = onAddEventClicked,
                 onLicenseClicked = onLicenseClicked,
                 onImportClicked = onImportClicked,
-                onRefreshClicked = onRefreshClicked
+                onRefreshClicked = onRefreshClicked,
+                onManageCalendarsClicked = onManageCalendarsClicked
             )
         }
     ) { innerPadding ->

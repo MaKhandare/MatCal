@@ -5,11 +5,15 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SubscriptionDao {
     @Query("SELECT * FROM subscriptions")
     suspend fun getAllSubscriptions(): List<CalendarSubscription>
+
+    @Query("SELECT * FROM subscriptions")
+    fun getAllSubscriptionsFlow(): Flow<List<CalendarSubscription>>
 
     @Query("SELECT * FROM subscriptions WHERE url = :url LIMIT 1")
     suspend fun getSubscriptionByUrl(url: String): CalendarSubscription?

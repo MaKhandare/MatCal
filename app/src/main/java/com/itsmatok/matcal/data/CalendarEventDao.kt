@@ -32,20 +32,20 @@ interface CalendarEventDao {
     @Query("DELETE FROM events WHERE id = :id")
     suspend fun deleteEventById(id: Int)
 
+    @Query("DELETE FROM events WHERE sourceUrl = :url")
+    suspend fun deleteEventsBySource(url: String)
+
     @Transaction
     suspend fun syncEvents(url: String, newEvents: List<CalendarEvent>) {
-        // 1. Delete classes that were cancelled (not in the new list)
         val activeUids = newEvents.mapNotNull { it.iCalUid }
         if (activeUids.isNotEmpty()) {
             deleteOrphanedEvents(url, activeUids)
         }
 
-        // 2. Insert or Update existing classes
         for (newEvent in newEvents) {
             if (newEvent.iCalUid != null) {
                 val existing = getEventByiCalUid(newEvent.iCalUid)
                 if (existing != null) {
-                    // Keep the local ID, update everything else
                     val updated = newEvent.copy(id = existing.id)
                     updateEvent(updated)
                 } else {

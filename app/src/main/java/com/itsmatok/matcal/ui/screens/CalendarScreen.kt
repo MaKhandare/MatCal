@@ -22,7 +22,8 @@ fun CalendarScreen(
     viewModel: CalendarViewModel,
     onAddEventClicked: () -> Unit,
     onLicenseClicked: () -> Unit,
-    onEventClicked: (Int) -> Unit
+    onEventClicked: (Int) -> Unit,
+    onManageCalendarsClicked: () -> Unit
 ) {
     val events by viewModel.events.collectAsState(initial = emptyMap())
     val currentMonth = remember { YearMonth.now() }
@@ -32,7 +33,6 @@ fun CalendarScreen(
 
     var showImportDialog by remember { mutableStateOf(false) }
 
-    // 2. Logic to handle the import action
     if (showImportDialog) {
         ImportUrlDialog(
             onDismiss = { showImportDialog = false },
@@ -69,6 +69,7 @@ fun CalendarScreen(
         onLicenseClicked = onLicenseClicked,
         onEventClicked = onEventClicked,
         onImportClicked = { showImportDialog = true },
-        onRefreshClicked = { viewModel.refreshAllSchedules() }
+        onRefreshClicked = { viewModel.refreshAllSchedules() },
+        onManageCalendarsClicked = onManageCalendarsClicked
     )
 }

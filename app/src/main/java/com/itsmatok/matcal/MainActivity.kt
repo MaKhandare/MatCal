@@ -13,6 +13,7 @@ import com.itsmatok.matcal.ui.calendar.CalendarEventDetailsScreen
 import com.itsmatok.matcal.ui.screens.AddEventScreen
 import com.itsmatok.matcal.ui.screens.CalendarScreen
 import com.itsmatok.matcal.ui.screens.LicenseScreen
+import com.itsmatok.matcal.ui.screens.ManageCalendarsScreen
 import com.itsmatok.matcal.ui.theme.MatCalTheme
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
 import kotlinx.serialization.Serializable
@@ -28,6 +29,9 @@ object AddEvent
 
 @Serializable
 data class EventDetails(val eventId: Int)
+
+@Serializable
+object ManageCalendars
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +52,8 @@ class MainActivity : ComponentActivity() {
                             onLicenseClicked = { navController.navigate(License) },
                             onEventClicked = { eventId ->
                                 navController.navigate(EventDetails(eventId))
-                            }
+                            },
+                            onManageCalendarsClicked = { navController.navigate(ManageCalendars) }
                         )
                     }
 
@@ -72,6 +77,12 @@ class MainActivity : ComponentActivity() {
                             onNavigateBack = { navController.navigateUp() },
                             onEditEvent = { navController.navigate(AddEvent) }
                         )
+                    }
+
+                    composable<ManageCalendars> {
+                        ManageCalendarsScreen(
+                            viewModel = calendarViewModel,
+                            onNavigateBack = { navController.navigate(Calendar) })
                     }
                 }
             }

@@ -26,7 +26,8 @@ fun CalendarTopAppBar(
     onAddEventClicked: () -> Unit,
     onLicenseClicked: () -> Unit,
     onImportClicked: () -> Unit,
-    onRefreshClicked: () -> Unit
+    onRefreshClicked: () -> Unit,
+    onManageCalendarsClicked: () -> Unit
 ) {
     var showMenu by remember { mutableStateOf(false) }
 
@@ -52,6 +53,11 @@ fun CalendarTopAppBar(
                     DropdownMenuItem(text = { Text("Import from URL") }, onClick = {
                         showMenu = false
                         onImportClicked()
+                    })
+
+                    DropdownMenuItem(text = { Text("Manage Calendars")}, onClick = {
+                        showMenu = false
+                        onManageCalendarsClicked()
                     })
                 }
             }
