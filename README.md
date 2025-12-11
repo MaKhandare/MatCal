@@ -1,15 +1,23 @@
 # MatCal
 
-**A minimalist, privacy-focused calendar for Android.**
+**A minimalist calendar for Android.**
 
 GrapheneOS does not ship with a default calendar, so I decided to build my own solution while learning Android Development. 
-The goal is a functional, privacy-respecting calendar that fits the system aesthetic.
+The goal is primarily learning Android Development with a functional, privacy-respecting calendar app that fits the system aesthetic.
+
+## Features
+
+- Create, view and manage events
+- Local-only storage (SQLite via Room)
+- Import and sync external calendars via iCal subscription (requires internet)
 
 ## Privacy
 
-All events are saved **locally** in a SQLite database handled via [Room](https://developer.android.com/training/data-storage/room). No cloud syncing, no tracking.
+All events are saved locally in a SQLite database handled via Room. 
+MatCal does not contain any trackers or analytics. 
+The only time network access is used is to optionally sync your read-only iCal subscriptions.
 
-## Design & Theming
+## Design
 
 MatCal utilizes the system's **Dynamic Colors**, adapting automatically to your wallpaper and system theme (light/dark mode)
 
@@ -30,7 +38,7 @@ You can grab the latest APK from the [Releases Page](https://github.com/MaKhanda
 
 ## Contributing
 
-Since I am learning Android Development, feedback and pull requests are appreciated! 
+Since I am learning, feedback and pull requests are appreciated! 
 If you find a bug or have a suggestion, feel free to open an issue.
 
 ## License
