@@ -49,7 +49,7 @@ import java.time.format.DateTimeFormatter
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarEventDetailsScreen(
-    viewModel: CalendarViewModel = viewModel<CalendarViewModel>(),
+    viewModel: CalendarViewModel,
     eventId: Int,
     onNavigateBack: () -> Unit,
     onEditEvent: (Int) -> Unit

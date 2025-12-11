@@ -58,7 +58,7 @@ import java.time.format.DateTimeFormatter
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEventScreen(
-    viewModel: CalendarViewModel = viewModel<CalendarViewModel>(),
+    viewModel: CalendarViewModel,
     onNavigateBack: () -> Unit
 ) {
     var title by remember { mutableStateOf("") }

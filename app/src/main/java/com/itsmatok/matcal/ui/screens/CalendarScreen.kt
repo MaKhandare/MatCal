@@ -20,7 +20,7 @@ import java.time.YearMonth
 
 @Composable
 fun CalendarScreen(
-    viewModel: CalendarViewModel = viewModel<CalendarViewModel>(),
+    viewModel: CalendarViewModel,
     onAddEventClicked: () -> Unit,
     onLicenseClicked: () -> Unit,
     onEventClicked: (Int) -> Unit

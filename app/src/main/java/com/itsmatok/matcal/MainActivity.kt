@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -13,6 +14,7 @@ import com.itsmatok.matcal.ui.screens.AddEventScreen
 import com.itsmatok.matcal.ui.screens.CalendarScreen
 import com.itsmatok.matcal.ui.screens.LicenseScreen
 import com.itsmatok.matcal.ui.theme.MatCalTheme
+import com.itsmatok.matcal.viewmodels.CalendarViewModel
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -34,12 +36,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             MatCalTheme {
                 val navController = rememberNavController()
+                val calendarViewModel: CalendarViewModel = viewModel<CalendarViewModel>()
 
                 NavHost(
                     navController = navController, startDestination = Calendar
                 ) {
                     composable<Calendar> {
                         CalendarScreen(
+                            viewModel = calendarViewModel,
                             onAddEventClicked = { navController.navigate(AddEvent) },
                             onLicenseClicked = { navController.navigate(License) },
                             onEventClicked = { eventId ->
@@ -50,6 +54,7 @@ class MainActivity : ComponentActivity() {
 
                     composable<AddEvent> {
                         AddEventScreen(
+                            viewModel = calendarViewModel,
                             onNavigateBack = { navController.navigate(Calendar) }
                         )
                     }
@@ -62,6 +67,7 @@ class MainActivity : ComponentActivity() {
                         val route: EventDetails = backStackEntry.toRoute()
 
                         CalendarEventDetailsScreen(
+                            viewModel = calendarViewModel,
                             eventId = route.eventId,
                             onNavigateBack = { navController.navigateUp() },
                             onEditEvent = { navController.navigate(AddEvent) }
