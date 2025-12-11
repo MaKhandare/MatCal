@@ -1,8 +1,8 @@
 [versions]
-biweekly = "0.6.8"
 versionName = "0.3.0"
+biweekly = "0.6.8"
 aboutlibrariesCompose = "11.2.3"
-agp = "8.13.1"
+agp = "8.13.2"
 kotlin = "2.2.21"
 coreKtx = "1.17.0"
 junit = "4.13.2"
