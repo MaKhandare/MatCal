@@ -6,7 +6,7 @@
 
 **A minimalist calendar for Android.**
 
-Recently I switched to GrapheneOS. And as it turns out, it does not ship with a built-in calendar app. So I created MatCal as both a personal learning project and a practical solution.
+Recently I switched to [GrapheneOS](https://grapheneos.org/). And as it turns out, it does not ship with a built-in calendar app. So I created MatCal as both a personal learning project and a practical solution.
 The goal is to provide a lightweight, functional, and system-native calendar experience without compromising privacy.
 
 ## Features
