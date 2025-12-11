@@ -1,8 +1,8 @@
 # MatCal
 
-![alt text](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white)
-![alt text](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-![alt text](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)
+![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white)
+![Android](https://img.shields.io/badge/Android-3DDC84?style=flat-square&logo=android&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)
 
 **A minimalist calendar for Android.**
 
