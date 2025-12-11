@@ -28,7 +28,7 @@ fun ImportUrlDialog(
         title = { Text(text = "Import Schedule") },
         text = {
             Column {
-                Text("Paste your iCal/Form URL here:")
+                Text("Paste your iCal URL here:")
                 Spacer(modifier = Modifier.height(8.dp))
                 OutlinedTextField(
                     value = url,
