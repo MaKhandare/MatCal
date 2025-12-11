@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/MaKhandare/MatCal/compare/v0.4.0...v0.4.1) (2025-12-11)
+
+
+### Bug Fixes
+
+* tell r8 to keep biweekly names ([798fcd0](https://github.com/MaKhandare/MatCal/commit/798fcd07ec2526cc60528b47e58866306e48524d))
+
 ## [0.4.0](https://github.com/MaKhandare/MatCal/compare/v0.3.0...v0.4.0) (2025-12-11)
 
 
