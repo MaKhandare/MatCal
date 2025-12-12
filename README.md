@@ -5,7 +5,9 @@
 
 **A minimalist calendar for Android.**
 
-Recently I switched to [GrapheneOS](https://grapheneos.org/). And as it turns out, it does not ship with a built-in calendar app. So I created MatCal as both a personal learning project and a practical solution.
+Recently I switched to [GrapheneOS](https://grapheneos.org/) as my main mobile OS. And as it turns out, it does not ship with a built-in calendar app. 
+So I created MatCal as both, a personal learning project and a practical solution.
+
 The goal is to provide a lightweight, functional, and system-native calendar experience without compromising privacy.
 
 ## Features
@@ -17,11 +19,9 @@ The goal is to provide a lightweight, functional, and system-native calendar exp
 
 ## Privacy
 
-Events are stored locally in an embedded SQLite database managed through Room.
-
-MatCal includes **no trackers, analytics, or background data collection**.
-
-`android.permissions.INTERNET` is **only** used when you explicitly add or refresh an iCal subscription URL
+- Events are stored locally in an embedded SQLite database managed through Room.
+- MatCal includes **no trackers, analytics, or background data collection**.
+- `android.permission.INTERNET` is **only** used when you explicitly add or refresh an iCal subscription URL
 
 ## Design
 
