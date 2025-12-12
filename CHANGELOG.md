@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.2](https://github.com/MaKhandare/MatCal/compare/v0.4.1...v0.4.2) (2025-12-12)
+
+
+### Bug Fixes
+
+* add surface to mainactivity to remove white flashes when changing screens ([19c498c](https://github.com/MaKhandare/MatCal/commit/19c498c9d084769f9f144fdb5a4be73c7c0b3217))
+* adjust splash screen when launching app to use system theme ([740f586](https://github.com/MaKhandare/MatCal/commit/740f5869e0d3ccd6461e21155bf624c34db92641))
+
 ## [0.4.1](https://github.com/MaKhandare/MatCal/compare/v0.4.0...v0.4.1) (2025-12-11)
 
 
