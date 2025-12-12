@@ -37,12 +37,12 @@ fun NavGraph(
         composable<AddEvent> {
             AddEventScreen(
                 viewModel = viewModel,
-                onNavigateBack = { navController.navigate(Calendar) }
+                onNavigateBack = { navController.navigateUp() }
             )
         }
 
         composable<License> {
-            LicenseScreen(onNavigateBack = { navController.navigate(Calendar) })
+            LicenseScreen(onNavigateBack = { navController.navigateUp() })
         }
 
         composable<EventDetails> { backStackEntry ->
@@ -59,7 +59,7 @@ fun NavGraph(
         composable<ManageCalendars> {
             ManageCalendarsScreen(
                 viewModel = viewModel,
-                onNavigateBack = { navController.navigate(Calendar) })
+                onNavigateBack = { navController.navigateUp() })
         }
 
     }
