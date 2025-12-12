@@ -11,6 +11,8 @@ import com.itsmatok.matcal.data.calendar.events.CalendarEventDatabase
 import com.itsmatok.matcal.data.calendar.subscriptions.CalendarSubscription
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -23,10 +25,18 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
     private val eventDao = db.eventDao()
     private val subDao = db.subscriptionDao()
 
+    private val _selectedDate = MutableStateFlow(LocalDate.now())
+    val selectedDate = _selectedDate.asStateFlow()
+
+
     val events: Flow<Map<LocalDate, List<CalendarEvent>>> =
         eventDao.getAllEvents().map { list -> list.groupBy { it.date } }
 
     val subscriptions: Flow<List<CalendarSubscription>> = subDao.getAllSubscriptionsFlow()
+
+    fun onDateSelected(date: LocalDate) {
+        _selectedDate.value = date
+    }
 
     fun addEvent(event: CalendarEvent) {
         viewModelScope.launch {

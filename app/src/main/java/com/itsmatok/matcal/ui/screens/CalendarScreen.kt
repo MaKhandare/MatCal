@@ -31,6 +31,9 @@ fun CalendarScreen(
     val endMonth = remember { currentMonth.plusMonths(100) }
     val firstDayOfWeek = remember { firstDayOfWeekFromLocale() }
 
+    val selection by viewModel.selectedDate.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+
     var showImportDialog by remember { mutableStateOf(false) }
 
     if (showImportDialog) {
@@ -46,19 +49,18 @@ fun CalendarScreen(
     val state = rememberCalendarState(
         startMonth = startMonth,
         endMonth = endMonth,
-        firstVisibleMonth = currentMonth,
+        firstVisibleMonth = remember(selection) { YearMonth.from(selection) },
         firstDayOfWeek = firstDayOfWeek
     )
 
-    var selection by remember { mutableStateOf<LocalDate?>(null) }
-    val coroutineScope = rememberCoroutineScope()
 
     CalendarContent(
         state = state,
         events = events,
         selection = selection,
         onDateSelected = { clickedDate ->
-            selection = clickedDate
+            viewModel.onDateSelected(clickedDate)
+
             if (clickedDate.yearMonth != state.firstVisibleMonth.yearMonth) {
                 coroutineScope.launch {
                     state.animateScrollToMonth(clickedDate.yearMonth)
