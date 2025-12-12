@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.calendar.compose)
     implementation(libs.androidx.room.runtime)
     implementation(libs.biweekly)
+    implementation(libs.google.material)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.compose.material.icons.extended)
     testImplementation(libs.junit)
