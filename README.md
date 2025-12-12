@@ -47,7 +47,7 @@ You can grab the latest APK from the [Releases Page](https://github.com/MaKhanda
 - Database: [Room](https://developer.android.com/training/data-storage/room).
 - Libraries:
     - [Biweekly](https://github.com/mangstadt/biweekly): Parsing iCalendar (.ics)
-    - [Calendar View](https://github.com/kizitonwose/Calendar): The core Compose calendar component
+    - [Calendar Compose](https://github.com/kizitonwose/Calendar): The core Compose calendar component
     - [AboutLibraries](https://github.com/mikepenz/AboutLibraries): Automatic open-source license attribution.
 
 ## Contributing
