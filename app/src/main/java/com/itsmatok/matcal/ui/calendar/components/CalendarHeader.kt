@@ -25,7 +25,7 @@ fun CalendarHeader(
             text = "${yearMonth.month} ${yearMonth.year}",
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 24.dp),
+                .padding(bottom = 32.dp),
             style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center
         )
