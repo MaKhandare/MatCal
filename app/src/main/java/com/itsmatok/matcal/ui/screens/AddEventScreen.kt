@@ -38,6 +38,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -63,13 +64,15 @@ fun AddEventScreen(
     var title by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
-    var selectedDate by remember { mutableStateOf(LocalDate.now()) }
     var startTime by remember { mutableStateOf(LocalTime.now().withSecond(0).withNano(0)) }
     var endTime by remember {
         mutableStateOf(
             LocalTime.now().plusHours(1).withSecond(0).withNano(0)
         )
     }
+
+    val currentSelection by viewModel.selectedDate.collectAsState()
+    var selectedDate by remember { mutableStateOf(currentSelection) }
 
     var showDatePicker by remember { mutableStateOf(false) }
     var showStartTimePicker by remember { mutableStateOf(false) }
