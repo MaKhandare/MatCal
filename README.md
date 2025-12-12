@@ -29,7 +29,7 @@ MatCal utilizes the system's **Dynamic Colors**, adapting automatically to your 
 
 ## Screenshots
 
-*Coming soon*
+*Coming soon (once it looks presentable lol)*
 
 ## Requirements
 
