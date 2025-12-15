@@ -139,16 +139,16 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
 
         val localEndTime = endDate.toInstant().atZone(zoneId).toLocalTime()
 
-        val summary = vEvent.summary?.value ?: "No Title"
-        val location = vEvent.location?.value
-        val description = vEvent.description?.value
+        val summary = vEvent.summary?.value?.trim() ?: "No Title"
+        val location = vEvent.location?.value?.trim()
+        val description = vEvent.description?.value?.trim()
         val iCalUid = vEvent.uid?.value
 
         return CalendarEvent(
             date = localStartDate,
             startTime = localStartTime,
             endTime = localEndTime,
-            title = summary,
+            title = summary.trim(),
             location = location,
             description = description,
             source = "Imported",
