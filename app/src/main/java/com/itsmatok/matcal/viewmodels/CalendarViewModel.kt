@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import biweekly.Biweekly
+import biweekly.ICalendar
 import biweekly.component.VEvent
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
 import com.itsmatok.matcal.data.calendar.events.CalendarEventDatabase
@@ -72,8 +73,6 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
                     return@launch
                 }
 
-                showToast("Fetching schedule...")
-
                 val iCalData = URL(url).readText()
                 val iCal = Biweekly.parse(iCalData).first()
 
@@ -87,7 +86,8 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
 
                 val newSub = CalendarSubscription(url = url, name = calendarName)
                 subDao.insert(newSub)
-                syncSingleUrl(url)
+
+                processAndSaveEvents(url, iCal, calendarName)
 
                 showToast("Imported '$calendarName'")
 
@@ -97,6 +97,7 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             }
         }
     }
+
 
     fun refreshAllSchedules() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -109,8 +110,13 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             var successCount = 0
             subs.forEach { sub ->
                 try {
-                    syncSingleUrl(sub.url)
-                    successCount++
+                    val iCalData = URL(sub.url).readText()
+                    val iCal = Biweekly.parse(iCalData).first()
+
+                    if (iCal != null) {
+                        processAndSaveEvents(sub.url, iCal, sub.name)
+                        successCount++
+                    }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -119,29 +125,18 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    private suspend fun syncSingleUrl(url: String) {
-        try {
-            val iCalData = URL(url).readText()
-            val iCal = Biweekly.parse(iCalData).first()
-            val calNameProperty = iCal.getExperimentalProperty("X-WR-CALNAME")
-            val calendarName = calNameProperty?.value ?: "Imported"
-
-            if (iCal == null) {
-                showToast("Failed to parse calendar data")
-                return
-            }
-
-            val eventsToSync = iCal.events.mapNotNull { vEvent ->
-                mapVEventToCalendarEvent(vEvent, url, calendarName)
-            }
-
-            eventDao.syncEvents(url, eventsToSync)
-        } catch (e: Exception) {
-            throw e
+    private suspend fun processAndSaveEvents(url: String, iCal: ICalendar, sourceName: String) {
+        val eventsToSync = iCal.events.mapNotNull { vEvent ->
+            mapVEventToCalendarEvent(vEvent, url, sourceName)
         }
+        eventDao.syncEvents(url, eventsToSync)
     }
 
-    private fun mapVEventToCalendarEvent(vEvent: VEvent, url: String, calendarName: String): CalendarEvent? {
+    private fun mapVEventToCalendarEvent(
+        vEvent: VEvent,
+        url: String,
+        calendarName: String
+    ): CalendarEvent? {
         val startDate = vEvent.dateStart?.value ?: return null
         val endDate = vEvent.dateEnd?.value ?: vEvent.dateStart.value
 
