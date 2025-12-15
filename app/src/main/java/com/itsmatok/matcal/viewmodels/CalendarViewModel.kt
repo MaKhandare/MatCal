@@ -105,6 +105,8 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
                 return@launch
             }
 
+            showToast("Refreshing...")
+
             var successCount = 0
             subs.forEach { sub ->
                 try {
