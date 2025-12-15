@@ -89,6 +89,8 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
                 subDao.insert(newSub)
                 syncSingleUrl(url)
 
+                showToast("Imported '$calendarName'")
+
             } catch (e: Exception) {
                 e.printStackTrace()
                 showToast("Error importing: ${e.message}")
@@ -121,6 +123,8 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         try {
             val iCalData = URL(url).readText()
             val iCal = Biweekly.parse(iCalData).first()
+            val calNameProperty = iCal.getExperimentalProperty("X-WR-CALNAME")
+            val calendarName = calNameProperty?.value ?: "Imported"
 
             if (iCal == null) {
                 showToast("Failed to parse calendar data")
@@ -128,7 +132,7 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             }
 
             val eventsToSync = iCal.events.mapNotNull { vEvent ->
-                mapVEventToCalendarEvent(vEvent, url)
+                mapVEventToCalendarEvent(vEvent, url, calendarName)
             }
 
             eventDao.syncEvents(url, eventsToSync)
@@ -137,7 +141,7 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    private fun mapVEventToCalendarEvent(vEvent: VEvent, url: String): CalendarEvent? {
+    private fun mapVEventToCalendarEvent(vEvent: VEvent, url: String, calendarName: String): CalendarEvent? {
         val startDate = vEvent.dateStart?.value ?: return null
         val endDate = vEvent.dateEnd?.value ?: vEvent.dateStart.value
 
@@ -160,7 +164,7 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             title = summary.trim(),
             location = location,
             description = description,
-            source = "Imported",
+            source = calendarName,
             sourceUrl = url,
             iCalUid = iCalUid
         )
