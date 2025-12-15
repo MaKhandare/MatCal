@@ -107,7 +107,6 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
 
             showToast("Refreshing...")
 
-            var successCount = 0
             subs.forEach { sub ->
                 try {
                     val iCalData = URL(sub.url).readText()
@@ -115,13 +114,11 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
 
                     if (iCal != null) {
                         processAndSaveEvents(sub.url, iCal, sub.name)
-                        successCount++
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
-            showToast("Refreshed $successCount schedules.")
         }
     }
 
