@@ -8,6 +8,7 @@ import androidx.navigation.toRoute
 import com.itsmatok.matcal.ui.screens.CalendarEventDetailsScreen
 import com.itsmatok.matcal.ui.screens.AddEventScreen
 import com.itsmatok.matcal.ui.screens.CalendarScreen
+import com.itsmatok.matcal.ui.screens.EditEventScreen
 import com.itsmatok.matcal.ui.screens.LicenseScreen
 import com.itsmatok.matcal.ui.screens.ManageCalendarsScreen
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
@@ -41,6 +42,17 @@ fun NavGraph(
             )
         }
 
+
+        composable<EditEvent> { backStackEntry ->
+            val route: EditEvent = backStackEntry.toRoute()
+
+            EditEventScreen(
+                viewModel = viewModel,
+                eventId = route.eventId,
+                onNavigateBack = { navController.navigateUp() }
+            )
+        }
+
         composable<License> {
             LicenseScreen(onNavigateBack = { navController.navigateUp() })
         }
@@ -52,7 +64,7 @@ fun NavGraph(
                 viewModel = viewModel,
                 eventId = route.eventId,
                 onNavigateBack = { navController.navigateUp() },
-                onEditEvent = { navController.navigate(AddEvent) }
+                onEditEvent = { navController.navigate(EditEvent(eventId = route.eventId)) }
             )
         }
 

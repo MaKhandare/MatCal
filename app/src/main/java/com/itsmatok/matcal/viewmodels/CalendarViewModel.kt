@@ -54,6 +54,12 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    fun updateEvent(event: CalendarEvent) {
+        viewModelScope.launch {
+            eventDao.updateEvent(event)
+        }
+    }
+
     fun deleteSubscription(subscription: CalendarSubscription) {
         viewModelScope.launch(Dispatchers.IO) {
             subDao.delete(subscription)

@@ -12,6 +12,9 @@ object License
 object AddEvent
 
 @Serializable
+data class EditEvent(val eventId: Int)
+
+@Serializable
 data class EventDetails(val eventId: Int)
 
 @Serializable
