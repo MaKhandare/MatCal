@@ -29,7 +29,6 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
     private val _selectedDate = MutableStateFlow(LocalDate.now())
     val selectedDate = _selectedDate.asStateFlow()
 
-
     val events: Flow<Map<LocalDate, List<CalendarEvent>>> =
         eventDao.getAllEvents().map { list -> list.groupBy { it.date } }
 
@@ -60,7 +59,7 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             subDao.delete(subscription)
             eventDao.deleteEventsBySource(subscription.url)
 
-            showToast("Removed '${subscription.name}'")
+            showToast("Removed ${subscription.name}")
         }
     }
 
@@ -88,8 +87,7 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
                 subDao.insert(newSub)
 
                 processAndSaveEvents(url, iCal, calendarName)
-
-                showToast("Imported '$calendarName'")
+                showToast("Imported $calendarName")
 
             } catch (e: Exception) {
                 e.printStackTrace()
