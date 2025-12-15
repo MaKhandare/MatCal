@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.5.0](https://github.com/MaKhandare/MatCal/compare/v0.4.2...v0.5.0) (2025-12-15)
+
+
+### Features
+
+* add event edit screen ([#16](https://github.com/MaKhandare/MatCal/issues/16)) ([32c2c7f](https://github.com/MaKhandare/MatCal/commit/32c2c7f393d2f4540e12136a5531f6a17acf760d))
+
+
+### Bug Fixes
+
+* get subscription name from experimental X-WR-CALNAME ([d7221f3](https://github.com/MaKhandare/MatCal/commit/d7221f34007a9544048a778bc23ffe3aed89fd32))
+* once a day is selected choose this day as default when adding an event ([9f1e55e](https://github.com/MaKhandare/MatCal/commit/9f1e55e9f27fe27ca0b45b45f930535fba227a4c))
+* remove trailing white spaces from summary location and description ([d359cc5](https://github.com/MaKhandare/MatCal/commit/d359cc5e9263cfde7b191fed5bf0a0605bf76e9d))
+* show subscription name in event details' source ([d57197f](https://github.com/MaKhandare/MatCal/commit/d57197f4860f859732dd187ba801dff1dbdb8dd3))
+
 ## [0.4.2](https://github.com/MaKhandare/MatCal/compare/v0.4.1...v0.4.2) (2025-12-12)
 
 
