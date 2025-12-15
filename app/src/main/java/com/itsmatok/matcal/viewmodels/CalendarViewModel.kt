@@ -74,9 +74,18 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
 
                 showToast("Fetching schedule...")
 
-                val name = "Schedule ${url.takeLast(10)}"
+                val iCalData = URL(url).readText()
+                val iCal = Biweekly.parse(iCalData).first()
 
-                val newSub = CalendarSubscription(url = url, name = name)
+                if (iCal == null) {
+                    showToast("Failed to parse calendar data")
+                    return@launch
+                }
+
+                val calNameProperty = iCal.getExperimentalProperty("X-WR-CALNAME")
+                val calendarName = calNameProperty?.value ?: "Schedule ${url.takeLast(10)}"
+
+                val newSub = CalendarSubscription(url = url, name = calendarName)
                 subDao.insert(newSub)
                 syncSingleUrl(url)
 
