@@ -10,6 +10,6 @@ data class CalendarSubscription(
 
     val url: String,
     val name: String,
-    val color: Long? = null,
+    val color: Long? = null, // TODO: add colors for different subscriptions
     val enabled: Boolean = true
 )
