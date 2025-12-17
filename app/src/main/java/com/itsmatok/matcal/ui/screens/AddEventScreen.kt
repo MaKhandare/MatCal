@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.dp
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
 import com.itsmatok.matcal.data.calendar.events.RecurrenceType
 import com.itsmatok.matcal.ui.calendar.components.RecurrenceDropdown
+import com.itsmatok.matcal.ui.calendar.components.TimePickerDialog
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
 import java.time.Instant
 import java.time.LocalDate
@@ -277,34 +278,5 @@ fun ReadOnlyField(
             disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
             disabledIndicatorColor = MaterialTheme.colorScheme.outline
         )
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TimePickerDialog(
-    onDismiss: () -> Unit,
-    onConfirm: (LocalTime) -> Unit,
-    initialTime: LocalTime
-) {
-    val timePickerState = rememberTimePickerState(
-        initialHour = initialTime.hour,
-        initialMinute = initialTime.minute,
-        is24Hour = true
-    )
-
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        confirmButton = {
-            TextButton(onClick = {
-                onConfirm(LocalTime.of(timePickerState.hour, timePickerState.minute))
-            }) { Text("OK") }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel") }
-        },
-        text = {
-            TimePicker(state = timePickerState)
-        }
     )
 }
