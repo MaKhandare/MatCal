@@ -266,6 +266,8 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         val rrule = vEvent.recurrenceRule?.value
         val freq = rrule?.frequency?.name
 
+        // NOTE: this does not handle more complex RRULEs like UNTIL or INTERVAL
+        // not sure if i am going to bother with that
         val mappedRecurrence = when (freq) {
             "DAILY" -> RecurrenceType.DAILY
             "WEEKLY" -> RecurrenceType.WEEKLY
