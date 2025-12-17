@@ -289,7 +289,8 @@ fun TimePickerDialog(
 ) {
     val timePickerState = rememberTimePickerState(
         initialHour = initialTime.hour,
-        initialMinute = initialTime.minute
+        initialMinute = initialTime.minute,
+        is24Hour = true
     )
 
     AlertDialog(
