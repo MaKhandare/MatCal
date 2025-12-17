@@ -21,6 +21,7 @@ import kotlinx.coroutines.withContext
 import java.net.URL
 import java.time.LocalDate
 import java.time.ZoneId
+import java.time.temporal.ChronoUnit
 
 class CalendarViewModel(application: Application) : AndroidViewModel(application) {
     private val db = CalendarEventDatabase.getDatabase(application)
@@ -153,27 +154,84 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         endYear: Int
     ): Map<LocalDate, CalendarEvent> {
         val occurrences = mutableMapOf<LocalDate, CalendarEvent>()
-        var current = originalEvent.date
 
-        if (originalEvent.recurrenceType == RecurrenceType.YEARLY) {
-            var yearIter = if (current.year < startYear) startYear else current.year
+        val rangeStartDate = LocalDate.of(startYear, 1, 1)
+        val rangeEndDate = LocalDate.of(endYear, 12, 31)
 
-            // leap year
-            while (yearIter <= endYear) {
-                val newDate = try {
-                    current.withYear(yearIter)
-                } catch (e: Exception) {
-                    current.withYear(yearIter - 1).plusYears(1)
-                }
-
-                if (!newDate.isBefore(originalEvent.date)) {
-                    occurrences[newDate] = originalEvent.copy(date = newDate)
-                }
-                yearIter++
-            }
+        if (originalEvent.date.isAfter(rangeEndDate)) {
+            return occurrences
         }
 
-        // TODO: weekly, etc go here
+        var currentDate = originalEvent.date
+
+        when (originalEvent.recurrenceType) {
+            RecurrenceType.DAILY -> {
+                if (currentDate.isBefore(rangeStartDate)) {
+                    currentDate = rangeStartDate
+                }
+
+                while (!currentDate.isAfter(rangeEndDate)) {
+                    occurrences[currentDate] = originalEvent.copy(date = currentDate)
+                    currentDate = currentDate.plusDays(1)
+                }
+            }
+
+            RecurrenceType.WEEKLY -> {
+                if (currentDate.isBefore(rangeStartDate)) {
+                    val weeksToSkip = ChronoUnit.WEEKS.between(currentDate, rangeStartDate)
+                    currentDate = currentDate.plusWeeks(weeksToSkip)
+
+                    if (currentDate.isBefore(rangeStartDate)) {
+                        currentDate = currentDate.plusWeeks(1)
+                    }
+                }
+
+                while (!currentDate.isAfter(rangeEndDate)) {
+                    occurrences[currentDate] = originalEvent.copy(date = currentDate)
+                    currentDate = currentDate.plusWeeks(1)
+                }
+            }
+
+            RecurrenceType.MONTHLY -> {
+                if (currentDate.year < startYear) {
+                    currentDate = currentDate.withYear(startYear - 1)
+                }
+
+                while (!currentDate.isAfter(rangeEndDate)) {
+                    if (!currentDate.isBefore(rangeStartDate)) {
+                        occurrences[currentDate] = originalEvent.copy(date = currentDate)
+                    }
+                    currentDate = currentDate.plusMonths(1)
+                }
+            }
+
+            RecurrenceType.YEARLY -> {
+                var yearIter = if (currentDate.year < startYear) startYear else currentDate.year
+
+                while (yearIter <= endYear) {
+                    // leap year
+                    val newDate = try {
+                        currentDate.withYear(yearIter)
+                    } catch (_: Exception) {
+                        // if no feb 29, use feb 28
+                        currentDate.withYear(yearIter - 1).plusYears(1)
+                    }
+
+                    if (!newDate.isBefore(originalEvent.date)) {
+                        occurrences[newDate] = originalEvent.copy(date = newDate)
+                    }
+                    yearIter++
+                }
+            }
+
+            RecurrenceType.NONE -> {
+                if (!currentDate.isBefore(rangeStartDate) && !currentDate.isAfter(rangeEndDate)) {
+                    occurrences[currentDate] = originalEvent
+                }
+            }
+
+            null -> {}
+        }
 
         return occurrences
     }
