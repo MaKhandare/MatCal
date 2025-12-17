@@ -70,7 +70,7 @@ object RecurrenceUtil {
                         currentDate.withYear(rangeStartDate.year)
                     } catch (e: Exception) {
                         currentDate.withYear(rangeStartDate.year).plusDays(1)
-                    } // Fallback logic
+                    }
                 } else currentDate
             }
 
@@ -104,7 +104,7 @@ object RecurrenceUtil {
         return try {
             original.withYear(targetYear)
         } catch (e: Exception) {
-            // if no leap year, use feb 28
+            // if no leap year, use feb 28. maybe skip it?
             original.withYear(targetYear - 1).plusYears(1)
         }
     }
