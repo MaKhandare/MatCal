@@ -21,7 +21,9 @@ data class CalendarEvent(
     val source: String? = null,
 
     val sourceUrl: String? = null,
-    val iCalUid: String? = null
+    val iCalUid: String? = null,
+
+    val recurrenceType: RecurrenceType? = RecurrenceType.NONE
 )
 
 
@@ -45,4 +47,12 @@ class Converters {
     fun toLocalTime(timeString: String): LocalTime {
         return LocalTime.parse(timeString, DateTimeFormatter.ISO_LOCAL_TIME)
     }
+
+    @TypeConverter
+    fun fromRecurrence(value: RecurrenceType): String = value.name
+
+    @TypeConverter
+    fun toRecurrence(value: String): RecurrenceType = runCatching {
+        RecurrenceType.valueOf(value)
+    }.getOrDefault(RecurrenceType.NONE)
 }

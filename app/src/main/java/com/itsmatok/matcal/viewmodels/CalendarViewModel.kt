@@ -9,6 +9,7 @@ import biweekly.ICalendar
 import biweekly.component.VEvent
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
 import com.itsmatok.matcal.data.calendar.events.CalendarEventDatabase
+import com.itsmatok.matcal.data.calendar.events.RecurrenceType
 import com.itsmatok.matcal.data.calendar.subscriptions.CalendarSubscription
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -30,7 +31,24 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
     val selectedDate = _selectedDate.asStateFlow()
 
     val events: Flow<Map<LocalDate, List<CalendarEvent>>> =
-        eventDao.getAllEvents().map { list -> list.groupBy { it.date } }
+        eventDao.getAllEvents().map { allEvents ->
+            val resultMap = mutableMapOf<LocalDate, MutableList<CalendarEvent>>()
+
+            val currentYear = LocalDate.now().year
+            val startYear = currentYear - 10
+            val endYear = currentYear + 10
+
+            allEvents.forEach { event ->
+                if (event.recurrenceType == RecurrenceType.NONE) {
+                    resultMap.getOrPut(event.date) { mutableListOf() }.add(event)
+                } else {
+                    generateOccurrences(event, startYear, endYear).forEach { entry ->
+                        resultMap.getOrPut(entry.key) { mutableListOf() }.add(entry.value)
+                    }
+                }
+            }
+            resultMap
+        }
 
     val subscriptions: Flow<List<CalendarSubscription>> = subDao.getAllSubscriptionsFlow()
 
@@ -128,6 +146,38 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+
+    private fun generateOccurrences(
+        originalEvent: CalendarEvent,
+        startYear: Int,
+        endYear: Int
+    ): Map<LocalDate, CalendarEvent> {
+        val occurrences = mutableMapOf<LocalDate, CalendarEvent>()
+        var current = originalEvent.date
+
+        if (originalEvent.recurrenceType == RecurrenceType.YEARLY) {
+            var yearIter = if (current.year < startYear) startYear else current.year
+
+            // leap year
+            while (yearIter <= endYear) {
+                val newDate = try {
+                    current.withYear(yearIter)
+                } catch (e: Exception) {
+                    current.withYear(yearIter - 1).plusYears(1)
+                }
+
+                if (!newDate.isBefore(originalEvent.date)) {
+                    occurrences[newDate] = originalEvent.copy(date = newDate)
+                }
+                yearIter++
+            }
+        }
+
+        // TODO: weekly, etc go here
+
+        return occurrences
+    }
+
     private suspend fun processAndSaveEvents(url: String, iCal: ICalendar, sourceName: String) {
         val eventsToSync = iCal.events.mapNotNull { vEvent ->
             mapVEventToCalendarEvent(vEvent, url, sourceName)
@@ -155,6 +205,17 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         val description = vEvent.description?.value?.trim()
         val iCalUid = vEvent.uid?.value
 
+        val rrule = vEvent.recurrenceRule?.value
+        val freq = rrule?.frequency?.name
+
+        val mappedRecurrence = when (freq) {
+            "DAILY" -> RecurrenceType.DAILY
+            "WEEKLY" -> RecurrenceType.WEEKLY
+            "MONTHLY" -> RecurrenceType.MONTHLY
+            "YEARLY" -> RecurrenceType.YEARLY
+            else -> RecurrenceType.NONE
+        }
+
         return CalendarEvent(
             date = localStartDate,
             startTime = localStartTime,
@@ -164,7 +225,8 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             description = description,
             source = calendarName,
             sourceUrl = url,
-            iCalUid = iCalUid
+            iCalUid = iCalUid,
+            recurrenceType = mappedRecurrence
         )
     }
 

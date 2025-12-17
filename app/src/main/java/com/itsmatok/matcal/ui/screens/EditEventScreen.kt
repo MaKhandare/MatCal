@@ -40,6 +40,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.itsmatok.matcal.data.calendar.events.RecurrenceType
+import com.itsmatok.matcal.ui.calendar.components.RecurrenceDropdown
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
 import java.time.Instant
 import java.time.LocalDate
@@ -67,6 +69,7 @@ fun EditEventScreen(
             LocalTime.now().plusHours(1).withSecond(0).withNano(0)
         )
     }
+    var recurrence by remember { mutableStateOf(RecurrenceType.NONE) }
 
     var dataLoaded by remember { mutableStateOf(false) }
 
@@ -80,6 +83,7 @@ fun EditEventScreen(
             startTime = event.startTime
             endTime = event.endTime
             dataLoaded = true
+            recurrence = event.recurrenceType ?: RecurrenceType.NONE
         }
     }
 
@@ -160,6 +164,11 @@ fun EditEventScreen(
                 singleLine = true
             )
 
+            RecurrenceDropdown(
+                selectedRecurrence = recurrence,
+                onRecurrenceSelected = { recurrence = it }
+            )
+
             // description input
             OutlinedTextField(
                 value = description,
@@ -183,6 +192,7 @@ fun EditEventScreen(
                             endTime = endTime,
                             location = location.trim().ifEmpty { null },
                             description = description.trim().ifEmpty { null },
+                            recurrenceType = recurrence
                         )
                         viewModel.updateEvent(updatedEvent)
                         onNavigateBack()

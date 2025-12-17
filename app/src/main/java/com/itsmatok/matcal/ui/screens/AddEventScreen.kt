@@ -48,6 +48,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
+import com.itsmatok.matcal.data.calendar.events.RecurrenceType
+import com.itsmatok.matcal.ui.calendar.components.RecurrenceDropdown
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
 import java.time.Instant
 import java.time.LocalDate
@@ -70,6 +72,7 @@ fun AddEventScreen(
             LocalTime.now().plusHours(1).withSecond(0).withNano(0)
         )
     }
+    var recurrence by remember { mutableStateOf(RecurrenceType.NONE) }
 
     val currentSelection by viewModel.selectedDate.collectAsState()
     var selectedDate by remember { mutableStateOf(currentSelection) }
@@ -141,6 +144,12 @@ fun AddEventScreen(
                 }
             }
 
+            // repeating
+            RecurrenceDropdown(
+                selectedRecurrence = recurrence,
+                onRecurrenceSelected = { recurrence = it }
+            )
+
             // location input
             OutlinedTextField(
                 value = location,
@@ -175,7 +184,8 @@ fun AddEventScreen(
                             title = title,
                             location = location.trim().ifEmpty { null },
                             description = description.trim().ifEmpty { null },
-                            source = "Personal"
+                            source = "Personal",
+                            recurrenceType = recurrence
                         )
                         viewModel.addEvent(newEvent)
                         onNavigateBack()
