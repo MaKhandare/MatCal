@@ -1,4 +1,4 @@
-package com.itsmatok.matcal.ui.calendar.components
+package com.itsmatok.matcal.ui.calendar.components.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
