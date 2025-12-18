@@ -128,7 +128,7 @@ fun EventDetailsContent(event: CalendarEvent, modifier: Modifier = Modifier) {
     val dateFormatter = remember { DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy") }
     val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
 
-    Column(modifier = modifier.padding(16.dp)) {
+    Column(modifier = modifier.padding(horizontal = 32.dp, vertical = 24.dp)) {
 
         Text(
             text = event.title,
