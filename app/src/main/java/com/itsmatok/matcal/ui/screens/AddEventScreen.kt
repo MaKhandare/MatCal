@@ -1,42 +1,18 @@
 package com.itsmatok.matcal.ui.screens
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.Notes
-import androidx.compose.material.icons.filled.AccessTime
-import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDatePickerState
-import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -44,19 +20,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
 import com.itsmatok.matcal.data.calendar.events.RecurrenceType
-import com.itsmatok.matcal.ui.calendar.components.RecurrenceDropdown
 import com.itsmatok.matcal.ui.calendar.components.TimePickerDialog
+import com.itsmatok.matcal.ui.calendar.components.forms.EventFormContent
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
 import java.time.Instant
-import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,13 +38,14 @@ fun AddEventScreen(
     var title by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
+    var recurrence by remember { mutableStateOf(RecurrenceType.NONE) }
+
     var startTime by remember { mutableStateOf(LocalTime.now().withSecond(0).withNano(0)) }
     var endTime by remember {
         mutableStateOf(
             LocalTime.now().plusHours(1).withSecond(0).withNano(0)
         )
     }
-    var recurrence by remember { mutableStateOf(RecurrenceType.NONE) }
 
     val currentSelection by viewModel.selectedDate.collectAsState()
     var selectedDate by remember { mutableStateOf(currentSelection) }
@@ -81,10 +53,6 @@ fun AddEventScreen(
     var showDatePicker by remember { mutableStateOf(false) }
     var showStartTimePicker by remember { mutableStateOf(false) }
     var showEndTimePicker by remember { mutableStateOf(false) }
-
-    val dateFormatter = DateTimeFormatter.ofPattern("EEE, MMM dd, yyyy")
-    val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
-    val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {
@@ -98,107 +66,39 @@ fun AddEventScreen(
             )
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .padding(16.dp)
-                .fillMaxSize()
-                .verticalScroll(scrollState)
-                .imePadding(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            // title
-            OutlinedTextField(
-                value = title,
-                onValueChange = { title = it },
-                label = { Text("Event Title") },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true
-            )
-
-            // date selector
-            ReadOnlyField(
-                value = selectedDate.format(dateFormatter),
-                label = "Date",
-                icon = Icons.Default.CalendarToday,
-                onClick = { showDatePicker = true }
-            )
-
-            // time selectors
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Box(modifier = Modifier.weight(1f)) {
-                    ReadOnlyField(
-                        value = startTime.format(timeFormatter),
-                        label = "Start Time",
-                        icon = Icons.Default.AccessTime,
-                        onClick = { showStartTimePicker = true }
-                    )
-                }
-                Spacer(modifier = Modifier.width(16.dp))
-                Box(modifier = Modifier.weight(1f)) {
-                    ReadOnlyField(
-                        value = endTime.format(timeFormatter),
-                        label = "End Time",
-                        icon = Icons.Default.AccessTime,
-                        onClick = { showEndTimePicker = true }
-                    )
-                }
+        EventFormContent(
+            modifier = Modifier.padding(innerPadding),
+            title = title,
+            onTitleChange = { title = it },
+            location = location,
+            onLocationChange = { location = it },
+            description = description,
+            onDescriptionChange = { description = it },
+            selectedDate = selectedDate,
+            onDateClick = { showDatePicker = true },
+            startTime = startTime,
+            onStartTimeClick = { showStartTimePicker = true },
+            endTime = endTime,
+            onEndTimeClick = { showEndTimePicker = true },
+            recurrence = recurrence,
+            onRecurrenceChange = { recurrence = it },
+            buttonText = "Save",
+            onSaveClick = {
+                val newEvent = CalendarEvent(
+                    id = 0,
+                    date = selectedDate,
+                    startTime = startTime,
+                    endTime = endTime,
+                    title = title,
+                    location = location.trim().ifEmpty { null },
+                    description = description.trim().ifEmpty { null },
+                    source = "Personal",
+                    recurrenceType = recurrence
+                )
+                viewModel.addEvent(newEvent)
+                onNavigateBack()
             }
-
-            // repeating
-            RecurrenceDropdown(
-                selectedRecurrence = recurrence,
-                onRecurrenceSelected = { recurrence = it }
-            )
-
-            // location input
-            OutlinedTextField(
-                value = location,
-                onValueChange = { location = it },
-                label = { Text("Location (Optional)") },
-                leadingIcon = { Icon(Icons.Default.LocationOn, contentDescription = null) },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true
-            )
-
-            // description input
-            OutlinedTextField(
-                value = description,
-                onValueChange = { description = it },
-                label = { Text("Description (Optional)") },
-                leadingIcon = { Icon(Icons.AutoMirrored.Filled.Notes, contentDescription = null) },
-                modifier = Modifier.fillMaxWidth(),
-                minLines = 3,
-                maxLines = 5
-            )
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            Button(
-                onClick = {
-                    if (title.isNotBlank()) {
-                        val newEvent = CalendarEvent(
-                            id = 0,
-                            date = selectedDate,
-                            startTime = startTime,
-                            endTime = endTime,
-                            title = title,
-                            location = location.trim().ifEmpty { null },
-                            description = description.trim().ifEmpty { null },
-                            source = "Personal",
-                            recurrenceType = recurrence
-                        )
-                        viewModel.addEvent(newEvent)
-                        onNavigateBack()
-                    }
-                },
-                modifier = Modifier.fillMaxWidth(),
-                enabled = title.isNotBlank(),
-                content = { Text("Save") }
-            )
-
-            Spacer(modifier = Modifier.height(32.dp))
-        }
+        )
     }
 
     if (showDatePicker) {
@@ -253,30 +153,4 @@ fun AddEventScreen(
             initialTime = endTime
         )
     }
-}
-
-@Composable
-fun ReadOnlyField(
-    value: String,
-    label: String,
-    icon: ImageVector,
-    onClick: () -> Unit
-) {
-    OutlinedTextField(
-        value = value,
-        onValueChange = { },
-        label = { Text(label) },
-        leadingIcon = { Icon(icon, contentDescription = null) },
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() },
-        enabled = false,
-        colors = TextFieldDefaults.colors(
-            disabledContainerColor = Color.Transparent,
-            disabledTextColor = MaterialTheme.colorScheme.onSurface,
-            disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            disabledIndicatorColor = MaterialTheme.colorScheme.outline
-        )
-    )
 }
