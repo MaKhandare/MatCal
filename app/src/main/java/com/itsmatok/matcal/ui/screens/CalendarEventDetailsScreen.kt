@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -15,14 +16,14 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Event
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Source
+import androidx.compose.material.icons.outlined.Description
+import androidx.compose.material.icons.outlined.LocationOn
+import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -38,6 +39,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -128,7 +130,7 @@ fun EventDetailsContent(event: CalendarEvent, modifier: Modifier = Modifier) {
     val dateFormatter = remember { DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy") }
     val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
 
-    Column(modifier = modifier.padding(horizontal = 32.dp, vertical = 24.dp)) {
+    Column(modifier = modifier.padding(horizontal = 24.dp, vertical = 24.dp)) {
 
         Text(
             text = event.title,
@@ -137,78 +139,98 @@ fun EventDetailsContent(event: CalendarEvent, modifier: Modifier = Modifier) {
             color = MaterialTheme.colorScheme.primary
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
-        Card(
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-            shape = RoundedCornerShape(12.dp)
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                DetailRow(
-                    icon = Icons.Default.Event,
-                    text = event.date.format(dateFormatter)
+        DetailItem(
+            icon = Icons.Default.Event,
+            title = "Date",
+            subtitle = "${event.date.format(dateFormatter)}",
+        )
+
+        DetailItem(
+            icon = Icons.Outlined.Schedule,
+            title = "Time",
+            subtitle = "${event.startTime.format(timeFormatter)} - ${
+                event.endTime.format(
+                    timeFormatter
                 )
-                Spacer(modifier = Modifier.height(12.dp))
-                DetailRow(
-                    icon = Icons.Default.Schedule,
-                    text = "${event.startTime.format(timeFormatter)} - ${
-                        event.endTime.format(
-                            timeFormatter
-                        )
-                    }"
-                )
-                if (event.location?.isNotBlank() == true) {
-                    Spacer(modifier = Modifier.height(12.dp))
-                    DetailRow(
-                        icon = Icons.Default.LocationOn,
-                        text = event.location
-                    )
-                }
-                if (event.source?.isNotBlank() == true) {
-                    Spacer(modifier = Modifier.height(12.dp))
-                    DetailRow(
-                        icon = Icons.Default.Source,
-                        text = event.source
-                    )
-                }
-            }
+            }",
+        )
+
+        if (event.location?.isNotBlank() == true) {
+            Spacer(modifier = Modifier.height(24.dp))
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+            Spacer(modifier = Modifier.height(24.dp))
+            DetailItem(
+                icon = Icons.Outlined.LocationOn,
+                title = "Location",
+                subtitle = event.location,
+            )
+        }
+
+        if (event.source?.isNotBlank() == true) {
+            Spacer(modifier = Modifier.height(24.dp))
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+            Spacer(modifier = Modifier.height(24.dp))
+            DetailItem(
+                icon = Icons.Default.Source,
+                title = "Source",
+                subtitle = event.source,
+            )
         }
 
         Spacer(modifier = Modifier.height(24.dp))
+        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+        Spacer(modifier = Modifier.height(24.dp))
 
-        Text(
-            text = "Description",
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        if (event.description != null) Text(
-            text = event.description,
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        ) else Text(
-            text = "No description provided.",
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+        DetailItem(
+            icon = Icons.Outlined.Description,
+            title = "Description",
+            subtitle = if (!event.description.isNullOrBlank()) event.description else "No description provided.",
+            alignIconTop = true
         )
     }
 }
 
 @Composable
-fun DetailRow(icon: ImageVector, text: String) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.size(24.dp)
-        )
-        Spacer(modifier = Modifier.width(12.dp))
-        Text(
-            text = text,
-            style = MaterialTheme.typography.bodyLarge
-        )
+fun DetailItem(
+    icon: ImageVector,
+    title: String,
+    subtitle: String,
+    alignIconTop: Boolean = false
+) {
+    Row(
+        verticalAlignment = if (alignIconTop) Alignment.Top else Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .padding(vertical = 4.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(40.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.width(16.dp))
+
+        Column {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        }
     }
 }
