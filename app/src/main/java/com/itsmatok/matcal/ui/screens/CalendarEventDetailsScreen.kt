@@ -144,7 +144,8 @@ fun EventDetailsContent(event: CalendarEvent, modifier: Modifier = Modifier) {
             text = event.title,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.padding(start = 8.dp)
         )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -217,7 +218,7 @@ fun DetailItem(
         Box(
             modifier = Modifier
                 .size(40.dp),
-            contentAlignment = Alignment.Center
+            contentAlignment = if (alignIconTop) Alignment.TopCenter else Alignment.Center
         ) {
             Icon(
                 imageVector = icon,
