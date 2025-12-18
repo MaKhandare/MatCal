@@ -142,7 +142,7 @@ fun EventDetailsContent(event: CalendarEvent, modifier: Modifier = Modifier) {
 
         Text(
             text = event.title,
-            style = MaterialTheme.typography.headlineMedium,
+            style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
         )
