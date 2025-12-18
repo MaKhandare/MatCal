@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
@@ -130,7 +132,13 @@ fun EventDetailsContent(event: CalendarEvent, modifier: Modifier = Modifier) {
     val dateFormatter = remember { DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy") }
     val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
 
-    Column(modifier = modifier.padding(horizontal = 24.dp, vertical = 24.dp)) {
+    val scrollState = rememberScrollState()
+
+    Column(
+        modifier = modifier
+            .padding(horizontal = 24.dp, vertical = 24.dp)
+            .verticalScroll(scrollState)
+    ) {
 
         Text(
             text = event.title,
