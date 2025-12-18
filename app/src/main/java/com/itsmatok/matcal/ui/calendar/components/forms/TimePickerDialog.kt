@@ -1,4 +1,4 @@
-package com.itsmatok.matcal.ui.calendar.components
+package com.itsmatok.matcal.ui.calendar.components.forms
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api

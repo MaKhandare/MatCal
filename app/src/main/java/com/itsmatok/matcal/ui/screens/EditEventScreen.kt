@@ -22,7 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.itsmatok.matcal.data.calendar.events.RecurrenceType
-import com.itsmatok.matcal.ui.calendar.components.TimePickerDialog
+import com.itsmatok.matcal.ui.calendar.components.forms.TimePickerDialog
 import com.itsmatok.matcal.ui.calendar.components.forms.EventFormContent
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
 import java.time.Instant

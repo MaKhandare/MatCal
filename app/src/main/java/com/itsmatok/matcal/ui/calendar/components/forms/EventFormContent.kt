@@ -26,7 +26,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.itsmatok.matcal.data.calendar.events.RecurrenceType
-import com.itsmatok.matcal.ui.calendar.components.RecurrenceDropdown
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
