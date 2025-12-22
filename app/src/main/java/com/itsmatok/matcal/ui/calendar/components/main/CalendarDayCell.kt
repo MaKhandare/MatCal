@@ -57,7 +57,7 @@ fun CalendarDayCell(
                 color = borderColor,
                 shape = MaterialTheme.shapes.medium
             )
-            .clickable(enabled = isCurrentMonth) { onClick(day) },
+            .clickable(enabled = true) { onClick(day) },
         contentAlignment = Alignment.Center
     ) {
         Column(
