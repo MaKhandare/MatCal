@@ -34,10 +34,6 @@ MatCal utilizes the system's **Dynamic Colors**, adapting automatically to your 
 | <img src="./docs/CalendarScreen.png" width="250"> | <img src="./docs/EventDetailsScreen.png" width="250"> |
 
 
-| Calendar (Light Theme / Red background)           | Event Details                                         |
-|---------------------------------------------------|-------------------------------------------------------|
-| <img src="./docs/CalendarLight.png" width="250">  | <img src="./docs/EventDetailsLight.png" width="250">  |
-
 (WIP)
 
 ## Requirements
