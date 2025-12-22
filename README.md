@@ -29,10 +29,14 @@ MatCal utilizes the system's **Dynamic Colors**, adapting automatically to your 
 
 ## Screenshots
 
-| Calendar (Dark Theme / Black background)          | Event Details                                         |
-|---------------------------------------------------|-------------------------------------------------------|
-| <img src="./docs/CalendarScreen.png" width="250"> | <img src="./docs/EventDetailsScreen.png" width="250"> |
+| Calendar (Dark Theme / Black background)          | 
+|---------------------------------------------------|
+| <img src="./docs/CalendarScreen.png" width="250"> | 
 
+
+| Calendar (Light Theme / Red background)           |
+|---------------------------------------------------|
+| <img src="./docs/CalendarLight.png" width="250">  |
 
 (WIP)
 
