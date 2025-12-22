@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.6.0](https://github.com/MaKhandare/MatCal/compare/v0.5.0...v0.6.0) (2025-12-22)
+
+
+### Features
+
+* events can now be repeated daily, weekly, monthly and yearly ([ea9eb42](https://github.com/MaKhandare/MatCal/commit/ea9eb42d64340d948a989a1a0d7d7047575d8ef9))
+* events can now be repeated yearly ([b241a63](https://github.com/MaKhandare/MatCal/commit/b241a639d11463a09db849b45431bd0142ce8681))
+
+
+### Bug Fixes
+
+* use 24h time for time picker. ([c090a1c](https://github.com/MaKhandare/MatCal/commit/c090a1c6d8efb462fa50134c9386a2a58c2669d8))
+* when clicking on day of next month it now smoothly scrolls to the month ([54993d6](https://github.com/MaKhandare/MatCal/commit/54993d6db932cfbb5a4970662d923871ffbfeebd))
+
 ## [0.5.0](https://github.com/MaKhandare/MatCal/compare/v0.4.2...v0.5.0) (2025-12-15)
 
 
