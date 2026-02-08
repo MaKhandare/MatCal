@@ -142,10 +142,18 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
     }
 
     private suspend fun processAndSaveEvents(url: String, iCal: ICalendar, sourceName: String) {
+        eventDao.getEventsByUrl(url).forEach { event ->
+            notificationScheduler.cancel(event.id)
+        }
+
         val eventsToSync = iCal.events.mapNotNull { vEvent ->
             EventMapper.mapVEventToCalendarEvent(vEvent, url, sourceName)
         }
         eventDao.syncEvents(url, eventsToSync)
+
+        eventDao.getEventsByUrl(url).forEach { event ->
+            notificationScheduler.schedule(event)
+        }
     }
 
     private suspend fun showToast(message: String) {
