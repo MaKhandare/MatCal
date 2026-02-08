@@ -6,8 +6,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.itsmatok.matcal.ui.calendar.components.main.CalendarContent
+import com.itsmatok.matcal.ui.calendar.components.main.CalendarViewMode
 import com.itsmatok.matcal.ui.calendar.components.main.ImportUrlDialog
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
 import com.kizitonwose.calendar.compose.rememberCalendarState
@@ -36,6 +38,9 @@ fun CalendarScreen(
     val initialMonth = remember { YearMonth.from(selection) }
 
     var showImportDialog by remember { mutableStateOf(false) }
+    var viewModeName by rememberSaveable { mutableStateOf(CalendarViewMode.AGENDA.name) }
+    val viewMode = CalendarViewMode.entries.firstOrNull { it.name == viewModeName }
+        ?: CalendarViewMode.AGENDA
 
     if (showImportDialog) {
         ImportUrlDialog(
@@ -59,6 +64,9 @@ fun CalendarScreen(
         state = state,
         events = events,
         selection = selection,
+        firstDayOfWeek = firstDayOfWeek,
+        viewMode = viewMode,
+        onViewModeChanged = { viewModeName = it.name },
         onDateSelected = { clickedDate ->
             viewModel.onDateSelected(clickedDate)
 

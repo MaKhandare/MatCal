@@ -9,6 +9,7 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +24,8 @@ import androidx.compose.runtime.setValue
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarTopAppBar(
+    viewMode: CalendarViewMode,
+    onViewModeChanged: (CalendarViewMode) -> Unit,
     onAddEventClicked: () -> Unit,
     onLicenseClicked: () -> Unit,
     onImportClicked: () -> Unit,
@@ -45,6 +48,55 @@ fun CalendarTopAppBar(
                 }
 
                 DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
+                    DropdownMenuItem(
+                        text = {
+                            Text(
+                                if (viewMode == CalendarViewMode.AGENDA) {
+                                    "Agenda (Current)"
+                                } else {
+                                    "Agenda"
+                                }
+                            )
+                        },
+                        onClick = {
+                            showMenu = false
+                            onViewModeChanged(CalendarViewMode.AGENDA)
+                        }
+                    )
+
+                    DropdownMenuItem(
+                        text = {
+                            Text(
+                                if (viewMode == CalendarViewMode.DAY) {
+                                    "Day (Current)"
+                                } else {
+                                    "Day"
+                                }
+                            )
+                        },
+                        onClick = {
+                            showMenu = false
+                            onViewModeChanged(CalendarViewMode.DAY)
+                        }
+                    )
+
+                    DropdownMenuItem(
+                        text = {
+                            Text(
+                                if (viewMode == CalendarViewMode.WEEK) {
+                                    "Week (Current)"
+                                } else {
+                                    "Week"
+                                }
+                            )
+                        },
+                        onClick = {
+                            showMenu = false
+                            onViewModeChanged(CalendarViewMode.WEEK)
+                        }
+                    )
+
+                    HorizontalDivider()
 
                     DropdownMenuItem(text = { Text("Manage Calendars") }, onClick = {
                         showMenu = false
