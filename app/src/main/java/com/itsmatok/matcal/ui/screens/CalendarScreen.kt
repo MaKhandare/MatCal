@@ -1,6 +1,7 @@
 package com.itsmatok.matcal.ui.screens
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -58,6 +59,13 @@ fun CalendarScreen(
         firstVisibleMonth = initialMonth,
         firstDayOfWeek = firstDayOfWeek
     )
+
+    LaunchedEffect(state.firstVisibleMonth.yearMonth) {
+        val visibleMonth = state.firstVisibleMonth.yearMonth
+        if (selection.yearMonth != visibleMonth) {
+            viewModel.onDateSelected(visibleMonth.atDay(1))
+        }
+    }
 
 
     CalendarContent(
