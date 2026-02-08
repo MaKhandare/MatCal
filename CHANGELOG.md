@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.7.0](https://github.com/MaKhandare/MatCal/compare/v0.6.0...v0.7.0) (2026-02-08)
+
+
+### Features
+
+* add notifications ([fe04e23](https://github.com/MaKhandare/MatCal/commit/fe04e236c2d7bf3e55def3fa9eb7e7c196ffd156))
+* add week and day view ([c373eed](https://github.com/MaKhandare/MatCal/commit/c373eed39b6e13a4a9f26e5401234acce1b136bc))
+* check for VALARM, if not present use default times: ([924403c](https://github.com/MaKhandare/MatCal/commit/924403c9077df53934d39c5c5c41e42843fac7f1))
+
+
+### Bug Fixes
+
+* [#18](https://github.com/MaKhandare/MatCal/issues/18) do not keep selection from month when selecting an out date ([f3dd1f3](https://github.com/MaKhandare/MatCal/commit/f3dd1f3186900883e53d0d2f814b8464d82d9839))
+
 ## [0.6.0](https://github.com/MaKhandare/MatCal/compare/v0.5.0...v0.6.0) (2025-12-22)
 
 
