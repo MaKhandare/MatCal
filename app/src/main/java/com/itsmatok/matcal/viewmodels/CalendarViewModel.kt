@@ -11,6 +11,7 @@ import com.itsmatok.matcal.data.calendar.events.CalendarEventDatabase
 import com.itsmatok.matcal.data.calendar.events.EventMapper
 import com.itsmatok.matcal.data.calendar.events.RecurrenceUtil
 import com.itsmatok.matcal.data.calendar.subscriptions.CalendarSubscription
+import com.itsmatok.matcal.notifications.EventNotificationScheduler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,6 +27,7 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
     private val db = CalendarEventDatabase.getDatabase(application)
     private val eventDao = db.eventDao()
     private val subDao = db.subscriptionDao()
+    private val notificationScheduler = EventNotificationScheduler(application)
 
     private val _selectedDate = MutableStateFlow(LocalDate.now())
     val selectedDate = _selectedDate.asStateFlow()
@@ -44,7 +46,8 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
 
     fun addEvent(event: CalendarEvent) {
         viewModelScope.launch {
-            eventDao.insertEvent(event)
+            val insertedId = eventDao.insertEvent(event).toInt()
+            notificationScheduler.schedule(event.copy(id = insertedId))
         }
     }
 
@@ -54,18 +57,24 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
 
     fun deleteEvent(id: Int) {
         viewModelScope.launch {
+            notificationScheduler.cancel(id)
             eventDao.deleteEventById(id)
         }
     }
 
     fun updateEvent(event: CalendarEvent) {
         viewModelScope.launch {
+            notificationScheduler.cancel(event.id)
             eventDao.updateEvent(event)
+            notificationScheduler.schedule(event)
         }
     }
 
     fun deleteSubscription(subscription: CalendarSubscription) {
         viewModelScope.launch(Dispatchers.IO) {
+            eventDao.getEventsByUrl(subscription.url).forEach { event ->
+                notificationScheduler.cancel(event.id)
+            }
             subDao.delete(subscription)
             eventDao.deleteEventsBySource(subscription.url)
 

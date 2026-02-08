@@ -1,5 +1,11 @@
 package com.itsmatok.matcal.ui.screens
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -21,10 +27,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.itsmatok.matcal.data.calendar.events.RecurrenceType
-import com.itsmatok.matcal.ui.calendar.components.forms.TimePickerDialog
 import com.itsmatok.matcal.ui.calendar.components.forms.EventFormContent
+import com.itsmatok.matcal.ui.calendar.components.forms.ReminderSelection
+import com.itsmatok.matcal.ui.calendar.components.forms.TimePickerDialog
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
+import androidx.core.content.ContextCompat
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
@@ -51,6 +60,8 @@ fun EditEventScreen(
         )
     }
     var recurrence by remember { mutableStateOf(RecurrenceType.NONE) }
+    var reminderSelection by remember { mutableStateOf(ReminderSelection.NONE) }
+    var customReminderMinutes by remember { mutableStateOf("10") }
 
     var dataLoaded by remember { mutableStateOf(false) }
 
@@ -64,6 +75,8 @@ fun EditEventScreen(
                 startTime = event.startTime
                 endTime = event.endTime
                 recurrence = event.recurrenceType ?: RecurrenceType.NONE
+                reminderSelection = ReminderSelection.fromMinutes(event.reminderMinutes)
+                customReminderMinutes = event.reminderMinutes?.toString() ?: "10"
                 dataLoaded = true
             }
         }
@@ -72,6 +85,18 @@ fun EditEventScreen(
     var showDatePicker by remember { mutableStateOf(false) }
     var showStartTimePicker by remember { mutableStateOf(false) }
     var showEndTimePicker by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val notificationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (!granted) {
+            Toast.makeText(
+                context,
+                "Enable notifications in system settings to receive reminders.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -101,9 +126,32 @@ fun EditEventScreen(
             onEndTimeClick = { showEndTimePicker = true },
             recurrence = recurrence,
             onRecurrenceChange = { recurrence = it },
+            reminderSelection = reminderSelection,
+            onReminderSelectionChange = { reminderSelection = it },
+            customReminderMinutes = customReminderMinutes,
+            onCustomReminderMinutesChange = { customReminderMinutes = it },
             buttonText = "Update",
             onSaveClick = {
                 eventState?.let { event ->
+                    val reminderMinutes = when (reminderSelection) {
+                        ReminderSelection.NONE -> null
+                        ReminderSelection.FIFTEEN_MINUTES -> 15
+                        ReminderSelection.THIRTY_MINUTES -> 30
+                        ReminderSelection.ONE_HOUR -> 60
+                        ReminderSelection.CUSTOM -> customReminderMinutes.toIntOrNull()
+                            ?.takeIf { it > 0 }
+                    }
+
+                    if (reminderMinutes != null &&
+                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                        ContextCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.POST_NOTIFICATIONS
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    }
+
                     val updatedEvent = event.copy(
                         title = title,
                         date = selectedDate,
@@ -111,6 +159,7 @@ fun EditEventScreen(
                         endTime = endTime,
                         location = location.trim().ifEmpty { null },
                         description = description.trim().ifEmpty { null },
+                        reminderMinutes = reminderMinutes,
                         recurrenceType = recurrence
                     )
                     viewModel.updateEvent(updatedEvent)

@@ -22,6 +22,7 @@ data class CalendarEvent(
 
     val sourceUrl: String? = null,
     val iCalUid: String? = null,
+    val reminderMinutes: Int? = null,
 
     val recurrenceType: RecurrenceType? = RecurrenceType.NONE
 )

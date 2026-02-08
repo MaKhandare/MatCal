@@ -46,6 +46,10 @@ fun EventFormContent(
     onEndTimeClick: () -> Unit,
     recurrence: RecurrenceType,
     onRecurrenceChange: (RecurrenceType) -> Unit,
+    reminderSelection: ReminderSelection,
+    onReminderSelectionChange: (ReminderSelection) -> Unit,
+    customReminderMinutes: String,
+    onCustomReminderMinutesChange: (String) -> Unit,
     buttonText: String,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -53,6 +57,8 @@ fun EventFormContent(
     val dateFormatter = DateTimeFormatter.ofPattern("EEE, MMM dd, yyyy")
     val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
     val scrollState = rememberScrollState()
+    val isCustomReminderValid = reminderSelection != ReminderSelection.CUSTOM ||
+        customReminderMinutes.toIntOrNull()?.let { it > 0 } == true
 
     Column(
         modifier = modifier
@@ -106,6 +112,13 @@ fun EventFormContent(
             onRecurrenceSelected = onRecurrenceChange
         )
 
+        ReminderDropdown(
+            selectedReminder = reminderSelection,
+            onReminderSelected = onReminderSelectionChange,
+            customReminderMinutes = customReminderMinutes,
+            onCustomReminderMinutesChange = onCustomReminderMinutesChange
+        )
+
         // location
         OutlinedTextField(
             value = location,
@@ -132,7 +145,7 @@ fun EventFormContent(
         Button(
             onClick = onSaveClick,
             modifier = Modifier.fillMaxWidth(),
-            enabled = title.isNotBlank(),
+            enabled = title.isNotBlank() && isCustomReminderValid,
             content = { Text(buttonText) }
         )
 

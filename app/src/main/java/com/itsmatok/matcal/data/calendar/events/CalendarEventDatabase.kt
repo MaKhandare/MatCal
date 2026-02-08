@@ -7,10 +7,12 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.itsmatok.matcal.data.calendar.subscriptions.SubscriptionDao
 import com.itsmatok.matcal.data.calendar.subscriptions.CalendarSubscription
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
     entities = [CalendarEvent::class, CalendarSubscription::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -28,10 +30,17 @@ abstract class CalendarEventDatabase : RoomDatabase() {
                     context.applicationContext,
                     CalendarEventDatabase::class.java,
                     "calendar_database"
-                ).build()
+                ).addMigrations(MIGRATION_1_2)
+                    .build()
 
                 INSTANCE = instance
                 instance
+            }
+        }
+
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE events ADD COLUMN reminderMinutes INTEGER")
             }
         }
     }
