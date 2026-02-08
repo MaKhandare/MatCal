@@ -13,6 +13,7 @@ The goal is to provide a lightweight, functional, and system-native calendar exp
 ## Features
 
 - **Event Management**: Create, view and manage events
+- **Event Reminders**: Optional notifications for events (`15 min`, `30 min`, `1 hour`, or custom minutes before start)
 - **Offline first**: All data is stored locally using SQLite (Room)
 - **iCal Sync**: Import and sync external calendars (University, Work, Holidays) via URL
 - **No Bloat**: No ads, no tracking, no unneeded permissions
@@ -22,6 +23,13 @@ The goal is to provide a lightweight, functional, and system-native calendar exp
 - Events are stored locally in an embedded SQLite database managed through Room.
 - MatCal includes **no trackers, analytics, or background data collection**.
 - `android.permission.INTERNET` is **only** used when you explicitly add or refresh an iCal subscription URL
+- `android.permission.POST_NOTIFICATIONS` is **only** used for event reminders that you set.
+
+## Notifications
+
+- Reminders can be configured while adding or editing an event.
+- Available presets: `15 minutes before`, `30 minutes before`, `1 hour before`, or `Custom`.
+- Reminder alarms are scheduled locally on-device and trigger a standard Android notification.
 
 ## Design
 
@@ -29,16 +37,9 @@ MatCal utilizes the system's **Dynamic Colors**, adapting automatically to your 
 
 ## Screenshots
 
-| Calendar (Dark Theme / Black background)          | 
-|---------------------------------------------------|
-| <img src="./docs/CalendarScreen.png" width="250"> | 
-
-
-| Calendar (Light Theme / Red background)           |
-|---------------------------------------------------|
-| <img src="./docs/CalendarLight.png" width="250">  |
-
-(WIP)
+| Agenda View                                       | Day View                                          | Week View                                         |
+|---------------------------------------------------|---------------------------------------------------|---------------------------------------------------|
+| <img src="./docs/CalendarScreen.png" width="250"> | <img src="./docs/CalendarDay.png" width="250">    | <img src="./docs/CalendarWeek.png" width="250">   |
 
 ## Requirements
 
