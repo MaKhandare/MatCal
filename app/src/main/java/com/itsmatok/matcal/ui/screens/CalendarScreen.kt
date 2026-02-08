@@ -9,7 +9,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import com.itsmatok.matcal.ui.calendar.components.main.CalendarContentActions
 import com.itsmatok.matcal.ui.calendar.components.main.CalendarContent
+import com.itsmatok.matcal.ui.calendar.components.main.CalendarContentUiState
 import com.itsmatok.matcal.ui.calendar.components.main.CalendarViewMode
 import com.itsmatok.matcal.ui.calendar.components.main.ImportUrlDialog
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
@@ -69,26 +71,30 @@ fun CalendarScreen(
 
 
     CalendarContent(
-        state = state,
-        events = events,
-        selection = selection,
-        firstDayOfWeek = firstDayOfWeek,
-        viewMode = viewMode,
-        onViewModeChanged = { viewModeName = it.name },
-        onDateSelected = { clickedDate ->
-            viewModel.onDateSelected(clickedDate)
+        uiState = CalendarContentUiState(
+            state = state,
+            events = events,
+            selection = selection,
+            firstDayOfWeek = firstDayOfWeek,
+            viewMode = viewMode
+        ),
+        actions = CalendarContentActions(
+            onViewModeChanged = { viewModeName = it.name },
+            onDateSelected = { clickedDate ->
+                viewModel.onDateSelected(clickedDate)
 
-            if (clickedDate.yearMonth != state.firstVisibleMonth.yearMonth) {
-                coroutineScope.launch {
-                    state.animateScrollToMonth(clickedDate.yearMonth)
+                if (clickedDate.yearMonth != state.firstVisibleMonth.yearMonth) {
+                    coroutineScope.launch {
+                        state.animateScrollToMonth(clickedDate.yearMonth)
+                    }
                 }
-            }
-        },
-        onAddEventClicked = onAddEventClicked,
-        onLicenseClicked = onLicenseClicked,
-        onEventClicked = onEventClicked,
-        onImportClicked = { showImportDialog = true },
-        onRefreshClicked = { viewModel.refreshAllSchedules() },
-        onManageCalendarsClicked = onManageCalendarsClicked
+            },
+            onAddEventClicked = onAddEventClicked,
+            onLicenseClicked = onLicenseClicked,
+            onEventClicked = onEventClicked,
+            onImportClicked = { showImportDialog = true },
+            onRefreshClicked = { viewModel.refreshAllSchedules() },
+            onManageCalendarsClicked = onManageCalendarsClicked
+        )
     )
 }
