@@ -174,7 +174,7 @@ private fun DayView(
     }
     val eventsByHour = remember(dayEvents) { dayEvents.groupBy { it.startTime.hour } }
     val dateFormatter = remember { DateTimeFormatter.ofPattern("EEEE, MMM d", Locale.getDefault()) }
-    val hourFormatter = remember { DateTimeFormatter.ofPattern("h a", Locale.getDefault()) }
+    val hourFormatter = remember { DateTimeFormatter.ofPattern("HH:mm", Locale.getDefault()) }
 
     Column(modifier = modifier.fillMaxSize()) {
         DateNavigator(
