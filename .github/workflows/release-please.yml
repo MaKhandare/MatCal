@@ -44,9 +44,27 @@ jobs:
       - name: Build release APK
         run: ./gradlew :app:assembleRelease
 
+      - name: Resolve Android build-tools version
+        id: build_tools
+        run: |
+          BUILD_TOOLS_DIR="${ANDROID_HOME}/build-tools"
+          if [ ! -d "$BUILD_TOOLS_DIR" ]; then
+            echo "No build-tools directory found at $BUILD_TOOLS_DIR"
+            exit 1
+          fi
+          BUILD_TOOLS_VERSION="$(find "$BUILD_TOOLS_DIR" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort -V | tail -n 1)"
+          if [ -z "$BUILD_TOOLS_VERSION" ]; then
+            echo "No installed Android build-tools version found."
+            exit 1
+          fi
+          echo "Using Android build-tools version: $BUILD_TOOLS_VERSION"
+          echo "version=$BUILD_TOOLS_VERSION" >> "$GITHUB_OUTPUT"
+
       - name: Sign release APK
         id: sign_app
         uses: r0adkll/sign-android-release@v1
+        env:
+          BUILD_TOOLS_VERSION: ${{ steps.build_tools.outputs.version }}
         with:
           releaseDirectory: app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
