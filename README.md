@@ -68,4 +68,4 @@ If you find a bug or have an idea for improvement, feel free to open an issue or
 
 ## License
 
-Distributed under MIT License. See [LICENSE](https://github.com/MaKhandare/MatCal/blob/main/LICENSE) for more information.
+Distributed under MIT License. See [LICENSE](https://github.com/MaKhandare/MatCal/blob/main/LICENSE) for more information. 
