@@ -1,5 +1,6 @@
 package com.itsmatok.matcal.ui.calendar.components.main
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -32,6 +33,7 @@ internal fun DayView(
     selection: LocalDate?,
     events: Map<LocalDate, List<CalendarEvent>>,
     onDateSelected: (LocalDate) -> Unit,
+    onHourClicked: (LocalDate, Int) -> Unit,
     onEventClicked: (Int) -> Unit
 ) {
     val selectedDate = selection ?: LocalDate.now()
@@ -71,6 +73,7 @@ internal fun DayView(
                     Column(
                         modifier = Modifier
                             .weight(1f)
+                            .clickable { onHourClicked(selectedDate, hour) }
                             .padding(start = 12.dp)
                     ) {
                         HorizontalDivider(color = DividerDefaults.color)

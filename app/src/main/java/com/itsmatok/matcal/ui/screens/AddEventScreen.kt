@@ -35,6 +35,7 @@ import com.itsmatok.matcal.ui.calendar.components.forms.TimePickerDialog
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
 import androidx.core.content.ContextCompat
 import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId
 
@@ -42,6 +43,8 @@ import java.time.ZoneId
 @Composable
 fun AddEventScreen(
     viewModel: CalendarViewModel,
+    initialDate: LocalDate? = null,
+    initialHour: Int? = null,
     onNavigateBack: () -> Unit
 ) {
     var title by remember { mutableStateOf("") }
@@ -51,15 +54,15 @@ fun AddEventScreen(
     var reminderSelection by remember { mutableStateOf(ReminderSelection.NONE) }
     var customReminderMinutes by remember { mutableStateOf("10") }
 
-    var startTime by remember { mutableStateOf(LocalTime.now().withSecond(0).withNano(0)) }
-    var endTime by remember {
-        mutableStateOf(
-            LocalTime.now().plusHours(1).withSecond(0).withNano(0)
-        )
+    val fallbackStartTime = remember { LocalTime.now().withSecond(0).withNano(0) }
+    val initialStartTime = remember(initialHour) {
+        initialHour?.takeIf { it in 0..23 }?.let { LocalTime.of(it, 0) } ?: fallbackStartTime
     }
+    var startTime by remember(initialHour) { mutableStateOf(initialStartTime) }
+    var endTime by remember(initialHour) { mutableStateOf(initialStartTime.plusHours(1).withSecond(0).withNano(0)) }
 
     val currentSelection by viewModel.selectedDate.collectAsState()
-    var selectedDate by remember { mutableStateOf(currentSelection) }
+    var selectedDate by remember(initialDate) { mutableStateOf(initialDate ?: currentSelection) }
 
     var showDatePicker by remember { mutableStateOf(false) }
     var showStartTimePicker by remember { mutableStateOf(false) }

@@ -48,6 +48,7 @@ fun CalendarContent(
                         selection = uiState.selection,
                         events = uiState.events,
                         onDateSelected = actions.onDateSelected,
+                        onHourClicked = actions.onDayHourClicked,
                         onEventClicked = actions.onEventClicked
                     )
                 }

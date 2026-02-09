@@ -9,7 +9,10 @@ object Calendar
 object License
 
 @Serializable
-object AddEvent
+data class AddEvent(
+    val date: String? = null,
+    val hour: Int? = null
+)
 
 @Serializable
 data class EditEvent(val eventId: Int)

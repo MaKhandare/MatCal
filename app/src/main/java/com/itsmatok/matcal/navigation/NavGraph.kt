@@ -12,6 +12,7 @@ import com.itsmatok.matcal.ui.screens.EditEventScreen
 import com.itsmatok.matcal.ui.screens.LicenseScreen
 import com.itsmatok.matcal.ui.screens.ManageCalendarsScreen
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
+import java.time.LocalDate
 
 @Composable
 fun NavGraph(
@@ -26,7 +27,10 @@ fun NavGraph(
         composable<Calendar> {
             CalendarScreen(
                 viewModel = viewModel,
-                onAddEventClicked = { navController.navigate(AddEvent) },
+                onAddEventClicked = { navController.navigate(AddEvent()) },
+                onDayHourClicked = { date, hour ->
+                    navController.navigate(AddEvent(date = date.toString(), hour = hour))
+                },
                 onLicenseClicked = { navController.navigate(License) },
                 onEventClicked = { eventId ->
                     navController.navigate(EventDetails(eventId))
@@ -35,9 +39,14 @@ fun NavGraph(
             )
         }
 
-        composable<AddEvent> {
+        composable<AddEvent> { backStackEntry ->
+            val route: AddEvent = backStackEntry.toRoute()
             AddEventScreen(
                 viewModel = viewModel,
+                initialDate = route.date?.let { dateString ->
+                    runCatching { LocalDate.parse(dateString) }.getOrNull()
+                },
+                initialHour = route.hour,
                 onNavigateBack = { navController.navigateUp() }
             )
         }

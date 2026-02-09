@@ -17,6 +17,7 @@ data class CalendarContentActions(
     val onViewModeChanged: (CalendarViewMode) -> Unit,
     val onDateSelected: (LocalDate) -> Unit,
     val onAddEventClicked: () -> Unit,
+    val onDayHourClicked: (LocalDate, Int) -> Unit,
     val onLicenseClicked: () -> Unit,
     val onEventClicked: (Int) -> Unit,
     val onImportClicked: () -> Unit,

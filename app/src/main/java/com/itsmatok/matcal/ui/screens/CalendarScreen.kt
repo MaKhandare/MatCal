@@ -19,12 +19,14 @@ import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.core.yearMonth
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import java.time.YearMonth
 
 @Composable
 fun CalendarScreen(
     viewModel: CalendarViewModel,
     onAddEventClicked: () -> Unit,
+    onDayHourClicked: (LocalDate, Int) -> Unit,
     onLicenseClicked: () -> Unit,
     onEventClicked: (Int) -> Unit,
     onManageCalendarsClicked: () -> Unit
@@ -90,6 +92,7 @@ fun CalendarScreen(
                 }
             },
             onAddEventClicked = onAddEventClicked,
+            onDayHourClicked = onDayHourClicked,
             onLicenseClicked = onLicenseClicked,
             onEventClicked = onEventClicked,
             onImportClicked = { showImportDialog = true },
