@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/MaKhandare/MatCal/compare/v0.8.0...v0.9.0) (2026-02-09)
+
+
+### Features
+
+* [#22](https://github.com/MaKhandare/MatCal/issues/22) clicking on an hour in day view creates an event now ([7fa36cc](https://github.com/MaKhandare/MatCal/commit/7fa36cced4bb666bf9c66af1542a344ef0fe0319))
+
 ## [0.8.0](https://github.com/MaKhandare/MatCal/compare/v0.7.0...v0.8.0) (2026-02-08)
 
 
