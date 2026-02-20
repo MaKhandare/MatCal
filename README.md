@@ -13,7 +13,7 @@ The goal is to provide a lightweight, functional, and system-native calendar exp
 ## Features
 
 - **Event Management**: Create, view and manage events
-- **Event Reminders**: Optional notifications for events (`15 min`, `30 min`, `1 hour`, or custom minutes before start)
+- **Event Reminders**: Optional notifications for events (`15 min`, `30 min`, `1 hour`, `1 day`, or custom minutes before start)
 - **Offline first**: All data is stored locally using SQLite (Room)
 - **iCal Sync**: Import and sync external calendars (University, Work, Holidays) via URL
 - **No Bloat**: No ads, no tracking, no unneeded permissions
@@ -28,7 +28,7 @@ The goal is to provide a lightweight, functional, and system-native calendar exp
 ## Notifications
 
 - Reminders can be configured while adding or editing an event.
-- Available presets: `15 minutes before`, `30 minutes before`, `1 hour before`, or `Custom`.
+- Available presets: `15 minutes before`, `30 minutes before`, `1 hour before`, `1 day before`, or `Custom`.
 - Reminder alarms are scheduled locally on-device and trigger a standard Android notification.
 
 ## Design
