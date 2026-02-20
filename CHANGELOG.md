@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.1](https://github.com/MaKhandare/MatCal/compare/v0.9.0...v0.9.1) (2026-02-20)
+
+
+### Bug Fixes
+
+* multi hour events in day view are now being rendered properly ([0aead0d](https://github.com/MaKhandare/MatCal/commit/0aead0da1d47e807c7c95654fb4c6c299b44df69))
+* zero duration events now have a fix height so it can display text properly ([4d994c1](https://github.com/MaKhandare/MatCal/commit/4d994c1549e3e5d8507e41fe0afa4e4a0bc50986))
+
 ## [0.9.0](https://github.com/MaKhandare/MatCal/compare/v0.8.0...v0.9.0) (2026-02-09)
 
 
