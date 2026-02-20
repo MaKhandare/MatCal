@@ -8,32 +8,31 @@
     <group
         android:pivotX="54"
         android:pivotY="54"
-        android:scaleX="0.80"
-        android:scaleY="0.80">
+        android:scaleX="0.82"
+        android:scaleY="0.82">
 
         <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M36,29 C32.686,29 30,31.686 30,35 V73 C30,76.314 32.686,79 36,79 H72 C75.314,79 78,76.314 78,73 V35 C78,31.686 75.314,29 72,29 H36 Z" />
+            android:fillColor="#F2F3F5"
+            android:pathData="M34,27 C30.686,27 28,29.686 28,33 V75 C28,78.314 30.686,81 34,81 H74 C77.314,81 80,78.314 80,75 V33 C80,29.686 77.314,27 74,27 H34 Z" />
 
         <path
-            android:fillColor="#80A4F5"
-            android:pathData="M30,35 C30,31.686 32.686,29 36,29 H72 C75.314,29 78,31.686 78,35 V44 H30 V35 Z" />
+            android:fillColor="#D2D7DE"
+            android:pathData="M28,33 C28,29.686 30.686,27 34,27 H74 C77.314,27 80,29.686 80,33 V44 H28 V33 Z" />
 
         <path
-            android:fillColor="#283E96"
-            android:pathData="M40,26 L44,26 L44,34 L40,34 Z" />
-        <path
-            android:fillColor="#283E96"
-            android:pathData="M64,26 L68,26 L68,34 L64,34 Z" />
+            android:fillColor="#1F232A"
+            android:pathData="M39,23 L44,23 L44,34 L39,34 Z" />
 
         <path
-            android:fillColor="#E0E0E0"
-            android:pathData="M38,52 H70 V55 H38 Z" />
+            android:fillColor="#1F232A"
+            android:pathData="M64,23 L69,23 L69,34 L64,34 Z" />
+
         <path
-            android:fillColor="#E0E0E0"
-            android:pathData="M38,60 H62 V63 H38 Z" />
-        <path
-            android:fillColor="#E0E0E0"
-            android:pathData="M38,68 H54 V71 H38 Z" />
+            android:fillColor="#1F232A"
+            android:pathData="
+                M44,50 H52 V58 H44 Z
+                M56,50 H64 V58 H56 Z
+                M44,62 H52 V70 H44 Z
+                M56,62 H64 V70 H56 Z" />
     </group>
 </vector>
