@@ -5,6 +5,7 @@ enum class ReminderSelection(val label: String, val minutes: Int?) {
     FIFTEEN_MINUTES("15 minutes before", 15),
     THIRTY_MINUTES("30 minutes before", 30),
     ONE_HOUR("1 hour before", 60),
+    ONE_DAY("1 day before", 1440),
     CUSTOM("Custom", null);
 
     companion object {
@@ -14,6 +15,7 @@ enum class ReminderSelection(val label: String, val minutes: Int?) {
                 15 -> FIFTEEN_MINUTES
                 30 -> THIRTY_MINUTES
                 60 -> ONE_HOUR
+                1440 -> ONE_DAY
                 else -> CUSTOM
             }
         }

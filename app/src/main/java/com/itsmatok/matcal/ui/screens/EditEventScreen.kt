@@ -138,6 +138,7 @@ fun EditEventScreen(
                         ReminderSelection.FIFTEEN_MINUTES -> 15
                         ReminderSelection.THIRTY_MINUTES -> 30
                         ReminderSelection.ONE_HOUR -> 60
+                        ReminderSelection.ONE_DAY -> 1440
                         ReminderSelection.CUSTOM -> customReminderMinutes.toIntOrNull()
                             ?.takeIf { it > 0 }
                     }
