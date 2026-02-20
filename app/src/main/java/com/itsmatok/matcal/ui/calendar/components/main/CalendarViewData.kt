@@ -15,7 +15,8 @@ internal data class DayPositionedEvent(
     val startMinutes: Int,
     val endMinutes: Int,
     val laneIndex: Int,
-    val laneCount: Int
+    val laneCount: Int,
+    val isZeroDuration: Boolean
 )
 
 internal fun positionDayEvents(
@@ -71,13 +72,15 @@ internal fun positionDayEvents(
 private data class NormalizedDayEvent(
     val event: CalendarEvent,
     val startMinutes: Int,
-    val endMinutes: Int
+    val endMinutes: Int,
+    val isZeroDuration: Boolean
 )
 
 private fun CalendarEvent.toNormalizedDayEvent(): NormalizedDayEvent {
     val start = (startTime.hour * MINUTES_PER_HOUR + startTime.minute)
         .coerceIn(0, LAST_MINUTE_OF_DAY)
     val rawEnd = (endTime.hour * MINUTES_PER_HOUR + endTime.minute).coerceIn(0, MINUTES_PER_DAY)
+    val isZeroDuration = rawEnd == start
     val end = if (rawEnd <= start) {
         (start + 1).coerceAtMost(MINUTES_PER_DAY)
     } else {
@@ -87,7 +90,8 @@ private fun CalendarEvent.toNormalizedDayEvent(): NormalizedDayEvent {
     return NormalizedDayEvent(
         event = this,
         startMinutes = start,
-        endMinutes = end
+        endMinutes = end,
+        isZeroDuration = isZeroDuration
     )
 }
 
@@ -117,7 +121,8 @@ private fun positionCluster(clusterEvents: List<NormalizedDayEvent>): List<DayPo
             startMinutes = event.startMinutes,
             endMinutes = event.endMinutes,
             laneIndex = laneIndex,
-            laneCount = laneCount
+            laneCount = laneCount,
+            isZeroDuration = event.isZeroDuration
         )
     }
 }

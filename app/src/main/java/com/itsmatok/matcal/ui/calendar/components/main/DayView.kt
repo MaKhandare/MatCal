@@ -138,7 +138,13 @@ internal fun DayView(
                     val durationMinutes = (positionedEvent.endMinutes - positionedEvent.startMinutes)
                         .coerceAtLeast(1)
                     val rawHeight = timelineHeight * (durationMinutes / MINUTES_PER_DAY.toFloat())
-                    val eventHeight = maxOf(DAY_MIN_EVENT_HEIGHT, rawHeight)
+                    val eventHeight = if (positionedEvent.isZeroDuration) {
+                        DAY_ZERO_DURATION_HEIGHT
+                    } else {
+                        maxOf(DAY_MIN_EVENT_HEIGHT, rawHeight)
+                    }
+                    val compactCard = !positionedEvent.isZeroDuration &&
+                        eventHeight < DAY_COMPACT_EVENT_THRESHOLD
 
                     DayTimelineEventCard(
                         event = positionedEvent.event,
@@ -146,7 +152,8 @@ internal fun DayView(
                             .offset(x = laneOffsetX, y = top)
                             .width(laneWidth)
                             .height(eventHeight),
-                        compact = eventHeight < DAY_COMPACT_EVENT_THRESHOLD,
+                        compact = compactCard,
+                        forceShowTime = positionedEvent.isZeroDuration,
                         onEventClicked = onEventClicked
                     )
                 }
@@ -171,4 +178,5 @@ private val DAY_TIME_LABEL_WIDTH = 56.dp
 private val DAY_TIMELINE_GAP = 12.dp
 private val DAY_EVENT_LANE_GAP = 6.dp
 private val DAY_MIN_EVENT_HEIGHT = 28.dp
+private val DAY_ZERO_DURATION_HEIGHT = 56.dp
 private val DAY_COMPACT_EVENT_THRESHOLD = 60.dp

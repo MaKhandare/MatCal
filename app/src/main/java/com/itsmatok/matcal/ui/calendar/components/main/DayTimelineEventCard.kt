@@ -20,6 +20,7 @@ internal fun DayTimelineEventCard(
     event: CalendarEvent,
     modifier: Modifier = Modifier,
     compact: Boolean = false,
+    forceShowTime: Boolean = false,
     onEventClicked: (Int) -> Unit
 ) {
     val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
@@ -39,7 +40,7 @@ internal fun DayTimelineEventCard(
                 vertical = if (compact) 8.dp else 10.dp
             )
         ) {
-            if (!compact) {
+            if (!compact || forceShowTime) {
                 Text(
                     text = "${event.startTime.format(timeFormatter)} - ${event.endTime.format(timeFormatter)}",
                     style = MaterialTheme.typography.labelMedium,
