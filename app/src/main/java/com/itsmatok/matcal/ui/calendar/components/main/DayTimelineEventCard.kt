@@ -1,8 +1,8 @@
 package com.itsmatok.matcal.ui.calendar.components.main
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -18,36 +18,44 @@ import java.time.format.DateTimeFormatter
 @Composable
 internal fun DayTimelineEventCard(
     event: CalendarEvent,
+    modifier: Modifier = Modifier,
+    compact: Boolean = false,
     onEventClicked: (Int) -> Unit
 ) {
     val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 8.dp),
+        modifier = modifier,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        shape = RoundedCornerShape(12.dp),
         onClick = { onEventClicked(event.id) }
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp)
-        ) {
-            Text(
-                text = "${event.startTime.format(timeFormatter)} - ${event.endTime.format(timeFormatter)}",
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+            modifier = Modifier.padding(
+                horizontal = 12.dp,
+                vertical = if (compact) 8.dp else 10.dp
             )
+        ) {
+            if (!compact) {
+                Text(
+                    text = "${event.startTime.format(timeFormatter)} - ${event.endTime.format(timeFormatter)}",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
             Text(
                 text = event.title,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface,
-                maxLines = 2,
+                maxLines = if (compact) 1 else 2,
                 overflow = TextOverflow.Ellipsis
             )
 
-            if (!event.location.isNullOrBlank()) {
+            if (!compact && !event.location.isNullOrBlank()) {
                 Text(
                     text = event.location,
                     style = MaterialTheme.typography.bodySmall,
