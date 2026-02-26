@@ -50,6 +50,21 @@ MatCal utilizes the system's **Dynamic Colors**, adapting automatically to your 
 
 You can grab the latest APK from the [Releases Page](https://github.com/MaKhandare/MatCal/releases).
 
+
+## Will this work with Google's incoming App Verification changes?
+
+No.
+
+>➤ You, the creator, can no longer develop an app and share it directly with your friends, family, and community without first seeking Google’s approval. The promise of Android — and a marketing advantage it has used to distinguish itself against the iPhone — has always been that it is “open”. But Google clearly feels that they have enough of a lock on the Android ecosystem, along with sufficient regulatory capture, that they can now jettison this principle with prejudice and impunity.
+
+[Keep Android Open](https://keepandroidopen.org/)
+
+--- 
+
+It will work with GrapheneOS:
+
+<img src="./docs/appverif.png">
+
 ## Tech Stack
 
 - Language: [Kotlin](https://kotlinlang.org/)
