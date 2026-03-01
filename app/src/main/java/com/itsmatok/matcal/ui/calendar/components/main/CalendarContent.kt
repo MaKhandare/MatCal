@@ -1,11 +1,15 @@
 package com.itsmatok.matcal.ui.calendar.components.main
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun CalendarContent(
@@ -16,6 +20,11 @@ fun CalendarContent(
         topBar = {
             CalendarTopAppBar(
                 viewMode = uiState.viewMode,
+                isSearchActive = uiState.isSearchActive,
+                searchQuery = uiState.searchQuery,
+                onSearchActivate = actions.onSearchActivate,
+                onSearchQueryChange = actions.onSearchQueryChange,
+                onSearchClose = actions.onSearchClose,
                 onViewModeChanged = actions.onViewModeChanged,
                 onAddEventClicked = actions.onAddEventClicked,
                 onLicenseClicked = actions.onLicenseClicked,
@@ -63,6 +72,19 @@ fun CalendarContent(
                         onEventClicked = actions.onEventClicked
                     )
                 }
+            }
+
+            if (uiState.isSearchActive) {
+                HorizontalDivider()
+
+                EventSearchResultsSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(260.dp),
+                    query = uiState.searchQuery,
+                    results = uiState.searchResults,
+                    onEventClicked = actions.onEventClicked
+                )
             }
         }
     }

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MatCal</string>
+    <string name="search_events">Search events</string>
+    <string name="search_close">Close search</string>
+    <string name="search_results">Search Results</string>
+    <string name="search_type_hint">Type to search events</string>
+    <string name="search_no_results">No events found</string>
+    <string name="search_result_count">%1$d results</string>
 </resources>

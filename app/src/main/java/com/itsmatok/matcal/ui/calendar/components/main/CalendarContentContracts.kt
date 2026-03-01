@@ -8,6 +8,9 @@ import java.time.LocalDate
 data class CalendarContentUiState(
     val state: CalendarState,
     val events: Map<LocalDate, List<CalendarEvent>>,
+    val searchResults: List<CalendarEvent>,
+    val searchQuery: String,
+    val isSearchActive: Boolean,
     val selection: LocalDate?,
     val firstDayOfWeek: DayOfWeek,
     val viewMode: CalendarViewMode
@@ -15,6 +18,9 @@ data class CalendarContentUiState(
 
 data class CalendarContentActions(
     val onViewModeChanged: (CalendarViewMode) -> Unit,
+    val onSearchActivate: () -> Unit,
+    val onSearchQueryChange: (String) -> Unit,
+    val onSearchClose: () -> Unit,
     val onDateSelected: (LocalDate) -> Unit,
     val onAddEventClicked: () -> Unit,
     val onDayHourClicked: (LocalDate, Int) -> Unit,

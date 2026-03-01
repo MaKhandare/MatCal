@@ -13,9 +13,15 @@ import com.itsmatok.matcal.data.calendar.events.RecurrenceUtil
 import com.itsmatok.matcal.data.calendar.subscriptions.CalendarSubscription
 import com.itsmatok.matcal.notifications.EventNotificationScheduler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -31,6 +37,8 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
 
     private val _selectedDate = MutableStateFlow(LocalDate.now())
     val selectedDate = _selectedDate.asStateFlow()
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery = _searchQuery.asStateFlow()
 
     val subscriptions: Flow<List<CalendarSubscription>> = subDao.getAllSubscriptionsFlow()
 
@@ -39,9 +47,31 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             .map { list -> RecurrenceUtil.expandEvents(list) }
             .flowOn(Dispatchers.Default)
 
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
+    val searchResults: Flow<List<CalendarEvent>> =
+        searchQuery
+            .map { it.trim() }
+            .debounce(250)
+            .distinctUntilChanged()
+            .flatMapLatest { query ->
+                if (query.isBlank()) {
+                    flowOf(emptyList())
+                } else {
+                    eventDao.searchEventsByTitle(query)
+                }
+            }
+
 
     fun onDateSelected(date: LocalDate) {
         _selectedDate.value = date
+    }
+
+    fun onSearchQueryChanged(query: String) {
+        _searchQuery.value = query
+    }
+
+    fun clearSearch() {
+        _searchQuery.value = ""
     }
 
     fun addEvent(event: CalendarEvent) {

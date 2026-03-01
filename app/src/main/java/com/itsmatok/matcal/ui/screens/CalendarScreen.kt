@@ -32,6 +32,8 @@ fun CalendarScreen(
     onManageCalendarsClicked: () -> Unit
 ) {
     val events by viewModel.events.collectAsState(initial = emptyMap())
+    val searchQuery by viewModel.searchQuery.collectAsState()
+    val searchResults by viewModel.searchResults.collectAsState(initial = emptyList())
     val currentMonth = remember { YearMonth.now() }
     val startMonth = remember { currentMonth.minusMonths(100) }
     val endMonth = remember { currentMonth.plusMonths(100) }
@@ -44,6 +46,7 @@ fun CalendarScreen(
 
     var showImportDialog by remember { mutableStateOf(false) }
     var viewModeName by rememberSaveable { mutableStateOf(CalendarViewMode.AGENDA.name) }
+    var isSearchActive by rememberSaveable { mutableStateOf(false) }
     val viewMode = CalendarViewMode.entries.firstOrNull { it.name == viewModeName }
         ?: CalendarViewMode.AGENDA
 
@@ -76,12 +79,21 @@ fun CalendarScreen(
         uiState = CalendarContentUiState(
             state = state,
             events = events,
+            searchResults = searchResults,
+            searchQuery = searchQuery,
+            isSearchActive = isSearchActive,
             selection = selection,
             firstDayOfWeek = firstDayOfWeek,
             viewMode = viewMode
         ),
         actions = CalendarContentActions(
             onViewModeChanged = { viewModeName = it.name },
+            onSearchActivate = { isSearchActive = true },
+            onSearchQueryChange = { viewModel.onSearchQueryChanged(it) },
+            onSearchClose = {
+                isSearchActive = false
+                viewModel.clearSearch()
+            },
             onDateSelected = { clickedDate ->
                 viewModel.onDateSelected(clickedDate)
 

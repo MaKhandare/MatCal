@@ -13,6 +13,15 @@ interface CalendarEventDao {
     @Query("SELECT * FROM events")
     fun getAllEvents(): Flow<List<CalendarEvent>>
 
+    @Query(
+        """
+        SELECT * FROM events
+        WHERE title LIKE '%' || :query || '%' COLLATE NOCASE
+        ORDER BY date ASC, startTime ASC, id ASC
+        """
+    )
+    fun searchEventsByTitle(query: String): Flow<List<CalendarEvent>>
+
     @Query("SELECT * FROM events WHERE sourceUrl = :url")
     suspend fun getEventsByUrl(url: String): List<CalendarEvent>
 
