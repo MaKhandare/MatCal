@@ -31,6 +31,7 @@ import com.itsmatok.matcal.data.calendar.events.RecurrenceType
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 fun EventFormContent(
@@ -56,7 +57,7 @@ fun EventFormContent(
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val dateFormatter = DateTimeFormatter.ofPattern("EEE, MMM dd, yyyy")
+    val dateFormatter = DateTimeFormatter.ofPattern("EEE, MMM dd, yyyy", Locale.getDefault())
     val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
     val scrollState = rememberScrollState()
     val isCustomReminderValid = reminderSelection != ReminderSelection.CUSTOM ||

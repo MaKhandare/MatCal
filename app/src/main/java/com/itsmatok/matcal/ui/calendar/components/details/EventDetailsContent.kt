@@ -24,10 +24,13 @@ import androidx.compose.ui.unit.dp
 import com.itsmatok.matcal.R
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 fun EventDetailsContent(event: CalendarEvent, modifier: Modifier = Modifier) {
-    val dateFormatter = remember { DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy") }
+    val dateFormatter = remember {
+        DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", Locale.getDefault())
+    }
     val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
 
     val scrollState = rememberScrollState()

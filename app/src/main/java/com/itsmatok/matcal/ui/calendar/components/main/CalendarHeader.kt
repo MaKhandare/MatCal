@@ -22,9 +22,14 @@ fun CalendarHeader(
     yearMonth: YearMonth,
     daysOfWeek: List<DayOfWeek>
 ) {
+    val monthLabel = yearMonth.month.getDisplayName(
+        TextStyle.FULL_STANDALONE,
+        Locale.getDefault()
+    )
+
     Column {
         Text(
-            text = stringResource(R.string.format_month_year, yearMonth.month, yearMonth.year),
+            text = stringResource(R.string.format_month_year, monthLabel, yearMonth.year),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 32.dp),
