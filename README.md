@@ -14,6 +14,7 @@ The goal is to provide a lightweight, functional, and system-native calendar exp
 
 - **Event Management**: Create, view and manage events
 - **Event Reminders**: Optional notifications for events (`15 min`, `30 min`, `1 hour`, `1 day`, or custom minutes before start)
+- **Event Search**: Search for saved events. Past or future
 - **Offline first**: All data is stored locally using SQLite (Room)
 - **iCal Sync**: Import and sync external calendars (University, Work, Holidays) via URL
 - **No Bloat**: No ads, no tracking, no unneeded permissions
