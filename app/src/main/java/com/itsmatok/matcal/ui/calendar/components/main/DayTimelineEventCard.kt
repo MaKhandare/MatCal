@@ -10,8 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.itsmatok.matcal.R
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
 import java.time.format.DateTimeFormatter
 
@@ -42,7 +44,11 @@ internal fun DayTimelineEventCard(
         ) {
             if (!compact || forceShowTime) {
                 Text(
-                    text = "${event.startTime.format(timeFormatter)} - ${event.endTime.format(timeFormatter)}",
+                    text = stringResource(
+                        R.string.format_time_range,
+                        event.startTime.format(timeFormatter),
+                        event.endTime.format(timeFormatter)
+                    ),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

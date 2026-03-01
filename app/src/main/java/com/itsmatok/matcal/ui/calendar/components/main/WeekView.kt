@@ -17,8 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.itsmatok.matcal.R
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -44,7 +46,11 @@ internal fun WeekView(
 
     Column(modifier = modifier.fillMaxSize()) {
         DateNavigator(
-            label = "${weekDays.first().format(weekRangeFormatter)} - ${weekDays.last().format(weekRangeFormatter)}",
+            label = stringResource(
+                R.string.format_week_range,
+                weekDays.first().format(weekRangeFormatter),
+                weekDays.last().format(weekRangeFormatter)
+            ),
             onPrevious = { onDateSelected(selectedDate.minusWeeks(1)) },
             onNext = { onDateSelected(selectedDate.plusWeeks(1)) }
         )

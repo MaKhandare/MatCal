@@ -1,12 +1,15 @@
 package com.itsmatok.matcal.ui.calendar.components.forms
 
-enum class ReminderSelection(val label: String, val minutes: Int?) {
-    NONE("No reminder", null),
-    FIFTEEN_MINUTES("15 minutes before", 15),
-    THIRTY_MINUTES("30 minutes before", 30),
-    ONE_HOUR("1 hour before", 60),
-    ONE_DAY("1 day before", 1440),
-    CUSTOM("Custom", null);
+import androidx.annotation.StringRes
+import com.itsmatok.matcal.R
+
+enum class ReminderSelection(@param:StringRes val labelRes: Int, val minutes: Int?) {
+    NONE(R.string.reminder_none, null),
+    FIFTEEN_MINUTES(R.string.reminder_fifteen_minutes, 15),
+    THIRTY_MINUTES(R.string.reminder_thirty_minutes, 30),
+    ONE_HOUR(R.string.reminder_one_hour, 60),
+    ONE_DAY(R.string.reminder_one_day, 1440),
+    CUSTOM(R.string.reminder_custom, null);
 
     companion object {
         fun fromMinutes(minutes: Int?): ReminderSelection {

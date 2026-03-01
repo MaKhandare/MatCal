@@ -18,8 +18,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.itsmatok.matcal.R
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
 import java.time.format.DateTimeFormatter
 
@@ -48,18 +50,18 @@ fun EventDetailsContent(event: CalendarEvent, modifier: Modifier = Modifier) {
 
         EventDetailItem(
             icon = Icons.Default.Event,
-            title = "Date",
-            subtitle = "${event.date.format(dateFormatter)}",
+            title = stringResource(R.string.event_details_date),
+            subtitle = event.date.format(dateFormatter),
         )
 
         EventDetailItem(
             icon = Icons.Outlined.Schedule,
-            title = "Time",
-            subtitle = "${event.startTime.format(timeFormatter)} - ${
-                event.endTime.format(
-                    timeFormatter
-                )
-            }",
+            title = stringResource(R.string.event_details_time),
+            subtitle = stringResource(
+                R.string.format_time_range,
+                event.startTime.format(timeFormatter),
+                event.endTime.format(timeFormatter)
+            ),
         )
 
         if (event.location?.isNotBlank() == true) {
@@ -68,7 +70,7 @@ fun EventDetailsContent(event: CalendarEvent, modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(24.dp))
             EventDetailItem(
                 icon = Icons.Outlined.LocationOn,
-                title = "Location",
+                title = stringResource(R.string.event_details_location),
                 subtitle = event.location,
             )
         }
@@ -79,7 +81,7 @@ fun EventDetailsContent(event: CalendarEvent, modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(24.dp))
             EventDetailItem(
                 icon = Icons.Default.Source,
-                title = "Source",
+                title = stringResource(R.string.event_details_source),
                 subtitle = event.source,
             )
         }
@@ -90,8 +92,12 @@ fun EventDetailsContent(event: CalendarEvent, modifier: Modifier = Modifier) {
 
         EventDetailItem(
             icon = Icons.Outlined.Description,
-            title = "Description",
-            subtitle = if (!event.description.isNullOrBlank()) event.description else "No description provided.",
+            title = stringResource(R.string.event_details_description),
+            subtitle = if (!event.description.isNullOrBlank()) {
+                event.description
+            } else {
+                stringResource(R.string.event_details_no_description)
+            },
             alignIconTop = true
         )
     }

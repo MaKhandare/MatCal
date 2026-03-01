@@ -1,3 +1,106 @@
 <resources>
     <string name="app_name">MatCal</string>
+
+    <string name="common_back">Back</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_ok">OK</string>
+    <string name="common_delete">Delete</string>
+    <string name="common_save">Save</string>
+    <string name="common_update">Update</string>
+    <string name="common_import">Import</string>
+    <string name="common_menu">Menu</string>
+    <string name="common_previous">Previous</string>
+    <string name="common_next">Next</string>
+
+    <string name="screen_add_event">Add Event</string>
+    <string name="screen_edit_event">Edit Event</string>
+    <string name="screen_manage_calendars">Manage Calendars</string>
+    <string name="screen_open_source_licenses">Open Source Licenses</string>
+
+    <string name="calendar_force_refresh">Force Refresh</string>
+    <string name="calendar_add_event">Add Event</string>
+    <string name="calendar_import_from_url">Import from URL</string>
+    <string name="calendar_view_mode_agenda">Agenda</string>
+    <string name="calendar_view_mode_day">Day</string>
+    <string name="calendar_view_mode_week">Week</string>
+    <string name="calendar_view_mode_current">%1$s (Current)</string>
+    <string name="calendar_no_date_selected">No date selected</string>
+    <string name="calendar_no_events_for_day">No events for this day.</string>
+    <string name="format_month_year">%1$s %2$d</string>
+    <string name="format_day_of_week_date">%1$s %2$d</string>
+    <string name="format_week_range">%1$s - %2$s</string>
+    <string name="format_time_range">%1$s - %2$s</string>
+
+    <string name="event_form_title">Event Title</string>
+    <string name="event_form_date">Date</string>
+    <string name="event_form_start_time">Start Time</string>
+    <string name="event_form_end_time">End Time</string>
+    <string name="event_form_location_optional">Location (Optional)</string>
+    <string name="event_form_description_optional">Description (Optional)</string>
+    <string name="event_form_notification">Notification</string>
+    <string name="event_form_custom_reminder">Custom reminder (minutes before)</string>
+    <string name="event_form_repeating">Repeating?</string>
+    <string name="event_source_personal">Personal</string>
+
+    <string name="recurrence_none">None</string>
+    <string name="recurrence_daily">Daily</string>
+    <string name="recurrence_weekly">Weekly</string>
+    <string name="recurrence_monthly">Monthly</string>
+    <string name="recurrence_yearly">Yearly</string>
+
+    <string name="reminder_none">No reminder</string>
+    <string name="reminder_fifteen_minutes">15 minutes before</string>
+    <string name="reminder_thirty_minutes">30 minutes before</string>
+    <string name="reminder_one_hour">1 hour before</string>
+    <string name="reminder_one_day">1 day before</string>
+    <string name="reminder_custom">Custom</string>
+
+    <string name="import_schedule_title">Import Schedule</string>
+    <string name="import_schedule_prompt">Paste your iCal URL here:</string>
+    <string name="import_schedule_placeholder">https://…</string>
+
+    <string name="manage_calendars_empty">No subscriptions yet.</string>
+    <string name="manage_calendars_delete">Delete Calendar</string>
+
+    <string name="event_details_date">Date</string>
+    <string name="event_details_time">Time</string>
+    <string name="event_details_location">Location</string>
+    <string name="event_details_source">Source</string>
+    <string name="event_details_description">Description</string>
+    <string name="event_details_edit">Edit</string>
+    <string name="event_details_no_description">No description provided.</string>
+
+    <string name="event_delete_title">Delete Event</string>
+    <string name="event_delete_message">Are you sure you want to delete this event?</string>
+
+    <string name="notification_channel_event_reminders">Event reminders</string>
+    <string name="notification_channel_event_reminders_description">
+        Notifications sent before events start
+    </string>
+    <string name="notification_upcoming_event">Upcoming event</string>
+    <string name="notification_starting_soon">soon</string>
+    <string name="notification_starts_at">Starts at %1$s</string>
+    <string name="notification_starts_at_with_location">Starts at %1$s - %2$s</string>
+
+    <string name="toast_removed_schedule">Removed %1$s</string>
+    <string name="toast_schedule_already_imported">This schedule is already imported!</string>
+    <string name="toast_parse_calendar_failed">Failed to parse calendar data</string>
+    <string name="toast_imported_schedule">Imported %1$s</string>
+    <string name="toast_import_error">Error importing: %1$s</string>
+    <string name="toast_unknown_error">Unknown error</string>
+    <string name="toast_no_schedules_to_refresh">No schedules to refresh.</string>
+    <string name="toast_refreshing">Refreshing…</string>
+    <string name="toast_enable_notifications_settings">
+        Enable notifications in system settings to receive reminders.
+    </string>
+
+    <string name="default_schedule_name">Schedule %1$s</string>
+
+    <string name="search_events">Search events</string>
+    <string name="search_close">Close search</string>
+    <string name="search_results">Search Results</string>
+    <string name="search_type_hint">Type to search events</string>
+    <string name="search_no_results">No events found</string>
+    <string name="search_result_count">%1$d results</string>
+    <string name="search_result_datetime">%1$s - %2$s to %3$s</string>
 </resources>

@@ -7,6 +7,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import com.itsmatok.matcal.R
 import java.time.LocalTime
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,10 +29,10 @@ fun TimePickerDialog(
         confirmButton = {
             TextButton(onClick = {
                 onConfirm(LocalTime.of(timePickerState.hour, timePickerState.minute))
-            }) { Text("OK") }
+            }) { Text(stringResource(R.string.common_ok)) }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel") }
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.common_cancel)) }
         },
         text = {
             TimePicker(state = timePickerState)

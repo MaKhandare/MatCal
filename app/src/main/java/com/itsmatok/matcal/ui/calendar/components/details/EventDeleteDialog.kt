@@ -5,6 +5,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import com.itsmatok.matcal.R
 
 @Composable
 fun EventDeleteDialog(
@@ -13,15 +15,15 @@ fun EventDeleteDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Delete Event") },
-        text = { Text("Are you sure you want to delete this event?") },
+        title = { Text(stringResource(R.string.event_delete_title)) },
+        text = { Text(stringResource(R.string.event_delete_message)) },
         confirmButton = {
             TextButton(
                 onClick = onConfirm
-            ) { Text("Delete", color = MaterialTheme.colorScheme.error) }
+            ) { Text(stringResource(R.string.common_delete), color = MaterialTheme.colorScheme.error) }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel") }
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.common_cancel)) }
         }
     )
 }

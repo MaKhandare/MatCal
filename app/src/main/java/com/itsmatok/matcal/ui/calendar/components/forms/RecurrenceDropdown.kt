@@ -14,6 +14,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.itsmatok.matcal.R
 import com.itsmatok.matcal.data.calendar.events.RecurrenceType
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,9 +33,9 @@ fun RecurrenceDropdown(
     ) {
         OutlinedTextField(
             readOnly = true,
-            value = selectedRecurrence.name.lowercase().replaceFirstChar { it.uppercase() },
+            value = recurrenceLabel(selectedRecurrence),
             onValueChange = { },
-            label = { Text("Repeating?") },
+            label = { Text(stringResource(R.string.event_form_repeating)) },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(
                     expanded = expanded
@@ -50,7 +52,7 @@ fun RecurrenceDropdown(
         ) {
             RecurrenceType.entries.forEach { type ->
                 DropdownMenuItem(
-                    text = { Text(type.name.lowercase().replaceFirstChar { it.uppercase() }) },
+                    text = { Text(recurrenceLabel(type)) },
                     onClick = {
                         onRecurrenceSelected(type)
                         expanded = false
@@ -59,4 +61,16 @@ fun RecurrenceDropdown(
             }
         }
     }
+}
+
+@Composable
+private fun recurrenceLabel(type: RecurrenceType): String {
+    val resId = when (type) {
+        RecurrenceType.NONE -> R.string.recurrence_none
+        RecurrenceType.DAILY -> R.string.recurrence_daily
+        RecurrenceType.WEEKLY -> R.string.recurrence_weekly
+        RecurrenceType.MONTHLY -> R.string.recurrence_monthly
+        RecurrenceType.YEARLY -> R.string.recurrence_yearly
+    }
+    return stringResource(resId)
 }

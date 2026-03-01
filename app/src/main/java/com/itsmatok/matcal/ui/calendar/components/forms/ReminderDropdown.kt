@@ -15,7 +15,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import com.itsmatok.matcal.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,9 +36,9 @@ fun ReminderDropdown(
     ) {
         OutlinedTextField(
             readOnly = true,
-            value = selectedReminder.label,
+            value = stringResource(selectedReminder.labelRes),
             onValueChange = { },
-            label = { Text("Notification") },
+            label = { Text(stringResource(R.string.event_form_notification)) },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(
                     expanded = expanded
@@ -53,7 +55,7 @@ fun ReminderDropdown(
         ) {
             ReminderSelection.entries.forEach { selection ->
                 DropdownMenuItem(
-                    text = { Text(selection.label) },
+                    text = { Text(stringResource(selection.labelRes)) },
                     onClick = {
                         onReminderSelected(selection)
                         expanded = false
@@ -70,7 +72,7 @@ fun ReminderDropdown(
                 val filtered = value.filter(Char::isDigit).take(4)
                 onCustomReminderMinutesChange(filtered)
             },
-            label = { Text("Custom reminder (minutes before)") },
+            label = { Text(stringResource(R.string.event_form_custom_reminder)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             singleLine = true,
             modifier = Modifier.fillMaxWidth()

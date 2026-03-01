@@ -8,8 +8,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.itsmatok.matcal.R
 import java.time.DayOfWeek
 import java.time.YearMonth
 import java.time.format.TextStyle
@@ -22,7 +24,7 @@ fun CalendarHeader(
 ) {
     Column {
         Text(
-            text = "${yearMonth.month} ${yearMonth.year}",
+            text = stringResource(R.string.format_month_year, yearMonth.month, yearMonth.year),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 32.dp),

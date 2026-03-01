@@ -13,8 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.itsmatok.matcal.R
 
 @Composable
 internal fun DateNavigator(
@@ -31,7 +33,7 @@ internal fun DateNavigator(
         IconButton(onClick = onPrevious) {
             Icon(
                 imageVector = Icons.Default.ChevronLeft,
-                contentDescription = "Previous"
+                contentDescription = stringResource(R.string.common_previous)
             )
         }
 
@@ -45,7 +47,7 @@ internal fun DateNavigator(
         IconButton(onClick = onNext) {
             Icon(
                 imageVector = Icons.Default.ChevronRight,
-                contentDescription = "Next"
+                contentDescription = stringResource(R.string.common_next)
             )
         }
     }

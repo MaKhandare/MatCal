@@ -27,6 +27,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import com.itsmatok.matcal.R
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
 import com.itsmatok.matcal.data.calendar.events.RecurrenceType
 import com.itsmatok.matcal.ui.calendar.components.forms.EventFormContent
@@ -74,7 +76,7 @@ fun AddEventScreen(
         if (!granted) {
             Toast.makeText(
                 context,
-                "Enable notifications in system settings to receive reminders.",
+                context.getString(R.string.toast_enable_notifications_settings),
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -83,10 +85,13 @@ fun AddEventScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Add Event") },
+                title = { Text(stringResource(R.string.screen_add_event)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.common_back)
+                        )
                     }
                 }
             )
@@ -114,7 +119,7 @@ fun AddEventScreen(
             },
             customReminderMinutes = customReminderMinutes,
             onCustomReminderMinutesChange = { customReminderMinutes = it },
-            buttonText = "Save",
+            buttonText = stringResource(R.string.common_save),
             onSaveClick = {
                 val reminderMinutes = when (reminderSelection) {
                     ReminderSelection.NONE -> null
@@ -143,7 +148,7 @@ fun AddEventScreen(
                     title = title,
                     location = location.trim().ifEmpty { null },
                     description = description.trim().ifEmpty { null },
-                    source = "Personal",
+                    source = context.getString(R.string.event_source_personal),
                     reminderMinutes = reminderMinutes,
                     recurrenceType = recurrence
                 )
@@ -168,12 +173,12 @@ fun AddEventScreen(
                     }
                     showDatePicker = false
                 }) {
-                    Text("OK")
+                    Text(stringResource(R.string.common_ok))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDatePicker = false }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.common_cancel))
                 }
             }
         ) {
