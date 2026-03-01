@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.0](https://github.com/MaKhandare/MatCal/compare/v0.9.1...v0.10.0) (2026-03-01)
+
+
+### Features
+
+* add german locale ([#31](https://github.com/MaKhandare/MatCal/issues/31)) ([af74a15](https://github.com/MaKhandare/MatCal/commit/af74a157eed4236cda9f0aa578e83f75db8f9347))
+* searching for events ([#29](https://github.com/MaKhandare/MatCal/issues/29)) ([fe067d0](https://github.com/MaKhandare/MatCal/commit/fe067d06024f914aa8cf06ae98c423b8ee22fbf3))
+
 ## [0.9.1](https://github.com/MaKhandare/MatCal/compare/v0.9.0...v0.9.1) (2026-02-20)
 
 
