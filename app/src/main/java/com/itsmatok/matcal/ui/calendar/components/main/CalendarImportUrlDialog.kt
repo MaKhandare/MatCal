@@ -14,7 +14,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.itsmatok.matcal.R
 
 @Composable
 fun ImportUrlDialog(
@@ -25,15 +27,15 @@ fun ImportUrlDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(text = "Import Schedule") },
+        title = { Text(text = stringResource(R.string.import_schedule_title)) },
         text = {
             Column {
-                Text("Paste your iCal URL here:")
+                Text(stringResource(R.string.import_schedule_prompt))
                 Spacer(modifier = Modifier.height(8.dp))
                 OutlinedTextField(
                     value = url,
                     onValueChange = { url = it },
-                    placeholder = { Text("https://...") },
+                    placeholder = { Text(stringResource(R.string.import_schedule_placeholder)) },
                     singleLine = true
                 )
             }
@@ -46,12 +48,12 @@ fun ImportUrlDialog(
                     }
                 }
             ) {
-                Text("Import")
+                Text(stringResource(R.string.common_import))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.common_cancel))
             }
         }
     )

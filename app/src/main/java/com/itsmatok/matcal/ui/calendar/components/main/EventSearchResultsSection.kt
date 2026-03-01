@@ -101,9 +101,12 @@ private fun SearchResultRow(
                 fontWeight = FontWeight.Medium
             )
             Text(
-                text = "${event.date.format(dateFormatter)} • ${
-                    event.startTime.format(timeFormatter)
-                } - ${event.endTime.format(timeFormatter)}",
+                text = stringResource(
+                    R.string.search_result_datetime,
+                    event.date.format(dateFormatter),
+                    event.startTime.format(timeFormatter),
+                    event.endTime.format(timeFormatter)
+                ),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 2.dp)

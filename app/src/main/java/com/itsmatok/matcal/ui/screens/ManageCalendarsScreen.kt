@@ -27,8 +27,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.itsmatok.matcal.R
 import com.itsmatok.matcal.data.calendar.subscriptions.CalendarSubscription
 import com.itsmatok.matcal.viewmodels.CalendarViewModel
 
@@ -43,7 +45,7 @@ fun ManageCalendarsScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Manage Calendars") },
+                title = { Text(stringResource(R.string.screen_manage_calendars)) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     titleContentColor = MaterialTheme.colorScheme.onSurface,
@@ -52,7 +54,7 @@ fun ManageCalendarsScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.common_back)
                         )
                     }
                 }
@@ -68,7 +70,7 @@ fun ManageCalendarsScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "No subscriptions yet.",
+                    text = stringResource(R.string.manage_calendars_empty),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -128,7 +130,7 @@ fun SubscriptionItem(
             IconButton(onClick = onDeleteClick) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete Calendar",
+                    contentDescription = stringResource(R.string.manage_calendars_delete),
                     tint = MaterialTheme.colorScheme.error
                 )
             }

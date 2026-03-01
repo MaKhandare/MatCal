@@ -28,6 +28,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import com.itsmatok.matcal.R
 import com.itsmatok.matcal.data.calendar.events.RecurrenceType
 import com.itsmatok.matcal.ui.calendar.components.forms.EventFormContent
 import com.itsmatok.matcal.ui.calendar.components.forms.ReminderSelection
@@ -92,7 +94,7 @@ fun EditEventScreen(
         if (!granted) {
             Toast.makeText(
                 context,
-                "Enable notifications in system settings to receive reminders.",
+                context.getString(R.string.toast_enable_notifications_settings),
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -101,10 +103,13 @@ fun EditEventScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Edit Event") },
+                title = { Text(stringResource(R.string.screen_edit_event)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.common_back)
+                        )
                     }
                 }
             )
@@ -130,7 +135,7 @@ fun EditEventScreen(
             onReminderSelectionChange = { reminderSelection = it },
             customReminderMinutes = customReminderMinutes,
             onCustomReminderMinutesChange = { customReminderMinutes = it },
-            buttonText = "Update",
+            buttonText = stringResource(R.string.common_update),
             onSaveClick = {
                 eventState?.let { event ->
                     val reminderMinutes = when (reminderSelection) {
@@ -185,12 +190,12 @@ fun EditEventScreen(
                     }
                     showDatePicker = false
                 }) {
-                    Text("OK")
+                    Text(stringResource(R.string.common_ok))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDatePicker = false }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.common_cancel))
                 }
             }
         ) {

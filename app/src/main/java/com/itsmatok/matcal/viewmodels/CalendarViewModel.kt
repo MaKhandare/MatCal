@@ -2,10 +2,12 @@ package com.itsmatok.matcal.viewmodels
 
 import android.app.Application
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import biweekly.Biweekly
 import biweekly.ICalendar
+import com.itsmatok.matcal.R
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
 import com.itsmatok.matcal.data.calendar.events.CalendarEventDatabase
 import com.itsmatok.matcal.data.calendar.events.EventMapper
@@ -108,7 +110,7 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             subDao.delete(subscription)
             eventDao.deleteEventsBySource(subscription.url)
 
-            showToast("Removed ${subscription.name}")
+            showToast(R.string.toast_removed_schedule, subscription.name)
         }
     }
 
@@ -117,7 +119,7 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             try {
 
                 if (subDao.getSubscriptionByUrl(url) != null) {
-                    showToast("This schedule is already imported!")
+                    showToast(R.string.toast_schedule_already_imported)
                     return@launch
                 }
 
@@ -125,22 +127,25 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
                 val iCal = Biweekly.parse(iCalData).first()
 
                 if (iCal == null) {
-                    showToast("Failed to parse calendar data")
+                    showToast(R.string.toast_parse_calendar_failed)
                     return@launch
                 }
 
                 val calNameProperty = iCal.getExperimentalProperty("X-WR-CALNAME")
-                val calendarName = calNameProperty?.value ?: "Schedule ${url.takeLast(10)}"
+                val calendarName = calNameProperty?.value ?: getApplication<Application>()
+                    .getString(R.string.default_schedule_name, url.takeLast(10))
 
                 val newSub = CalendarSubscription(url = url, name = calendarName)
                 subDao.insert(newSub)
 
                 processAndSaveEvents(url, iCal, calendarName)
-                showToast("Imported $calendarName")
+                showToast(R.string.toast_imported_schedule, calendarName)
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                showToast("Error importing: ${e.message}")
+                val errorMessage = e.message?.takeIf { it.isNotBlank() }
+                    ?: getApplication<Application>().getString(R.string.toast_unknown_error)
+                showToast(R.string.toast_import_error, errorMessage)
             }
         }
     }
@@ -150,11 +155,11 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch(Dispatchers.IO) {
             val subs = subDao.getAllSubscriptions()
             if (subs.isEmpty()) {
-                showToast("No schedules to refresh.")
+                showToast(R.string.toast_no_schedules_to_refresh)
                 return@launch
             }
 
-            showToast("Refreshing...")
+            showToast(R.string.toast_refreshing)
 
             subs.forEach { sub ->
                 try {
@@ -186,8 +191,9 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    private suspend fun showToast(message: String) {
+    private suspend fun showToast(@StringRes messageRes: Int, vararg formatArgs: Any) {
         withContext(Dispatchers.Main) {
+            val message = getApplication<Application>().getString(messageRes, *formatArgs)
             Toast.makeText(getApplication(), message, Toast.LENGTH_SHORT).show()
         }
     }

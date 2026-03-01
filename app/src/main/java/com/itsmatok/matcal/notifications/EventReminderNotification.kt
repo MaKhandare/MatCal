@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import com.itsmatok.matcal.R
 
 internal const val REMINDER_CHANNEL_ID = "event_reminders"
 internal const val REMINDER_ACTION = "com.itsmatok.matcal.EVENT_REMINDER"
@@ -21,10 +22,10 @@ internal fun ensureReminderChannel(context: Context) {
 
     val channel = NotificationChannel(
         REMINDER_CHANNEL_ID,
-        "Event reminders",
+        context.getString(R.string.notification_channel_event_reminders),
         NotificationManager.IMPORTANCE_DEFAULT
     ).apply {
-        description = "Notifications sent before events start"
+        description = context.getString(R.string.notification_channel_event_reminders_description)
     }
 
     manager.createNotificationChannel(channel)

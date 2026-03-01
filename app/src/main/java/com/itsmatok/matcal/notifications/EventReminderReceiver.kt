@@ -19,16 +19,18 @@ class EventReminderReceiver : BroadcastReceiver() {
         if (!hasNotificationPermission(context)) return
 
         val eventId = intent.getIntExtra(EXTRA_EVENT_ID, 0)
-        val title = intent.getStringExtra(EXTRA_EVENT_TITLE).orEmpty().ifBlank { "Upcoming event" }
+        val title = intent.getStringExtra(EXTRA_EVENT_TITLE).orEmpty().ifBlank {
+            context.getString(R.string.notification_upcoming_event)
+        }
         val startTime = intent.getStringExtra(EXTRA_EVENT_START_TIME).orEmpty()
         val location = intent.getStringExtra(EXTRA_EVENT_LOCATION).orEmpty()
-        val contentText = buildString {
-            append("Starts at ")
-            append(startTime.ifBlank { "soon" })
-            if (location.isNotBlank()) {
-                append(" • ")
-                append(location)
-            }
+        val fallbackStartTime = startTime.ifBlank {
+            context.getString(R.string.notification_starting_soon)
+        }
+        val contentText = if (location.isBlank()) {
+            context.getString(R.string.notification_starts_at, fallbackStartTime)
+        } else {
+            context.getString(R.string.notification_starts_at_with_location, fallbackStartTime, location)
         }
 
         ensureReminderChannel(context)

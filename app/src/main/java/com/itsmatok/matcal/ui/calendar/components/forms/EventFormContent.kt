@@ -24,7 +24,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.itsmatok.matcal.R
 import com.itsmatok.matcal.data.calendar.events.RecurrenceType
 import java.time.LocalDate
 import java.time.LocalTime
@@ -72,7 +74,7 @@ fun EventFormContent(
         OutlinedTextField(
             value = title,
             onValueChange = onTitleChange,
-            label = { Text("Event Title") },
+            label = { Text(stringResource(R.string.event_form_title)) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
@@ -80,7 +82,7 @@ fun EventFormContent(
         // date selector
         ReadOnlyField(
             value = selectedDate.format(dateFormatter),
-            label = "Date",
+            label = stringResource(R.string.event_form_date),
             icon = Icons.Default.CalendarToday,
             onClick = onDateClick
         )
@@ -90,7 +92,7 @@ fun EventFormContent(
             Box(modifier = Modifier.weight(1f)) {
                 ReadOnlyField(
                     value = startTime.format(timeFormatter),
-                    label = "Start Time",
+                    label = stringResource(R.string.event_form_start_time),
                     icon = Icons.Default.AccessTime,
                     onClick = onStartTimeClick
                 )
@@ -99,7 +101,7 @@ fun EventFormContent(
             Box(modifier = Modifier.weight(1f)) {
                 ReadOnlyField(
                     value = endTime.format(timeFormatter),
-                    label = "End Time",
+                    label = stringResource(R.string.event_form_end_time),
                     icon = Icons.Default.AccessTime,
                     onClick = onEndTimeClick
                 )
@@ -123,7 +125,7 @@ fun EventFormContent(
         OutlinedTextField(
             value = location,
             onValueChange = onLocationChange,
-            label = { Text("Location (Optional)") },
+            label = { Text(stringResource(R.string.event_form_location_optional)) },
             leadingIcon = { Icon(Icons.Default.LocationOn, contentDescription = null) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
@@ -133,7 +135,7 @@ fun EventFormContent(
         OutlinedTextField(
             value = description,
             onValueChange = onDescriptionChange,
-            label = { Text("Description (Optional)") },
+            label = { Text(stringResource(R.string.event_form_description_optional)) },
             leadingIcon = { Icon(Icons.AutoMirrored.Filled.Notes, contentDescription = null) },
             modifier = Modifier.fillMaxWidth(),
             minLines = 3,

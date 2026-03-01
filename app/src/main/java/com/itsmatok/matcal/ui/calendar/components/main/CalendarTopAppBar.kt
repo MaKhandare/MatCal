@@ -68,21 +68,14 @@ fun CalendarTopAppBar(
             Box {
                 IconButton(onClick = { showMenu = true }) {
                     Icon(
-                        imageVector = Icons.Default.Menu, contentDescription = "Menu"
+                        imageVector = Icons.Default.Menu,
+                        contentDescription = stringResource(R.string.common_menu)
                     )
                 }
 
                 DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
                     DropdownMenuItem(
-                        text = {
-                            Text(
-                                if (viewMode == CalendarViewMode.AGENDA) {
-                                    "Agenda (Current)"
-                                } else {
-                                    "Agenda"
-                                }
-                            )
-                        },
+                        text = { Text(viewModeMenuLabel(CalendarViewMode.AGENDA, viewMode)) },
                         onClick = {
                             showMenu = false
                             onViewModeChanged(CalendarViewMode.AGENDA)
@@ -90,15 +83,7 @@ fun CalendarTopAppBar(
                     )
 
                     DropdownMenuItem(
-                        text = {
-                            Text(
-                                if (viewMode == CalendarViewMode.DAY) {
-                                    "Day (Current)"
-                                } else {
-                                    "Day"
-                                }
-                            )
-                        },
+                        text = { Text(viewModeMenuLabel(CalendarViewMode.DAY, viewMode)) },
                         onClick = {
                             showMenu = false
                             onViewModeChanged(CalendarViewMode.DAY)
@@ -106,15 +91,7 @@ fun CalendarTopAppBar(
                     )
 
                     DropdownMenuItem(
-                        text = {
-                            Text(
-                                if (viewMode == CalendarViewMode.WEEK) {
-                                    "Week (Current)"
-                                } else {
-                                    "Week"
-                                }
-                            )
-                        },
+                        text = { Text(viewModeMenuLabel(CalendarViewMode.WEEK, viewMode)) },
                         onClick = {
                             showMenu = false
                             onViewModeChanged(CalendarViewMode.WEEK)
@@ -123,18 +100,18 @@ fun CalendarTopAppBar(
 
                     HorizontalDivider()
 
-                    DropdownMenuItem(text = { Text("Manage Calendars") }, onClick = {
+                    DropdownMenuItem(text = { Text(stringResource(R.string.screen_manage_calendars)) }, onClick = {
                         showMenu = false
                         onManageCalendarsClicked()
                     })
 
-                    DropdownMenuItem(text = { Text("Import from URL") }, onClick = {
+                    DropdownMenuItem(text = { Text(stringResource(R.string.calendar_import_from_url)) }, onClick = {
                         showMenu = false
                         onImportClicked()
                     })
 
 
-                    DropdownMenuItem(text = { Text("Open Source Licenses") }, onClick = {
+                    DropdownMenuItem(text = { Text(stringResource(R.string.screen_open_source_licenses)) }, onClick = {
                         showMenu = false
                         onLicenseClicked()
                     })
@@ -159,14 +136,29 @@ fun CalendarTopAppBar(
 
                 IconButton(onClick = onRefreshClicked) {
                     Icon(
-                        imageVector = Icons.Default.Refresh, contentDescription = "Force Refresh"
+                        imageVector = Icons.Default.Refresh,
+                        contentDescription = stringResource(R.string.calendar_force_refresh)
                     )
                 }
                 IconButton(onClick = onAddEventClicked) {
                     Icon(
-                        imageVector = Icons.Default.Add, contentDescription = "Add Event"
+                        imageVector = Icons.Default.Add,
+                        contentDescription = stringResource(R.string.calendar_add_event)
                     )
                 }
             }
         })
+}
+
+@Composable
+private fun viewModeMenuLabel(
+    mode: CalendarViewMode,
+    currentMode: CalendarViewMode
+): String {
+    val modeLabel = stringResource(mode.labelRes)
+    return if (mode == currentMode) {
+        stringResource(R.string.calendar_view_mode_current, modeLabel)
+    } else {
+        modeLabel
+    }
 }
