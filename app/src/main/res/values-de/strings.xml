@@ -1,0 +1,106 @@
+<resources>
+    <string name="app_name">MatCal</string>
+
+    <string name="common_back">Zurück</string>
+    <string name="common_cancel">Abbrechen</string>
+    <string name="common_ok">OK</string>
+    <string name="common_delete">Löschen</string>
+    <string name="common_save">Speichern</string>
+    <string name="common_update">Aktualisieren</string>
+    <string name="common_import">Importieren</string>
+    <string name="common_menu">Menü</string>
+    <string name="common_previous">Zurück</string>
+    <string name="common_next">Weiter</string>
+
+    <string name="screen_add_event">Ereignis hinzufügen</string>
+    <string name="screen_edit_event">Ereignis bearbeiten</string>
+    <string name="screen_manage_calendars">Kalender verwalten</string>
+    <string name="screen_open_source_licenses">Open-Source-Lizenzen</string>
+
+    <string name="calendar_force_refresh">Jetzt aktualisieren</string>
+    <string name="calendar_add_event">Ereignis hinzufügen</string>
+    <string name="calendar_import_from_url">Von URL importieren</string>
+    <string name="calendar_view_mode_agenda">Agenda</string>
+    <string name="calendar_view_mode_day">Tag</string>
+    <string name="calendar_view_mode_week">Woche</string>
+    <string name="calendar_view_mode_current">%1$s (Aktuell)</string>
+    <string name="calendar_no_date_selected">Kein Datum ausgewählt</string>
+    <string name="calendar_no_events_for_day">Keine Ereignisse für diesen Tag.</string>
+    <string name="format_month_year">%1$s %2$d</string>
+    <string name="format_day_of_week_date">%1$s %2$d</string>
+    <string name="format_week_range">%1$s - %2$s</string>
+    <string name="format_time_range">%1$s - %2$s</string>
+
+    <string name="event_form_title">Ereignistitel</string>
+    <string name="event_form_date">Datum</string>
+    <string name="event_form_start_time">Startzeit</string>
+    <string name="event_form_end_time">Endzeit</string>
+    <string name="event_form_location_optional">Ort (optional)</string>
+    <string name="event_form_description_optional">Beschreibung (optional)</string>
+    <string name="event_form_notification">Benachrichtigung</string>
+    <string name="event_form_custom_reminder">Eigene Erinnerung (Minuten vorher)</string>
+    <string name="event_form_repeating">Wiederholen?</string>
+    <string name="event_source_personal">Persönlich</string>
+
+    <string name="recurrence_none">Keine</string>
+    <string name="recurrence_daily">Täglich</string>
+    <string name="recurrence_weekly">Wöchentlich</string>
+    <string name="recurrence_monthly">Monatlich</string>
+    <string name="recurrence_yearly">Jährlich</string>
+
+    <string name="reminder_none">Keine Erinnerung</string>
+    <string name="reminder_fifteen_minutes">15 Minuten vorher</string>
+    <string name="reminder_thirty_minutes">30 Minuten vorher</string>
+    <string name="reminder_one_hour">1 Stunde vorher</string>
+    <string name="reminder_one_day">1 Tag vorher</string>
+    <string name="reminder_custom">Eigen</string>
+
+    <string name="import_schedule_title">Kalender importieren</string>
+    <string name="import_schedule_prompt">Füge hier deine iCal-URL ein:</string>
+    <string name="import_schedule_placeholder">https://…</string>
+
+    <string name="manage_calendars_empty">Noch keine Abonnements.</string>
+    <string name="manage_calendars_delete">Kalender löschen</string>
+
+    <string name="event_details_date">Datum</string>
+    <string name="event_details_time">Uhrzeit</string>
+    <string name="event_details_location">Ort</string>
+    <string name="event_details_source">Quelle</string>
+    <string name="event_details_description">Beschreibung</string>
+    <string name="event_details_edit">Bearbeiten</string>
+    <string name="event_details_no_description">Keine Beschreibung vorhanden.</string>
+
+    <string name="event_delete_title">Ereignis löschen</string>
+    <string name="event_delete_message">Willst du dieses Ereignis wirklich löschen?</string>
+
+    <string name="notification_channel_event_reminders">Ereigniserinnerungen</string>
+    <string name="notification_channel_event_reminders_description">
+        Benachrichtigungen vor Beginn von Ereignissen
+    </string>
+    <string name="notification_upcoming_event">Bevorstehendes Ereignis</string>
+    <string name="notification_starting_soon">bald</string>
+    <string name="notification_starts_at">Startet um %1$s</string>
+    <string name="notification_starts_at_with_location">Startet um %1$s - %2$s</string>
+
+    <string name="toast_removed_schedule">Entfernt: %1$s</string>
+    <string name="toast_schedule_already_imported">Dieser Kalender ist schon importiert!</string>
+    <string name="toast_parse_calendar_failed">Kalenderdaten konnten nicht gelesen werden</string>
+    <string name="toast_imported_schedule">%1$s wurde importiert</string>
+    <string name="toast_import_error">Fehler beim Importieren: %1$s</string>
+    <string name="toast_unknown_error">Unbekannter Fehler</string>
+    <string name="toast_no_schedules_to_refresh">Keine Kalender zum Aktualisieren.</string>
+    <string name="toast_refreshing">Aktualisiere…</string>
+    <string name="toast_enable_notifications_settings">
+        Aktiviere Benachrichtigungen in den Systemeinstellungen, damit du Erinnerungen bekommst.
+    </string>
+
+    <string name="default_schedule_name">Kalender %1$s</string>
+
+    <string name="search_events">Ereignisse suchen</string>
+    <string name="search_close">Suche schließen</string>
+    <string name="search_results">Suchergebnisse</string>
+    <string name="search_type_hint">Tippe, um Ereignisse zu suchen</string>
+    <string name="search_no_results">Keine Ereignisse gefunden</string>
+    <string name="search_result_count">%1$d Ergebnisse</string>
+    <string name="search_result_datetime">%1$s - %2$s bis %3$s</string>
+</resources>
