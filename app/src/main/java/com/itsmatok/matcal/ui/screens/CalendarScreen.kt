@@ -109,7 +109,12 @@ fun CalendarScreen(
             onEventClicked = onEventClicked,
             onImportClicked = { showImportDialog = true },
             onRefreshClicked = { viewModel.refreshAllSchedules() },
-            onManageCalendarsClicked = onManageCalendarsClicked
+            onManageCalendarsClicked = onManageCalendarsClicked,
+            onMonthYearSelected = { yearMonth ->
+                coroutineScope.launch {
+                    state.animateScrollToMonth(yearMonth)
+                }
+            }
         )
     )
 }

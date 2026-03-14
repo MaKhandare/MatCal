@@ -1,5 +1,6 @@
 package com.itsmatok.matcal.ui.calendar.components.main
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,7 +21,8 @@ import java.util.Locale
 @Composable
 fun CalendarHeader(
     yearMonth: YearMonth,
-    daysOfWeek: List<DayOfWeek>
+    daysOfWeek: List<DayOfWeek>,
+    onMonthYearClick: () -> Unit = {}
 ) {
     val monthLabel = yearMonth.month.getDisplayName(
         TextStyle.FULL_STANDALONE,
@@ -32,6 +34,7 @@ fun CalendarHeader(
             text = stringResource(R.string.format_month_year, monthLabel, yearMonth.year),
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable { onMonthYearClick() }
                 .padding(bottom = 32.dp),
             style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center

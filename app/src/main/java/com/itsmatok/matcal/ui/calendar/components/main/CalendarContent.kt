@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun CalendarContent(
@@ -52,7 +51,8 @@ fun CalendarContent(
                             events = uiState.events,
                             selection = uiState.selection,
                             onDateSelected = actions.onDateSelected,
-                            onEventClicked = actions.onEventClicked
+                            onEventClicked = actions.onEventClicked,
+                            onMonthYearSelected = actions.onMonthYearSelected
                         )
                     }
 

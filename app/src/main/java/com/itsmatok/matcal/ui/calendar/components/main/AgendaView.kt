@@ -7,7 +7,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
@@ -15,6 +18,7 @@ import com.kizitonwose.calendar.compose.CalendarState
 import com.kizitonwose.calendar.compose.HorizontalCalendar
 import com.kizitonwose.calendar.core.daysOfWeek
 import java.time.LocalDate
+import java.time.YearMonth
 
 @Composable
 internal fun AgendaView(
@@ -23,17 +27,31 @@ internal fun AgendaView(
     events: Map<LocalDate, List<CalendarEvent>>,
     selection: LocalDate?,
     onDateSelected: (LocalDate) -> Unit,
-    onEventClicked: (Int) -> Unit
+    onEventClicked: (Int) -> Unit,
+    onMonthYearSelected: (YearMonth) -> Unit = {}
 ) {
     val visibleMonth = state.firstVisibleMonth.yearMonth
     val daysOfWeek = remember { daysOfWeek() }
     val today = remember { LocalDate.now() }
     val selectedEvents = selection?.let { selectedEventsForDate(events, it) }.orEmpty()
+    var showMonthYearPicker by remember { mutableStateOf(false) }
+
+    if (showMonthYearPicker) {
+        MonthYearPickerDialog(
+            currentYearMonth = visibleMonth,
+            onConfirm = { yearMonth ->
+                showMonthYearPicker = false
+                onMonthYearSelected(yearMonth)
+            },
+            onDismiss = { showMonthYearPicker = false }
+        )
+    }
 
     Column(modifier = modifier.fillMaxSize()) {
         CalendarHeader(
             yearMonth = visibleMonth,
-            daysOfWeek = daysOfWeek
+            daysOfWeek = daysOfWeek,
+            onMonthYearClick = { showMonthYearPicker = true }
         )
 
         HorizontalCalendar(
