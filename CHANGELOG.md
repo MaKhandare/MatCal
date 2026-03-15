@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.1](https://github.com/MaKhandare/MatCal/compare/v0.10.0...v0.10.1) (2026-03-14)
+
+
+### Bug Fixes
+
+* [#33](https://github.com/MaKhandare/MatCal/issues/33) use USE_EXACT_ALARM permission to get accurate notifications ([6d447df](https://github.com/MaKhandare/MatCal/commit/6d447df66b59b6cb54c5394b309220a44e871892))
+
 ## [0.10.0](https://github.com/MaKhandare/MatCal/compare/v0.9.1...v0.10.0) (2026-03-01)
 
 
