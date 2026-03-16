@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.11.0](https://github.com/MaKhandare/MatCal/compare/v0.10.1...v0.11.0) (2026-03-16)
+
+
+### Features
+
+* add functionality to color code subscriptions with preset colors ([7c394e6](https://github.com/MaKhandare/MatCal/commit/7c394e69c73ad36e1719e12024f280fa5bd784f8))
+* toggle subscriptions to display them or not ([8fdc384](https://github.com/MaKhandare/MatCal/commit/8fdc384e53387ec74f0a7d80466a8eb9457bc85f))
+
+
+### Bug Fixes
+
+* [#35](https://github.com/MaKhandare/MatCal/issues/35) when clicking on search the input is now auto focused ([bc61314](https://github.com/MaKhandare/MatCal/commit/bc613144f052b25363cf6dae306ff26468e7923e))
+* add subscription colors to search results ([b83d86b](https://github.com/MaKhandare/MatCal/commit/b83d86bc1aaf7ffee51f24fea6657dad3e15f89b))
+
 ## [0.10.1](https://github.com/MaKhandare/MatCal/compare/v0.10.0...v0.10.1) (2026-03-14)
 
 
