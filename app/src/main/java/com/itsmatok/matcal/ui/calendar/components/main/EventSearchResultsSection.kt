@@ -6,15 +6,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -28,6 +31,7 @@ internal fun EventSearchResultsSection(
     modifier: Modifier = Modifier,
     query: String,
     results: List<CalendarEvent>,
+    subscriptionColors: Map<String, Long?> = emptyMap(),
     onEventClicked: (Int) -> Unit
 ) {
     val isQueryBlank = query.isBlank()
@@ -69,8 +73,12 @@ internal fun EventSearchResultsSection(
                         items = results,
                         key = { event -> event.id }
                     ) { event ->
+                        val accentColor = event.sourceUrl
+                            ?.let { subscriptionColors[it] }
+                            ?.let { Color(it) }
                         SearchResultRow(
                             event = event,
+                            accentColor = accentColor,
                             onEventClicked = onEventClicked
                         )
                     }
@@ -83,6 +91,7 @@ internal fun EventSearchResultsSection(
 @Composable
 private fun SearchResultRow(
     event: CalendarEvent,
+    accentColor: Color? = null,
     onEventClicked: (Int) -> Unit
 ) {
     val dateFormatter = remember { DateTimeFormatter.ofPattern("EEE, MMM d yyyy", Locale.getDefault()) }
@@ -92,25 +101,35 @@ private fun SearchResultRow(
         onClick = { onEventClicked(event.id) },
         modifier = Modifier.fillMaxWidth()
     ) {
-        Column(
-            modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp)
+        androidx.compose.foundation.layout.Row(
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = event.title,
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Medium
+            VerticalDivider(
+                modifier = Modifier
+                    .padding(end = 12.dp)
+                    .height(32.dp),
+                color = accentColor ?: MaterialTheme.colorScheme.onSurface,
+                thickness = 4.dp
             )
-            Text(
-                text = stringResource(
-                    R.string.search_result_datetime,
-                    event.date.format(dateFormatter),
-                    event.startTime.format(timeFormatter),
-                    event.endTime.format(timeFormatter)
-                ),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 2.dp)
-            )
+            Column {
+                Text(
+                    text = event.title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Medium
+                )
+                Text(
+                    text = stringResource(
+                        R.string.search_result_datetime,
+                        event.date.format(dateFormatter),
+                        event.startTime.format(timeFormatter),
+                        event.endTime.format(timeFormatter)
+                    ),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 2.dp)
+                )
+            }
         }
     }
 }

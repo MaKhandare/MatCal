@@ -40,6 +40,7 @@ fun CalendarContent(
                     modifier = Modifier.fillMaxSize(),
                     query = uiState.searchQuery,
                     results = uiState.searchResults,
+                    subscriptionColors = uiState.subscriptionColors,
                     onEventClicked = actions.onEventClicked
                 )
             } else {
