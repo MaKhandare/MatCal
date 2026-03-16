@@ -26,6 +26,7 @@ internal fun AgendaView(
     state: CalendarState,
     events: Map<LocalDate, List<CalendarEvent>>,
     selection: LocalDate?,
+    subscriptionColors: Map<String, Long?> = emptyMap(),
     onDateSelected: (LocalDate) -> Unit,
     onEventClicked: (Int) -> Unit,
     onMonthYearSelected: (YearMonth) -> Unit = {}
@@ -62,6 +63,7 @@ internal fun AgendaView(
                     isSelected = selection == day.date,
                     isToday = day.date == today,
                     events = events[day.date] ?: emptyList(),
+                    subscriptionColors = subscriptionColors,
                     onClick = { onDateSelected(it.date) }
                 )
             }
@@ -75,7 +77,11 @@ internal fun AgendaView(
         CalendarSelectionHeader(selection = selection)
 
         Box(modifier = Modifier.weight(1f)) {
-            CalendarEventList(events = selectedEvents, onEventClicked = onEventClicked)
+            CalendarEventList(
+                events = selectedEvents,
+                subscriptionColors = subscriptionColors,
+                onEventClicked = onEventClicked
+            )
         }
     }
 }

@@ -61,6 +61,9 @@
 
     <string name="manage_calendars_empty">No subscriptions yet.</string>
     <string name="manage_calendars_delete">Delete Calendar</string>
+    <string name="manage_calendars_pick_color">Pick color</string>
+
+    <string name="color_picker_title">Pick a color</string>
 
     <string name="event_details_date">Date</string>
     <string name="event_details_time">Time</string>

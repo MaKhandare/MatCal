@@ -28,6 +28,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
 import java.time.LocalDate
 import java.time.LocalTime
@@ -39,6 +40,7 @@ internal fun DayView(
     modifier: Modifier = Modifier,
     selection: LocalDate?,
     events: Map<LocalDate, List<CalendarEvent>>,
+    subscriptionColors: Map<String, Long?> = emptyMap(),
     onDateSelected: (LocalDate) -> Unit,
     onHourClicked: (LocalDate, Int) -> Unit,
     onEventClicked: (Int) -> Unit
@@ -146,6 +148,9 @@ internal fun DayView(
                     val compactCard = !positionedEvent.isZeroDuration &&
                         eventHeight < DAY_COMPACT_EVENT_THRESHOLD
 
+                    val accentColor = positionedEvent.event.sourceUrl
+                        ?.let { subscriptionColors[it] }
+                        ?.let { Color(it) }
                     DayTimelineEventCard(
                         event = positionedEvent.event,
                         modifier = Modifier
@@ -154,6 +159,7 @@ internal fun DayView(
                             .height(eventHeight),
                         compact = compactCard,
                         forceShowTime = positionedEvent.isZeroDuration,
+                        accentColor = accentColor,
                         onEventClicked = onEventClicked
                     )
                 }

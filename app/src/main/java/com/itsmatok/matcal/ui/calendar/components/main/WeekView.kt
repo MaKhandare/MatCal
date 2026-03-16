@@ -32,6 +32,7 @@ internal fun WeekView(
     modifier: Modifier = Modifier,
     selection: LocalDate?,
     events: Map<LocalDate, List<CalendarEvent>>,
+    subscriptionColors: Map<String, Long?> = emptyMap(),
     firstDayOfWeek: DayOfWeek,
     onDateSelected: (LocalDate) -> Unit,
     onEventClicked: (Int) -> Unit
@@ -127,7 +128,11 @@ internal fun WeekView(
         CalendarSelectionHeader(selection = selectedDate)
 
         Box(modifier = Modifier.weight(1f)) {
-            CalendarEventList(events = selectedEvents, onEventClicked = onEventClicked)
+            CalendarEventList(
+                events = selectedEvents,
+                subscriptionColors = subscriptionColors,
+                onEventClicked = onEventClicked
+            )
         }
     }
 }

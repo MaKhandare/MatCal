@@ -30,6 +30,7 @@ fun CalendarDayCell(
     isSelected: Boolean,
     isToday: Boolean,
     events: List<CalendarEvent>,
+    subscriptionColors: Map<String, Long?> = emptyMap(),
     onClick: (CalendarDay) -> Unit
 ) {
     val isCurrentMonth = day.position == DayPosition.MonthDate
@@ -75,12 +76,16 @@ fun CalendarDayCell(
                     horizontalArrangement = Arrangement.spacedBy(2.dp),
                     modifier = Modifier.padding(top = 2.dp)
                 ) {
-                    events.take(3).forEach { _ ->
+                    events.take(3).forEach { event ->
+                        val dotColor = event.sourceUrl
+                            ?.let { subscriptionColors[it] }
+                            ?.let { Color(it) }
+                            ?: MaterialTheme.colorScheme.primary
                         Box(
                             modifier = Modifier
                                 .size(4.dp)
                                 .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.primary)
+                                .background(dotColor)
                         )
                     }
                 }

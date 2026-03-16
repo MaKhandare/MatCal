@@ -34,6 +34,7 @@ fun CalendarScreen(
     val events by viewModel.events.collectAsState(initial = emptyMap())
     val searchQuery by viewModel.searchQuery.collectAsState()
     val searchResults by viewModel.searchResults.collectAsState(initial = emptyList())
+    val subscriptionColors by viewModel.subscriptionColors.collectAsState(initial = emptyMap())
     val currentMonth = remember { YearMonth.now() }
     val startMonth = remember { currentMonth.minusMonths(100) }
     val endMonth = remember { currentMonth.plusMonths(100) }
@@ -84,7 +85,8 @@ fun CalendarScreen(
             isSearchActive = isSearchActive,
             selection = selection,
             firstDayOfWeek = firstDayOfWeek,
-            viewMode = viewMode
+            viewMode = viewMode,
+            subscriptionColors = subscriptionColors
         ),
         actions = CalendarContentActions(
             onViewModeChanged = { viewModeName = it.name },

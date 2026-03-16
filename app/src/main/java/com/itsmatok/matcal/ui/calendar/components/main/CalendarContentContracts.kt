@@ -14,7 +14,8 @@ data class CalendarContentUiState(
     val isSearchActive: Boolean,
     val selection: LocalDate?,
     val firstDayOfWeek: DayOfWeek,
-    val viewMode: CalendarViewMode
+    val viewMode: CalendarViewMode,
+    val subscriptionColors: Map<String, Long?> = emptyMap()
 )
 
 data class CalendarContentActions(

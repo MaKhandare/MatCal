@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.itsmatok.matcal.data.calendar.events.CalendarEvent
@@ -24,6 +25,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun CalendarEventCard(
     event: CalendarEvent,
+    accentColor: Color? = null,
     onClick: () -> Unit
 ) {
     val timeFormatter = remember { DateTimeFormatter.ofPattern("HH:mm") }
@@ -59,7 +61,7 @@ fun CalendarEventCard(
                 modifier = Modifier
                     .padding(horizontal = 12.dp)
                     .height(32.dp),
-                color = MaterialTheme.colorScheme.onSurface,
+                color = accentColor ?: MaterialTheme.colorScheme.onSurface,
                 thickness = 4.dp
             )
 

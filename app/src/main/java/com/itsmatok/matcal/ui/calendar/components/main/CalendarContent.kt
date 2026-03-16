@@ -50,6 +50,7 @@ fun CalendarContent(
                             state = uiState.state,
                             events = uiState.events,
                             selection = uiState.selection,
+                            subscriptionColors = uiState.subscriptionColors,
                             onDateSelected = actions.onDateSelected,
                             onEventClicked = actions.onEventClicked,
                             onMonthYearSelected = actions.onMonthYearSelected
@@ -61,6 +62,7 @@ fun CalendarContent(
                             modifier = Modifier.weight(1f),
                             selection = uiState.selection,
                             events = uiState.events,
+                            subscriptionColors = uiState.subscriptionColors,
                             onDateSelected = actions.onDateSelected,
                             onHourClicked = actions.onDayHourClicked,
                             onEventClicked = actions.onEventClicked
@@ -72,6 +74,7 @@ fun CalendarContent(
                             modifier = Modifier.weight(1f),
                             selection = uiState.selection,
                             events = uiState.events,
+                            subscriptionColors = uiState.subscriptionColors,
                             firstDayOfWeek = uiState.firstDayOfWeek,
                             onDateSelected = actions.onDateSelected,
                             onEventClicked = actions.onEventClicked

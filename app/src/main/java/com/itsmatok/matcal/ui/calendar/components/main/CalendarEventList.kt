@@ -19,7 +19,9 @@ import com.itsmatok.matcal.data.calendar.events.CalendarEvent
 
 @Composable
 fun CalendarEventList(
-    events: List<CalendarEvent>, onEventClicked: (Int) -> Unit
+    events: List<CalendarEvent>,
+    subscriptionColors: Map<String, Long?> = emptyMap(),
+    onEventClicked: (Int) -> Unit
 ) {
     if (events.isEmpty()) {
         Box(
@@ -40,7 +42,10 @@ fun CalendarEventList(
             contentPadding = PaddingValues(bottom = 16.dp)
         ) {
             items(events) { event ->
-                CalendarEventCard(event, onClick = { onEventClicked(event.id) })
+                val accentColor = event.sourceUrl
+                    ?.let { subscriptionColors[it] }
+                    ?.let { Color(it) }
+                CalendarEventCard(event, accentColor = accentColor, onClick = { onEventClicked(event.id) })
             }
         }
     }

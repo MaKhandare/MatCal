@@ -44,6 +44,9 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
 
     val subscriptions: Flow<List<CalendarSubscription>> = subDao.getAllSubscriptionsFlow()
 
+    val subscriptionColors: Flow<Map<String, Long?>> =
+        subscriptions.map { list -> list.associate { it.url to it.color } }
+
     val events: Flow<Map<LocalDate, List<CalendarEvent>>> =
         eventDao.getAllEvents()
             .map { list -> RecurrenceUtil.expandEvents(list) }
@@ -99,6 +102,12 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             notificationScheduler.cancel(event.id)
             eventDao.updateEvent(event)
             notificationScheduler.schedule(event)
+        }
+    }
+
+    fun updateSubscriptionColor(subscription: CalendarSubscription, color: Long?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            subDao.update(subscription.copy(color = color))
         }
     }
 
