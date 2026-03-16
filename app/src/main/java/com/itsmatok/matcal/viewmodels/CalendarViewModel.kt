@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -49,7 +50,11 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
 
     val events: Flow<Map<LocalDate, List<CalendarEvent>>> =
         eventDao.getAllEvents()
-            .map { list -> RecurrenceUtil.expandEvents(list) }
+            .combine(subscriptions) { eventList, subs ->
+                val disabledUrls = subs.filter { !it.enabled }.map { it.url }.toSet()
+                eventList.filter { it.sourceUrl == null || it.sourceUrl !in disabledUrls }
+            }
+            .map { filtered -> RecurrenceUtil.expandEvents(filtered) }
             .flowOn(Dispatchers.Default)
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
@@ -63,6 +68,10 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
                     flowOf(emptyList())
                 } else {
                     eventDao.searchEventsByTitle(query)
+                        .combine(subscriptions) { results, subs ->
+                            val disabledUrls = subs.filter { !it.enabled }.map { it.url }.toSet()
+                            results.filter { it.sourceUrl == null || it.sourceUrl !in disabledUrls }
+                        }
                 }
             }
 
@@ -102,6 +111,12 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             notificationScheduler.cancel(event.id)
             eventDao.updateEvent(event)
             notificationScheduler.schedule(event)
+        }
+    }
+
+    fun toggleSubscriptionEnabled(subscription: CalendarSubscription) {
+        viewModelScope.launch(Dispatchers.IO) {
+            subDao.update(subscription.copy(enabled = !subscription.enabled))
         }
     }
 

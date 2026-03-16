@@ -25,6 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -98,7 +99,8 @@ fun ManageCalendarsScreen(
                     SubscriptionItem(
                         subscription = sub,
                         onDeleteClick = { viewModel.deleteSubscription(sub) },
-                        onColorSelected = { color -> viewModel.updateSubscriptionColor(sub, color) }
+                        onColorSelected = { color -> viewModel.updateSubscriptionColor(sub, color) },
+                        onToggleEnabled = { viewModel.toggleSubscriptionEnabled(sub) }
                     )
                 }
             }
@@ -110,7 +112,8 @@ fun ManageCalendarsScreen(
 fun SubscriptionItem(
     subscription: CalendarSubscription,
     onDeleteClick: () -> Unit,
-    onColorSelected: (Long?) -> Unit
+    onColorSelected: (Long?) -> Unit,
+    onToggleEnabled: () -> Unit
 ) {
     var showColorPicker by remember { mutableStateOf(false) }
 
@@ -168,6 +171,10 @@ fun SubscriptionItem(
                     overflow = TextOverflow.Ellipsis
                 )
             }
+            Switch(
+                checked = subscription.enabled,
+                onCheckedChange = { onToggleEnabled() }
+            )
             IconButton(onClick = onDeleteClick) {
                 Icon(
                     imageVector = Icons.Default.Delete,
