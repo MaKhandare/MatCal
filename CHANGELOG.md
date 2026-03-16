@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/MaKhandare/MatCal/compare/v0.10.1...v0.11.0) (2026-03-16)
+
+
+### Features
+
+* add functionality to color code subscriptions with preset colors ([7c394e6](https://github.com/MaKhandare/MatCal/commit/7c394e69c73ad36e1719e12024f280fa5bd784f8))
+
 ## [0.10.1](https://github.com/MaKhandare/MatCal/compare/v0.10.0...v0.10.1) (2026-03-14)
 
 
