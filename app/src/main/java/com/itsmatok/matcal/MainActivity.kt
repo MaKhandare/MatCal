@@ -1,9 +1,12 @@
 package com.itsmatok.matcal
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.core.app.NotificationManagerCompat
+import com.itsmatok.matcal.notifications.EXTRA_EVENT_ID
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -18,6 +21,7 @@ import com.itsmatok.matcal.viewmodels.CalendarViewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        cancelNotificationFromIntent(intent)
         enableEdgeToEdge()
         setContent {
             MatCalTheme {
@@ -35,6 +39,18 @@ class MainActivity : ComponentActivity() {
                 }
 
             }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        cancelNotificationFromIntent(intent)
+    }
+
+    private fun cancelNotificationFromIntent(intent: Intent?) {
+        val notificationId = intent?.getIntExtra(EXTRA_EVENT_ID, -1) ?: -1
+        if (notificationId != -1) {
+            NotificationManagerCompat.from(this).cancel(notificationId)
         }
     }
 }
