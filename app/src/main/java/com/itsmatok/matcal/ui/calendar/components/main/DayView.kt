@@ -19,6 +19,7 @@ import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,7 +52,12 @@ internal fun DayView(
     val dateFormatter = remember { DateTimeFormatter.ofPattern("EEEE, MMM d", Locale.getDefault()) }
     val hourFormatter = remember { DateTimeFormatter.ofPattern("HH:mm", Locale.getDefault()) }
     val scrollState = rememberScrollState()
+    val density = LocalDensity.current
     val timelineHeight = DAY_HOUR_HEIGHT * HOURS_IN_DAY.toFloat()
+
+    LaunchedEffect(Unit) {
+        scrollState.scrollTo(with(density) { (DAY_HOUR_HEIGHT * DAY_DEFAULT_SCROLL_HOUR).toPx() }.toInt())
+    }
 
     Column(modifier = modifier.fillMaxSize()) {
         DateNavigator(
@@ -97,7 +103,6 @@ internal fun DayView(
                     .weight(1f)
                     .height(timelineHeight)
             ) {
-                val density = LocalDensity.current
                 val timelineHeightPx = with(density) { timelineHeight.toPx() }
                 val timelineWidth = maxWidth
                 val dividerColor = DividerDefaults.color
@@ -176,6 +181,7 @@ private fun laneWidth(timelineWidth: Dp, laneCount: Int): Dp {
 }
 
 private const val HOURS_IN_DAY = 24
+private const val DAY_DEFAULT_SCROLL_HOUR = 7
 private const val MINUTES_PER_HOUR = 60
 private const val MINUTES_PER_DAY = HOURS_IN_DAY * MINUTES_PER_HOUR
 
