@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.1](https://github.com/MaKhandare/MatCal/compare/v0.11.0...v0.11.1) (2026-03-31)
+
+
+### Bug Fixes
+
+* [#38](https://github.com/MaKhandare/MatCal/issues/38) notifications now clear when tapping on it to open the app ([30efc9c](https://github.com/MaKhandare/MatCal/commit/30efc9c0b846b7211c5e7212489f9642dfe692b8))
+
 ## [0.11.0](https://github.com/MaKhandare/MatCal/compare/v0.10.1...v0.11.0) (2026-03-16)
 
 
